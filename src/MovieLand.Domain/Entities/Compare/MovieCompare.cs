@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MovieLand.Domain.Entities
+{
+    public class MovieCompare
+    {
+        public int MovieId { get; set; }
+        public Movie Movie { get; set; }
+
+        public int CompareId { get; set; }
+        public Compare Compare { get; set; }
+    }
+}
