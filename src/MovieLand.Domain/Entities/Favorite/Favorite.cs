@@ -11,6 +11,7 @@ namespace MovieLand.Domain.Entities
     {
         public string Username { get; set; }
 
+        // 1-n relationships
         public List<MovieFavorite> MovieFavorites { get; set; }
     }
 }

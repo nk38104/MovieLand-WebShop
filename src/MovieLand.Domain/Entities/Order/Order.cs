@@ -2,6 +2,8 @@
 using MovieLand.Domain.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +25,9 @@ namespace MovieLand.Domain.Entities
         public string Country { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
         public OrderStatus Status { get; set; }
+        public DateTime DateOrdered { get; set; }
+        public DateTime ShippingDate { get; set; }
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal GrandTotal { get; set; }
 
         // 1-n relationships

@@ -14,6 +14,8 @@ namespace MovieLand.Domain.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public string PictureUri { get; set; }
-        public List<ProductList> ProductLists { get; set; }
+
+        // 1-n relationships
+        public List<MovieList> MovieLists { get; set; }
     }
 }

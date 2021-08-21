@@ -24,4 +24,8 @@
     <ProjectReference Include="..\MovieLand.Infrastructure\MovieLand.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

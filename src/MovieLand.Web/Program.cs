@@ -36,7 +36,7 @@ namespace MovieLand.Web
                 try
                 {
                     var movieLandContext = services.GetRequiredService<MovieLandContext>();
-                    //MovieLandContextSeed.SeedAsync(movieLandContext, loggerFactory).Wait();
+                    MovieLandContextSeed.SeedAsync(movieLandContext, loggerFactory).Wait();
                 }
                 catch (Exception exception)
                 {

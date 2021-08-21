@@ -12,5 +12,8 @@ namespace MovieLand.Domain.Entities
     {
         [Required, StringLength(64)]
         public string Name { get; set; }
+
+        // 1-n relationships
+        public List<MovieGenre> MovieGenres { get; set; }
     }
 }

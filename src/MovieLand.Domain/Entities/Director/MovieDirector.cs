@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MovieLand.Domain.Entities
 {
-    public class MovieDirectors
+    public class MovieDirector
     {
         public int MovieId { get; set; }
         public Movie Movie { get; set; }

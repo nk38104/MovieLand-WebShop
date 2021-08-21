@@ -14,8 +14,8 @@ namespace MovieLand.Domain.Entities
         public string Comment { get; set; }
         public double Rate { get; set; }
 
-        // 1-n relationships
-        public int MovieId { get; set; }
-        public Movie Movie { get; set; }
+        //// 1-n relationships
+        //public int MovieId { get; set; }
+        //public Movie Movie { get; set; }
     }
 }
