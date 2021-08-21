@@ -28,7 +28,7 @@ namespace MovieLand.Infrastructure.Data
                 await SeedGenresAsync(movieLandContext);
                 await SeedReviewsAsync(movieLandContext);
 
-                // movies - lists
+                // movies - moviesdirectors - moviesgenres - lists
                 await SeedMoviesAsync(movieLandContext);
                 await SeedMoviesDirectorsAsync(movieLandContext);
                 await SeedMoviesGenresAsync(movieLandContext);
