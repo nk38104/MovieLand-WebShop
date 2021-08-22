@@ -19,10 +19,19 @@ namespace MovieLand.Web.Pages
         }
 
         public IEnumerable<MovieViewModel> Movies { get; set; } = new List<MovieViewModel>();
+        [BindProperty(SupportsGet = true)]
+        public string SearchString { get; set; }
 
         public async Task OnGetAsync()
         {
-            Movies = await _indexPageService.GetMovies();
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                Movies = await _indexPageService.GetMoviesByTitle(SearchString);
+            }
+            else
+            {
+                Movies = await _indexPageService.GetMovies();
+            }
         }
     }
 }

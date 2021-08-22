@@ -8,8 +8,8 @@ namespace MovieLand.Web.Interfaces
 {
     public interface IMoviePageService
     {
-        Task<IEnumerable<MovieViewModel>> GetProducts(string productName);
-        Task<MovieViewModel> GetProductById(int productId);
-        Task<MovieViewModel> GetProductBySlug(string slug);
+        Task<IEnumerable<MovieViewModel>> GetMovies(string movieTitle);
+        Task<MovieViewModel> GetMovieById(int movieId);
+        Task<MovieViewModel> GetMovieBySlug(string slug);
     }
 }

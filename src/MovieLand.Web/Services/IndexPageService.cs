@@ -27,5 +27,13 @@ namespace MovieLand.Web.Services
 
             return moviesMapped;
         }
+
+        public async Task<IEnumerable<MovieViewModel>> GetMoviesByTitle(string movieTitle)
+        {
+            var movies = await _movieService.GetMovieByTitle(movieTitle);
+            var moviesMapped = _mapper.Map<IEnumerable<MovieViewModel>>(movies);
+
+            return moviesMapped;
+        }
     }
 }

@@ -23,7 +23,7 @@ namespace MovieLand.Web.Services
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<IEnumerable<MovieViewModel>> GetProducts(string movieTitle)
+        public async Task<IEnumerable<MovieViewModel>> GetMovies(string movieTitle)
         {
             if (string.IsNullOrWhiteSpace(movieTitle))
             {
@@ -37,14 +37,14 @@ namespace MovieLand.Web.Services
             return mappedByTitle;
         }
 
-        public async Task<MovieViewModel> GetProductById(int movieId)
+        public async Task<MovieViewModel> GetMovieById(int movieId)
         {
             var movie = await _movieService.GetMovieById(movieId);
             var mappedMovie = _mapper.Map<MovieViewModel>(movie);
             return mappedMovie;
         }
 
-        public async Task<MovieViewModel> GetProductBySlug(string slug)
+        public async Task<MovieViewModel> GetMovieBySlug(string slug)
         {
             var movie = await _movieService.GetMovieBySlug(slug);
             var mappedMovie = _mapper.Map<MovieViewModel>(movie);

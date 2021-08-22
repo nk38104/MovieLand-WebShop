@@ -4,41 +4,50 @@
     ViewData["Title"] = "Home page";
 }
 
-@*<table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Movies.First().PictureUri)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Movies.First().Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Movies.First().Summary)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Movies.First().ReleaseYear)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Movies.First().Duration)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Movies.First().UnitPrice)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var movie in Model.Movies)
-            {
+
+
+<form>
+    <p>
+        Title: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Search" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Movies.First().PictureUri)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movies.First().Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movies.First().Summary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movies.First().ReleaseYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movies.First().Duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movies.First().UnitPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model.Movies)
+        {
             <tr>
                 <td>
-                    <a asp-page="MovieDetail" asp-route-slug="@movie.Slug">
+                    <a asp-page="/Movies/MovieDetail" asp-route-slug="@movie.Slug">
                         <img src="@Html.DisplayFor(modelItem => movie.PictureUri)" alt="Movie image" style="width: 300px; height: 400px;" />
                     </a>
                 </td>
                 <td>
-                    <a asp-page="MovieDetail" asp-route-slug="@movie.Slug">@Html.DisplayFor(modelItem => movie.Title)</a>
+                    <a asp-page="/Movies/MovieDetail" asp-route-slug="@movie.Slug">@Html.DisplayFor(modelItem => movie.Title)</a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => movie.Summary)
@@ -59,50 +68,6 @@
                     <a asp-page="./Favorites/AddToFavorites" asp-route-id="@movie.Id">AddToFavorites</a>
                 </td>
             </tr>
-            }
-        </tbody>
-    </table>*@
-
-@foreach (var movie in Model.Movies)
-{
-    <div class="wrapper">
-        <div class="main_card">
-            <div class="card_left">
-                <div class="card_datails">
-                    <h1>
-                        <a asp-page="MovieDetail" asp-route-slug="@movie.Slug">@Html.DisplayFor(modelItem => movie.Title)</a>
-                    </h1>
-                    <div class="card_cat">
-                        <p class="year">@Html.DisplayFor(modelItem => movie.ReleaseYear)</p>
-                        <p class="time">@Html.DisplayFor(modelItem => movie.Duration) min</p>
-                    </div>
-                    <p class="disc">@Html.DisplayFor(modelItem => movie.Summary)</p>
-                    <div class="social-btn">
-                        <!-- WATCH TRAILER-->
-                        <button>
-                            <i class="fas fa-play"></i> Add To Cart
-                        </button>
-                        <!--USERS RATINGS-->
-                        <button>
-                            <i class="fas fa-thumbs-up"></i> Add To Compare
-                        </button>
-                        <!--BOOKMARK-->
-                        <button>
-                            <i class="fas fa-star"></i> Add To Favorites
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="card_right">
-                <div class="img_container">
-                    <img src="@Html.DisplayFor(modelItem => movie.PictureUri)" alt="">
-                </div>
-                <div class="play_btn">
-                    <a asp-page="MovieDetail" asp-route-slug="@movie.Slug" target="_blank">
-                        <i class="fas fa-play-circle"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-}
+        }
+    </tbody>
+</table>

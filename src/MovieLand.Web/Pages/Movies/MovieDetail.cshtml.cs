@@ -22,7 +22,7 @@ namespace MovieLand.Web.Pages.Movies
 
         public async Task OnGetAsync(string slug)
         {
-            Movie = await _moviePageService.GetProductBySlug(slug);
+            Movie = await _moviePageService.GetMovieBySlug(slug);
             TempData["Slug"] = slug;
         }
     }
