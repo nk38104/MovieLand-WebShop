@@ -1,25 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
+using MovieLand.Web.Interfaces;
+using MovieLand.Web.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace MovieLand.Web.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly IIndexPageService _indexPageService;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(IIndexPageService indexPageService)
         {
-            _logger = logger;
+            _indexPageService = indexPageService ?? throw new ArgumentNullException(nameof(indexPageService));
         }
 
-        public void OnGet()
-        {
+        public IEnumerable<MovieViewModel> Movies { get; set; } = new List<MovieViewModel>();
 
+        public async Task OnGetAsync()
+        {
+            Movies = await _indexPageService.GetMovies();
         }
     }
 }

@@ -4,7 +4,53 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Movies.First().Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movies.First().Summary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movies.First().ReleaseYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movies.First().Duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movies.First().UnitPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model.Movies)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => movie.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => movie.Summary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => movie.ReleaseYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => movie.Duration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => movie.UnitPrice)
+            </td>
+            <td>
+                <a asp-page="./Details" asp-route-id="@movie.Id">Details</a> |
+                <a asp-page="./Compare/AddToCompare" asp-route-id="@movie.Id">AddToCompare</a> |
+                <a asp-page="./Cart/AddToCart" asp-route-id="@movie.Id">AddToCart</a> |
+                <a asp-page="./Favorites/AddToFavorites" asp-route-id="@movie.Id">AddToFavorites</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
