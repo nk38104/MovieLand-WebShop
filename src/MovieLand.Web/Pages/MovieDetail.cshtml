@@ -1,0 +1,62 @@
+﻿@page
+@model MovieLand.Web.Pages.Movies.MovieDetailModel
+@{
+    ViewData["Title"] = "Movie Detail";
+}
+
+<h1>Movie Detail</h1>
+<br />
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Movie.PictureUri)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movie.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movie.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movie.ReleaseYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movie.Duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movie.UnitPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => Model.Movie.PictureUri)" alt="Movie image" style="width: 300px; height: 400px;"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Movie.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Movie.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Movie.ReleaseYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Movie.Duration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Movie.UnitPrice)
+            </td>
+            <td>
+                <a asp-page="./Compare/AddToCompare" asp-route-id="@Model.Movie.Id">AddToCompare</a> |
+                <a asp-page="./Cart/AddToCart" asp-route-id="@Model.Movie.Id">AddToCart</a> |
+                <a asp-page="./Favorites/AddToFavorites" asp-route-id="@Model.Movie.Id">AddToFavorites</a>
+            </td>
+        </tr>
+    </tbody>
+</table>

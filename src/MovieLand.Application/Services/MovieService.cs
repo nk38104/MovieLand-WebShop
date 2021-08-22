@@ -20,12 +20,37 @@ namespace MovieLand.Application.Services
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+
         public async Task<IEnumerable<MovieDTO>> GetMovieList()
         {
-            var movies = await _movieRepository.GetProductListAsync();
+            var movies = await _movieRepository.GetMovieListAsync();
             var moviesMapped = ObjectMapper.Mapper.Map<IEnumerable<MovieDTO>>(movies);
 
             return moviesMapped;
+        }
+
+
+        public async Task<MovieDTO> GetMovieById(int movieId)
+        {
+            var movie = await _movieRepository.GetByIdAsync(movieId);
+            var mappedMovie = ObjectMapper.Mapper.Map<MovieDTO>(movie);
+            return mappedMovie;
+        }
+
+
+        public async Task<MovieDTO> GetMovieBySlug(string slug)
+        {
+            var movie = await _movieRepository.GetMovieBySlugAsync(slug);
+            var mappedMovie = ObjectMapper.Mapper.Map<MovieDTO>(movie);
+            return mappedMovie;
+        }
+
+
+        public async Task<IEnumerable<MovieDTO>> GetMovieByTitle(string movieTitle)
+        {
+            var movies = await _movieRepository.GetMovieByTitleAsync(movieTitle);
+            var mappedMovies = ObjectMapper.Mapper.Map<IEnumerable<MovieDTO>>(movies);
+            return mappedMovies;
         }
     }
 }

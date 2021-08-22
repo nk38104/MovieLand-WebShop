@@ -1,5 +1,6 @@
 ﻿using MovieLand.Domain.Entities;
 using MovieLand.Domain.Interfaces.Repositories;
+using MovieLand.Domain.Specifications;
 using MovieLand.Infrastructure.Data;
 using MovieLand.Infrastructure.Repositories.Base;
 using System;
@@ -15,13 +16,23 @@ namespace MovieLand.Infrastructure.Repositories
         public MovieRepository(MovieLandContext dbContext)
             : base(dbContext) { }
 
-        public async Task<IEnumerable<Movie>> GetProductListAsync()
-        {
-            // another option
-            //var spec = new MovietWithCategorySpecification();
-            //return await GetAsync(spec);
 
+        public async Task<IEnumerable<Movie>> GetMovieListAsync()
+        {
             return await GetAllAsync();
+        }
+
+
+        public async Task<Movie> GetMovieBySlugAsync(string slug)
+        {
+            var spec = new MovieSlugSpecification(slug);
+            return (await GetAsync(spec)).FirstOrDefault();
+        }
+
+
+        public async Task<IEnumerable<Movie>> GetMovieByTitleAsync(string moviteTitle)
+        {
+            return await GetAsync(m => m.Title.ToLower().Contains(moviteTitle.ToLower()));
         }
     }
 }

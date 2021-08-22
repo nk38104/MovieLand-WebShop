@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLand.Application", "src\MovieLand.Application\MovieLand.Application.csproj", "{31894720-1813-4776-B94D-1A7DE1FB9BA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieLand.Application", "src\MovieLand.Application\MovieLand.Application.csproj", "{31894720-1813-4776-B94D-1A7DE1FB9BA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLand.Domain", "src\MovieLand.Domain\MovieLand.Domain.csproj", "{0D1E7E10-26FF-4D1C-8FFC-6356FEA2B043}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieLand.Domain", "src\MovieLand.Domain\MovieLand.Domain.csproj", "{0D1E7E10-26FF-4D1C-8FFC-6356FEA2B043}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLand.Infrastructure", "src\MovieLand.Infrastructure\MovieLand.Infrastructure.csproj", "{5D976E9B-A354-4FA2-8DDA-1364CA8E7D8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieLand.Infrastructure", "src\MovieLand.Infrastructure\MovieLand.Infrastructure.csproj", "{5D976E9B-A354-4FA2-8DDA-1364CA8E7D8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLand.Web", "src\MovieLand.Web\MovieLand.Web.csproj", "{629F1FC6-175E-4C75-9CBD-AA221F7D1DC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieLand.Web", "src\MovieLand.Web\MovieLand.Web.csproj", "{629F1FC6-175E-4C75-9CBD-AA221F7D1DC0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

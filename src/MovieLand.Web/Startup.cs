@@ -66,26 +66,48 @@ namespace MovieLand.Web
 
         private void ConfigureMovieLandServices(IServiceCollection services)
         {
-
-            services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
             // Configure Application layer
             services.AddScoped<IMovieService, MovieService>();
-            services.AddScoped<IMovieRepository, MovieRepository>();
-
+            
+            
             // Configure Infrastructure layer
-            services.AddDbContext<MovieLandContext>(c =>
-                c.UseSqlServer(Configuration.GetConnectionString("MovieLandConnection"), x => x.MigrationsAssembly("MovieLand.Web")));
-
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddDefaultUI()
-                .AddEntityFrameworkStores<MovieLandContext>();
+            ConfigureDatabase(services);
+            ConfigureIdentity(services);
+            services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IMovieRepository, MovieRepository>();
 
 
             // Configure Web layer
             services.AddAutoMapper(typeof(Startup));    // Add AutoMapper
             services.AddScoped<IIndexPageService, IndexPageService>();
+            services.AddScoped<IMoviePageService, MoviePageService>();
+        }
+
+
+        public void ConfigureDatabase(IServiceCollection services)
+        {
+            services.AddDbContext<MovieLandContext>(c =>
+                c.UseSqlServer(Configuration.GetConnectionString("MovieLandConnection"), x => x.MigrationsAssembly("MovieLand.Web")));
+        }
+
+
+        public void ConfigureIdentity(IServiceCollection services)
+        {
+            services.AddDefaultIdentity<IdentityUser>()
+                .AddDefaultUI()
+                .AddEntityFrameworkStores<MovieLandContext>();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings.
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequiredUniqueChars = 1;
+            });
         }
     }
 }
