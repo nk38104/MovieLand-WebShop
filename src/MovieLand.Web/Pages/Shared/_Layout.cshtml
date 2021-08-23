@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MovieLand</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" type="text/css"/>
+    @*<link rel="stylesheet" href="~/css/site.css" type="text/css"/>*@
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/css/site.css")"/>
 </head>
 <body>
     <header>
@@ -22,10 +23,10 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/AboutUs">About Us</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/AboutUs/AboutUs">About Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/ContactUs">ContactUs</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/ContactUs/ContactUs">ContactUs</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Login">Login</a>

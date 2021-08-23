@@ -69,3 +69,145 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+
+
+
+/*----------------------------------------------------------*/
+/*--------------------- ABOUT US PAGE ----------------------*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.about {
+    background: url(https://images.unsplash.com/20/bw-room.JPG?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80) no-repeat left;
+    background-size: 55%;
+    background-color: #fcfcfc;
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 100px 0;
+    margin-top: 150px;
+}
+
+.inner-section {
+    width: 55%;
+    float: right;
+    background-color: #dbdbdb;
+    padding: 140px;
+    box-shadow: 13px 12px 8px rgba(0,0,0,0.3);
+}
+
+    .inner-section h1 {
+        margin-bottom: 30px;
+        font-size: 30px;
+        font-weight: 900;
+    }
+
+.text {
+    font-size: 13px;
+    color: #545454;
+    line-height: 30px;
+    text-align: justify;
+    margin-bottom: 40px;
+}
+
+.skills button {
+    font-size: 22px;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    padding: 8px;
+    width: 200px;
+    background-color: #3c3c3c;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.skills button:hover {
+    transition: 1s;
+    background-color: #ffffff;
+    color: #3c3c3c;
+}
+
+@media screen and (max-width:1200px) {
+    .inner-section {
+        padding: 80px;
+    }
+}
+
+@media screen and (max-width:1000px) {
+    .about {
+        background-size: 100%;
+        padding: 100px 40px;
+    }
+
+    .inner-section {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .about {
+        padding: 0;
+    }
+
+    .inner-section {
+        padding: 60px;
+    }
+
+    .skills button {
+        font-size: 19px;
+        padding: 5px;
+        width: 160px;
+    }
+}
+
+/*--------------------------------------------------------*/
+/*-------------------CONTACT US PAGE----------------------*/
+@import url(//fonts.googleapis.com/css?family=Montserrat:300,400,500);
+
+.contact3 {
+    font-family: "Montserrat", sans-serif;
+    color: #8d97ad;
+    font-weight: 300;
+    margin-top: 150px;
+}
+
+.contact3 h1,
+.contact3 h2,
+.contact3 h3,
+.contact3 h4,
+.contact3 h5,
+.contact3 h6 {
+    color: #3e4555;
+}
+
+.contact3 .font-weight-medium {
+    font-weight: 500;
+}
+
+.contact3 .card-shadow {
+    -webkit-box-shadow: 0px 0px 30px rgba(115, 128, 157, 0.1);
+    box-shadow: 0px 0px 30px rgba(115, 128, 157, 0.1);
+}
+
+.contact3 .btn-danger-gradiant {
+    background: #ff4d7e;
+    background: -webkit-linear-gradient(legacy-direction(to right), #ff4d7e 0%, #ff6a5b 100%);
+    background: -webkit-gradient(linear, left top, right top, from(#ff4d7e), to(#ff6a5b));
+    background: -webkit-linear-gradient(left, #ff4d7e 0%, #ff6a5b 100%);
+    background: -o-linear-gradient(left, #ff4d7e 0%, #ff6a5b 100%);
+    background: linear-gradient(to right, #ff4d7e 0%, #ff6a5b 100%);
+}
+
+.contact3 .btn-danger-gradiant:hover {
+    background: #ff6a5b;
+    background: -webkit-linear-gradient(legacy-direction(to right), #ff6a5b 0%, #ff4d7e 100%);
+    background: -webkit-gradient(linear, left top, right top, from(#ff6a5b), to(#ff4d7e));
+    background: -webkit-linear-gradient(left, #ff6a5b 0%, #ff4d7e 100%);
+    background: -o-linear-gradient(left, #ff6a5b 0%, #ff4d7e 100%);
+    background: linear-gradient(to right, #ff6a5b 0%, #ff4d7e 100%);
+}
+/*--------------------------------------------------------*/
