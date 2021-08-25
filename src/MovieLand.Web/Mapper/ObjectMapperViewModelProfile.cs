@@ -11,6 +11,7 @@ namespace MovieLand.Web.Mapper
         {
             CreateMap<MovieDTO, MovieViewModel>().ReverseMap();
             CreateMap<FavoritesDTO, FavoritesViewModel>().ReverseMap();
+            CreateMap<CompareDTO, CompareViewModel>().ReverseMap();
         }
     }
 }

@@ -1,44 +1,36 @@
 ﻿@page
-@model IndexModel
+@model MovieLand.Web.Pages.Compare.CompareModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Compare";
 }
 
-
-
-<form>
-    <p>
-        Title: <input type="text" asp-for="SearchString" />
-        <input type="submit" value="Search" />
-    </p>
-</form>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Movies.First().PictureUri)
+                @Html.DisplayNameFor(model => model.CompareViewModel.Movies.First().PictureUri)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Movies.First().Title)
+                @Html.DisplayNameFor(model => model.CompareViewModel.Movies.First().Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Movies.First().Summary)
+                @Html.DisplayNameFor(model => model.CompareViewModel.Movies.First().Summary)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Movies.First().ReleaseYear)
+                @Html.DisplayNameFor(model => model.CompareViewModel.Movies.First().ReleaseYear)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Movies.First().Duration)
+                @Html.DisplayNameFor(model => model.CompareViewModel.Movies.First().Duration)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Movies.First().UnitPrice)
+                @Html.DisplayNameFor(model => model.CompareViewModel.Movies.First().UnitPrice)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var movie in Model.Movies)
+        @foreach (var movie in Model.CompareViewModel.Movies)
         {
             <tr>
                 <td>
@@ -63,13 +55,14 @@
                 </td>
                 <td>
                     <a asp-page="/Movies/MovieDetail" asp-route-slug="@movie.Slug">Movie Details</a> |
-                    <form asp-page-handler="AddToCompare" method="post">
-                        <a href="javascript:;" onclick="parentNode.submit();">Add To Compare</a>
+                    <form asp-page-handler="RemoveFromCompare" method="post">
+                        <a href="javascript:;" onclick="parentNode.submit();">Remove From Compare</a>
+                        <input type="hidden" asp-for="@Model.CompareViewModel.Id" name="compareId" />
                         <input type="hidden" asp-for="@movie.Id" name="movieId" />
-                    </form>
+                    </form> |
                     <a asp-page="./Cart/AddToCart" asp-route-id="@movie.Id">Add To Cart</a> |
-                    <form asp-page-handler="AddToFavorites" method="post">
-                        <a href="javascript:;" onclick="parentNode.submit();">Add To Favorites</a>
+                    <form asp-page="/Index" asp-page-handler="AddToFavorites" method="post">
+                        <a href="javascript:;" onclick="parentNode.submit();">Add to Favorites</a>
                         <input type="hidden" asp-for="@movie.Id" name="movieId" />
                     </form>
                 </td>

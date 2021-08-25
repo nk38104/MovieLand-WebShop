@@ -12,8 +12,8 @@ namespace MovieLand.Infrastructure.Repositories
 {
     public class MovieRepository : Repository<Movie>, IMovieRepository
     {
-        public MovieRepository(MovieLandContext dbContext)
-            : base(dbContext) { }
+        public MovieRepository(MovieLandContext movieLandContext)
+            : base(movieLandContext) { }
 
 
         public async Task<IEnumerable<Movie>> GetMovieListAsync()

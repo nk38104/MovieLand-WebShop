@@ -50,5 +50,20 @@ namespace MovieLand.Web.Pages
             await _moviePageService.AddToFavorites(username, movieId);
             return RedirectToPage();
         }
+
+
+        // Add to Movies folder prob in future(separate index and movies)
+        public async Task<IActionResult> OnPostAddToCompareAsync(int movieId)
+        {
+            //if (!User.Identity.IsAuthenticated)
+            //    return RedirectToPage("./Account/Login", new { area = "Identity" });
+
+            //await _moviePageService.AddToFavorites(User.Identity.Name, movieId);
+
+            var username = "mz001";
+
+            await _moviePageService.AddToCompare(username, movieId);
+            return RedirectToPage();
+        }
     }
 }

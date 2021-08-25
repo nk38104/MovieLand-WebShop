@@ -8,8 +8,8 @@ namespace MovieLand.Application.Interfaces
     public interface IMovieService
     {
         Task<IEnumerable<MovieDTO>> GetMovieList();
-        Task<IEnumerable<MovieDTO>> GetMovieByTitle(string productName);
-        Task<MovieDTO> GetMovieById(int productId);
+        Task<IEnumerable<MovieDTO>> GetMovieByTitle(string movieTitle);
+        Task<MovieDTO> GetMovieById(int movieId);
         Task<MovieDTO> GetMovieBySlug(string slug);
     }
 }

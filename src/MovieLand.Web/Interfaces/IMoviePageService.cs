@@ -1,8 +1,7 @@
 ﻿using MovieLand.Web.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace MovieLand.Web.Interfaces
 {
@@ -13,5 +12,6 @@ namespace MovieLand.Web.Interfaces
         Task<MovieViewModel> GetMovieBySlug(string slug);
 
         Task AddToFavorites(string username, int movieId);
+        Task AddToCompare(string username, int movieId);
     }
 }

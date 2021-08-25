@@ -1,9 +1,6 @@
 ﻿using MovieLand.Domain.Entities.Base;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace MovieLand.Domain.Entities
@@ -14,5 +11,31 @@ namespace MovieLand.Domain.Entities
         
         // 1-n relationships
         public List<MovieCompare> MovieCompares { get; set; }
+
+
+        public void AddItem(int movieId)
+        {
+            var existingMovie = MovieCompares.FirstOrDefault(mc => mc.MovieId == movieId);
+            
+            if (existingMovie != null)
+                return;
+
+            MovieCompares.Add( new MovieCompare
+            {
+                MovieId = movieId,
+                CompareId = this.Id
+            });
+        }
+
+
+        public void RemoveItem(int movieId)
+        {
+            var removedItem = MovieCompares.FirstOrDefault(mc => mc.MovieId == movieId);
+            
+            if (removedItem != null)
+            {
+                MovieCompares.Remove(removedItem);
+            }
+        }
     }
 }
