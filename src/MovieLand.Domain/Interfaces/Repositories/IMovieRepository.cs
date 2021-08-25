@@ -11,5 +11,6 @@ namespace MovieLand.Domain.Interfaces.Repositories
         Task<IEnumerable<Movie>> GetMovieListAsync();
         Task<Movie> GetMovieBySlugAsync(string slug);
         Task<IEnumerable<Movie>> GetMovieByTitleAsync(string movieTitle);
+        Task<Movie> GetMovieByIdWithGenresAsync(int movieId);
     }
 }

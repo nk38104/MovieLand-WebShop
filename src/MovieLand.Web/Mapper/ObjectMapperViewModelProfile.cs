@@ -10,6 +10,7 @@ namespace MovieLand.Web.Mapper
         public ObjectMapperViewModelProfile()
         {
             CreateMap<MovieDTO, MovieViewModel>().ReverseMap();
+            CreateMap<FavoritesDTO, FavoritesViewModel>().ReverseMap();
         }
     }
 }

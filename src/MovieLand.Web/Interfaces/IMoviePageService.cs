@@ -11,5 +11,7 @@ namespace MovieLand.Web.Interfaces
         Task<IEnumerable<MovieViewModel>> GetMovies(string movieTitle);
         Task<MovieViewModel> GetMovieById(int movieId);
         Task<MovieViewModel> GetMovieBySlug(string slug);
+
+        Task AddToFavorites(string username, int movieId);
     }
 }

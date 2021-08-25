@@ -62,10 +62,13 @@
                     @Html.DisplayFor(modelItem => movie.UnitPrice)
                 </td>
                 <td>
-                    <a asp-page="./Details" asp-route-id="@movie.Id">Details</a> |
-                    <a asp-page="./Compare/AddToCompare" asp-route-id="@movie.Id">AddToCompare</a> |
-                    <a asp-page="./Cart/AddToCart" asp-route-id="@movie.Id">AddToCart</a> |
-                    <a asp-page="./Favorites/AddToFavorites" asp-route-id="@movie.Id">AddToFavorites</a>
+                    <a asp-page="/Movies/MovieDetail" asp-route-slug="@movie.Slug">Movie Details</a> |
+                    <a asp-page="./Compare/AddToCompare" asp-route-id="@movie.Id">Add To Compare</a> |
+                    <a asp-page="./Cart/AddToCart" asp-route-id="@movie.Id">Add To Cart</a> |
+                    <form asp-page-handler="AddToFavorites" method="post">
+                        <a href="javascript:;" onclick="parentNode.submit();">Add To Favorites</a>
+                        <input type="hidden" asp-for="@movie.Id" name="movieId" />
+                    </form>
                 </td>
             </tr>
         }

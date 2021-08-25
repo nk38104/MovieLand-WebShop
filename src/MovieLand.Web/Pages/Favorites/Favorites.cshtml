@@ -1,0 +1,69 @@
+﻿@page
+@model MovieLand.Web.Pages.Favorites.FavoritesModel
+@{
+    ViewData["Title"] = "Favorites";
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Favorites.Movies.First().PictureUri)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Favorites.Movies.First().Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Favorites.Movies.First().Summary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Favorites.Movies.First().ReleaseYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Favorites.Movies.First().Duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Favorites.Movies.First().UnitPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model.Favorites.Movies)
+        {
+        <tr>
+            <td>
+                <a asp-page="/Movies/MovieDetail" asp-route-slug="@movie.Slug">
+                    <img src="@Html.DisplayFor(modelItem => movie.PictureUri)" alt="Movie image" style="width: 300px; height: 400px;" />
+                </a>
+            </td>
+            <td>
+                <a asp-page="/Movies/MovieDetail" asp-route-slug="@movie.Slug">@Html.DisplayFor(modelItem => movie.Title)</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => movie.Summary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => movie.ReleaseYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => movie.Duration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => movie.UnitPrice)
+            </td>
+            <td>
+                <a asp-page="./Details" asp-route-id="@movie.Id">Details</a> |
+                <a asp-page="./Compare/AddToCompare" asp-route-id="@movie.Id">AddToCompare</a> |
+                <a asp-page="./Cart/AddToCart" asp-route-id="@movie.Id">AddToCart</a> |
+                <form asp-page-handler="RemoveFromFavorites" method="post">
+                    <a href="javascript:;" onclick="parentNode.submit();">Remove From Favorites</a>
+                    <input type="hidden" asp-for="@Model.Favorites.Id" name="favoritesId"/>
+                    <input type="hidden" asp-for="@movie.Id" name="movieId" />
+                </form>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

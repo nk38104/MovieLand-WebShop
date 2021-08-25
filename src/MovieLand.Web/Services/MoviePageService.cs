@@ -5,23 +5,26 @@ using MovieLand.Web.Interfaces;
 using MovieLand.Web.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace MovieLand.Web.Services
 {
     public class MoviePageService : IMoviePageService
     {
         private readonly IMovieService _movieService;
+        private readonly IFavoritesService _favoritesService;
         private readonly IMapper _mapper;
         private readonly ILogger<MoviePageService> _logger;
 
-        public MoviePageService(IMovieService movieService, IMapper mapper, ILogger<MoviePageService> logger)
+        public MoviePageService(IMovieService movieService, IFavoritesService favoritesService, IMapper mapper, ILogger<MoviePageService> logger)
         {
             _movieService = movieService ?? throw new ArgumentNullException(nameof(movieService));
+            _favoritesService = favoritesService ?? throw new ArgumentNullException(nameof(favoritesService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
+
 
         public async Task<IEnumerable<MovieViewModel>> GetMovies(string movieTitle)
         {
@@ -37,6 +40,7 @@ namespace MovieLand.Web.Services
             return mappedByTitle;
         }
 
+
         public async Task<MovieViewModel> GetMovieById(int movieId)
         {
             var movie = await _movieService.GetMovieById(movieId);
@@ -44,11 +48,18 @@ namespace MovieLand.Web.Services
             return mappedMovie;
         }
 
+
         public async Task<MovieViewModel> GetMovieBySlug(string slug)
         {
             var movie = await _movieService.GetMovieBySlug(slug);
             var mappedMovie = _mapper.Map<MovieViewModel>(movie);
             return mappedMovie;
+        }
+
+
+        public async Task AddToFavorites(string username, int movieId)
+        {
+            await _favoritesService.AddItem(username, movieId);
         }
     }
 }

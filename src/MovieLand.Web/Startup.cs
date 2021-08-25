@@ -68,20 +68,23 @@ namespace MovieLand.Web
         {
             // Configure Application layer
             services.AddScoped<IMovieService, MovieService>();
-            
-            
+            services.AddScoped<IFavoritesService, FavoritesService>();
+
+
             // Configure Infrastructure layer
             ConfigureDatabase(services);
             ConfigureIdentity(services);
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IMovieRepository, MovieRepository>();
+            services.AddScoped<IFavoritesRepository, FavoritesRepository>();
 
 
             // Configure Web layer
             services.AddAutoMapper(typeof(Startup));    // Add AutoMapper
             services.AddScoped<IIndexPageService, IndexPageService>();
             services.AddScoped<IMoviePageService, MoviePageService>();
+            services.AddScoped<IFavoritesPageService, FavoritesPageService>();
         }
 
 

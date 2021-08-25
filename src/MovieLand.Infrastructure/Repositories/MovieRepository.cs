@@ -3,11 +3,10 @@ using MovieLand.Domain.Interfaces.Repositories;
 using MovieLand.Domain.Specifications;
 using MovieLand.Infrastructure.Data;
 using MovieLand.Infrastructure.Repositories.Base;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+
 
 namespace MovieLand.Infrastructure.Repositories
 {
@@ -33,6 +32,12 @@ namespace MovieLand.Infrastructure.Repositories
         public async Task<IEnumerable<Movie>> GetMovieByTitleAsync(string moviteTitle)
         {
             return await GetAsync(m => m.Title.ToLower().Contains(moviteTitle.ToLower()));
+        }
+
+        public async Task<Movie> GetMovieByIdWithGenresAsync(int movieId)
+        {
+            var spec = new MovieWithGenresSpecification(movieId);
+            return (await GetAsync(spec)).FirstOrDefault();
         }
     }
 }
