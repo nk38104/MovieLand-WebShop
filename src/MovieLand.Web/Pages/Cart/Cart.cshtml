@@ -1,0 +1,83 @@
+﻿@page
+@model MovieLand.Web.Pages.Cart.CartModel
+@{
+    ViewData["Title"] = "Cart";
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CartViewModel.Items.First().Movie.PictureUri)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CartViewModel.Items.First().Movie.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CartViewModel.Items.First().Movie.Summary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CartViewModel.Items.First().Movie.ReleaseYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CartViewModel.Items.First().Movie.Duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CartViewModel.Items.First().Movie.UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CartViewModel.Items.First().Quantity)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CartViewModel.Items)
+        {
+            <tr>
+                <td>
+                    <a asp-page="/Movies/MovieDetail" asp-route-slug="@item.Movie.Slug">
+                        <img src="@Html.DisplayFor(modelItem => item.Movie.PictureUri)" alt="Movie image" style="width: 300px; height: 400px;" />
+                    </a>
+                </td>
+                <td>
+                    <a asp-page="/Movies/MovieDetail" asp-route-slug="@item.Movie.Slug">@Html.DisplayFor(modelItem => item.Movie.Title)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Movie.Summary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Movie.ReleaseYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Movie.Duration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Movie.UnitPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    <a asp-page="/Movies/MovieDetail" asp-route-slug="@item.Movie.Slug">Movie Details</a> |
+                    <form sp-page="/Index" asp-page-handler="AddToCompare" method="post">
+                        <a href="javascript:;" onclick="parentNode.submit();">Add To Compare</a> |
+                        <input type="hidden" asp-for="@item.Movie.Id" name="movieId" />
+                    </form>
+                    <form asp-page-handler="RemoveFromCart" method="post">
+                        <a href="javascript:;" onclick="parentNode.submit();">Remove from Cart</a> |
+                        <input type="hidden" asp-for="@Model.CartViewModel.Id" name="cartId" />
+                        <input type="hidden" asp-for="@item.Id" name="cartItemId" />
+                    </form>
+                    <form asp-page="/Index" asp-page-handler="AddToFavorites" method="post">
+                        <a href="javascript:;" onclick="parentNode.submit();">Add to Favorites</a>
+                        <input type="hidden" asp-for="@item.Movie.Id" name="movieId" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>GRAND TOTAL: @Model.CartViewModel.GrandTotal</h3>

@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +16,7 @@ using MovieLand.Infrastructure.Repositories;
 using MovieLand.Infrastructure.Repositories.Base;
 using MovieLand.Web.Interfaces;
 using MovieLand.Web.Services;
+
 
 namespace MovieLand.Web
 {
@@ -70,6 +70,7 @@ namespace MovieLand.Web
             services.AddScoped<IMovieService, MovieService>();
             services.AddScoped<IFavoritesService, FavoritesService>();
             services.AddScoped<ICompareService, CompareService>();
+            services.AddScoped<ICartService, CartService>();
 
 
             // Configure Infrastructure layer
@@ -80,6 +81,7 @@ namespace MovieLand.Web
             services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddScoped<IFavoritesRepository, FavoritesRepository>();
             services.AddScoped<ICompareRepository, CompareRepository>();
+            services.AddScoped<ICartRepository, CartRepository>();
 
 
             // Configure Web layer
@@ -88,6 +90,7 @@ namespace MovieLand.Web
             services.AddScoped<IMoviePageService, MoviePageService>();
             services.AddScoped<IFavoritesPageService, FavoritesPageService>();
             services.AddScoped<IComparePageService, ComparePageService>();
+            services.AddScoped<ICartPageService, CartPageService>();
         }
 
 

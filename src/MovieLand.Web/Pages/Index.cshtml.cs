@@ -37,6 +37,7 @@ namespace MovieLand.Web.Pages
             }
         }
 
+
         // Add to Movies folder prob in future(separate index and movies)
         public async Task<IActionResult> OnPostAddToFavoritesAsync(int movieId)
         {
@@ -63,6 +64,19 @@ namespace MovieLand.Web.Pages
             var username = "mz001";
 
             await _moviePageService.AddToCompare(username, movieId);
+            return RedirectToPage();
+        }
+
+
+        public async Task<IActionResult> OnPostAddToCartAsync(int movieId)
+        {
+            //if (!User.Identity.IsAuthenticated)
+            //    return RedirectToPage("./Account/Login", new { area = "Identity" });
+
+            var username = "bg123";
+
+            await _moviePageService.AddToCart(username, movieId);
+
             return RedirectToPage();
         }
     }

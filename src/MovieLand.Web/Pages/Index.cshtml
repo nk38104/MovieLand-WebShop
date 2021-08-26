@@ -64,10 +64,13 @@
                 <td>
                     <a asp-page="/Movies/MovieDetail" asp-route-slug="@movie.Slug">Movie Details</a> |
                     <form asp-page-handler="AddToCompare" method="post">
-                        <a href="javascript:;" onclick="parentNode.submit();">Add To Compare</a>
+                        <a href="javascript:;" onclick="parentNode.submit();">Add To Compare</a> |
                         <input type="hidden" asp-for="@movie.Id" name="movieId" />
                     </form>
-                    <a asp-page="./Cart/AddToCart" asp-route-id="@movie.Id">Add To Cart</a> |
+                    <form asp-page-handler="AddToCart" method="post">
+                        <a href="javascript:;" onclick="parentNode.submit();">Add To Cart</a> |
+                        <input type="hidden" asp-for="@movie.Id" name="movieId" />
+                    </form>
                     <form asp-page-handler="AddToFavorites" method="post">
                         <a href="javascript:;" onclick="parentNode.submit();">Add To Favorites</a>
                         <input type="hidden" asp-for="@movie.Id" name="movieId" />

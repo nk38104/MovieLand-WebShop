@@ -35,6 +35,7 @@ namespace MovieLand.Web.Pages.Favorites
         public async Task<IActionResult> OnPostRemoveFromFavoritesAsync(int favoritesId, int movieId)
         {
             await _favoritesPageService.RemoveMovie(favoritesId, movieId);
+
             return RedirectToPage();
         }
     }

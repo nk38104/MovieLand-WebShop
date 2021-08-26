@@ -15,14 +15,17 @@ namespace MovieLand.Web.Services
         private readonly IMovieService _movieService;
         private readonly IFavoritesService _favoritesService;
         private readonly ICompareService _compareService;
+        private readonly ICartService _cartService;
         private readonly IMapper _mapper;
         private readonly ILogger<MoviePageService> _logger;
 
-        public MoviePageService(IMovieService movieService, IFavoritesService favoritesService, ICompareService compareService, IMapper mapper, ILogger<MoviePageService> logger)
+        public MoviePageService(IMovieService movieService, IFavoritesService favoritesService, ICompareService compareService, ICartService cartService, 
+            IMapper mapper, ILogger<MoviePageService> logger)
         {
             _movieService = movieService ?? throw new ArgumentNullException(nameof(movieService));
             _favoritesService = favoritesService ?? throw new ArgumentNullException(nameof(favoritesService));
             _compareService = compareService ?? throw new ArgumentNullException(nameof(compareService));
+            _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
@@ -68,6 +71,12 @@ namespace MovieLand.Web.Services
         public async Task AddToCompare(string username, int movieId)
         {
             await _compareService.AddItem(username, movieId);
+        }
+
+
+        public async Task AddToCart(string username, int movieId)
+        {
+            await _cartService.AddItem(username, movieId);
         }
     }
 }

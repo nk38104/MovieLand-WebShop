@@ -13,5 +13,6 @@ namespace MovieLand.Web.Interfaces
 
         Task AddToFavorites(string username, int movieId);
         Task AddToCompare(string username, int movieId);
+        Task AddToCart(string username, int movieId);
     }
 }

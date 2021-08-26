@@ -13,6 +13,8 @@ namespace MovieLand.Application.Mapper
                 .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title)).ReverseMap();
             CreateMap<Favorite, FavoritesDTO>().ReverseMap();
             CreateMap<Compare, CompareDTO>().ReverseMap();
+            CreateMap<Cart, CartDTO>().ReverseMap();
+            CreateMap<CartItem, CartItemDTO>().ReverseMap();
         }
     }
 }
