@@ -13,7 +13,6 @@ namespace MovieLand.Domain.Entities
     public class Order : Entity
     {
         public string Username { get; set; }
-        //public string ShippingAddress { get; set; }
         //public Address ShippingInfo { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
