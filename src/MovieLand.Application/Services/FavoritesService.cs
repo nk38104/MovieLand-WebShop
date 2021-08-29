@@ -26,22 +26,6 @@ namespace MovieLand.Application.Services
         }
 
 
-        public async Task<FavoritesDTO> GetFavoritesByUsername(string username)
-        {
-            var favorites = await GetExistingOrCreateNewFavorites(username);
-            var favoritesDTO = ObjectMapper.Mapper.Map<FavoritesDTO>(favorites);
-
-            foreach (var item in favorites.MovieFavorites)
-            {
-                var movie = await _movieRepository.GetMovieByIdWithGenresAsync(item.MovieId);
-                var movieDTO = ObjectMapper.Mapper.Map<MovieDTO>(movie);
-                favoritesDTO.Movies.Add(movieDTO);
-            }
-
-            return favoritesDTO;
-        }
-
-
         public async Task AddItem(string username, int movieId)
         {
             var favorites = await GetExistingOrCreateNewFavorites(username);
@@ -55,10 +39,26 @@ namespace MovieLand.Application.Services
         {
             var spec = new FavoritesWithMoviesSpecification(favoritesId);
             var favorites = (await _favoritesRepository.GetAsync(spec)).FirstOrDefault();
-            
+
             favorites.RemoveItem(movieId);
-            
+
             await _favoritesRepository.UpdateAsync(favorites);
+        }
+
+
+        public async Task<FavoritesDTO> GetFavoritesByUsername(string username)
+        {
+            var favorites = await GetExistingOrCreateNewFavorites(username);
+            var favoritesDTO = ObjectMapper.Mapper.Map<FavoritesDTO>(favorites);
+
+            foreach (var item in favorites.MovieFavorites)
+            {
+                var movie = await _movieRepository.GetMovieByIdWithGenresAsync(item.MovieId);
+                var movieDTO = ObjectMapper.Mapper.Map<MovieDTO>(movie);
+                favoritesDTO.Movies.Add(movieDTO);
+            }
+
+            return favoritesDTO;
         }
 
 

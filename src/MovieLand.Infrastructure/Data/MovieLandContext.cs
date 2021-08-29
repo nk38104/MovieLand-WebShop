@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using MovieLand.Domain.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+
 namespace MovieLand.Infrastructure.Data
 {
     public class MovieLandContext : IdentityDbContext<IdentityUser>

@@ -22,17 +22,19 @@ namespace MovieLand.Web.Services
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+
+        public async Task RemoveMovie(int favoritesId, int movieId)
+        {
+            await _favoritesService.RemoveItem(favoritesId, movieId);
+        }
+
+
         public async Task<FavoritesViewModel> GetFavorites(string username)
         {
             var favorites = await _favoritesService.GetFavoritesByUsername(username);
             var mapped = _mapper.Map<FavoritesViewModel>(favorites);
             
             return mapped;
-        }
-
-        public async Task RemoveMovie(int favoritesId, int movieId)
-        {
-            await _favoritesService.RemoveItem(favoritesId, movieId);
         }
     }
 }

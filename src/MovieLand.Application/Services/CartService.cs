@@ -14,15 +14,50 @@ namespace MovieLand.Application.Services
 {
     public class CartService : ICartService
     {
-        private readonly ICartRepository _cartRepository;
+        private readonly IRepository _cartRepository;
         private readonly IMovieRepository _movieRepository;
         private readonly IAppLogger<CartService> _logger;
 
-        public CartService(ICartRepository cartRepository, IMovieRepository movieRepository, IAppLogger<CartService> logger)
+        public CartService(IRepository cartRepository, IMovieRepository movieRepository, IAppLogger<CartService> logger)
         {
             _cartRepository = cartRepository ?? throw new ArgumentNullException(nameof(cartRepository));
             _movieRepository = movieRepository ?? throw new ArgumentNullException(nameof(movieRepository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+
+
+        public async Task AddItem(string username, int movieId)
+        {
+            var cart = await GetExistingOrCreateNewCart(username);
+            var movie = await _movieRepository.GetByIdAsync(movieId);
+
+            cart.AddItem(movieId, unitPrice: movie.UnitPrice);
+
+            await _cartRepository.UpdateAsync(cart);
+        }
+
+
+        public async Task RemoveItem(int cartId, int cartItemId)
+        {
+            var spec = new CartWithItemsSpecification(cartId);
+
+            var cart = (await _cartRepository.GetAsync(spec)).FirstOrDefault();
+            cart.RemoveItem(cartItemId);
+
+            await _cartRepository.UpdateAsync(cart);
+        }
+
+
+        public async Task ClearCart(string username)
+        {
+            var cart = await _cartRepository.GetByUsernameAsync(username);
+
+            if (cart == null)
+                throw new ApplicationException("Submitted order should have cart!!!");
+
+            cart.ClearItems();
+
+            await _cartRepository.UpdateAsync(cart);
         }
 
 
@@ -50,28 +85,6 @@ namespace MovieLand.Application.Services
         }
 
 
-        public async Task AddItem(string username, int movieId)
-        {
-            var cart = await GetExistingOrCreateNewCart(username);
-            var movie = await _movieRepository.GetByIdAsync(movieId);
-            
-            cart.AddItem(movieId, unitPrice: movie.UnitPrice);
-            
-            await _cartRepository.UpdateAsync(cart);
-        }
-
-
-        public async Task RemoveItem(int cartId, int cartItemId)
-        {
-            var spec = new CartWithItemsSpecification(cartId);
-            
-            var cart = (await _cartRepository.GetAsync(spec)).FirstOrDefault();
-            cart.RemoveItem(cartItemId);
-
-            await _cartRepository.UpdateAsync(cart);
-        }
-
-
         private async Task<Cart> GetExistingOrCreateNewCart(string username)
         {
             var cart = await _cartRepository.GetByUsernameAsync(username);
@@ -88,19 +101,6 @@ namespace MovieLand.Application.Services
             await _cartRepository.AddAsync(newCart);
             
             return newCart;
-        }
-
-
-        public async Task ClearCart(string username)
-        {
-            var cart = await _cartRepository.GetByUsernameAsync(username);
-        
-            if (cart == null)
-                throw new ApplicationException("Submitted order should have cart!!!");
-
-            cart.ClearItems();
-
-            await _cartRepository.UpdateAsync(cart);
         }
     }
 }

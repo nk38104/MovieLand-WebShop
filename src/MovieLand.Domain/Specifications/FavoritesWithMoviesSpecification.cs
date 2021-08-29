@@ -12,6 +12,7 @@ namespace MovieLand.Domain.Specifications
             AddInclude(mf => mf.MovieFavorites);
         }
 
+
         public FavoritesWithMoviesSpecification(int favoritesId)
             : base(f => f.Id == favoritesId)
         {

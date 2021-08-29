@@ -72,6 +72,8 @@ namespace MovieLand.Web
             services.AddScoped<ICompareService, CompareService>();
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IDirectorService, DirectorService>();
+            services.AddScoped<IGenreService, GenreService>();
 
 
             // Configure Infrastructure layer
@@ -82,8 +84,10 @@ namespace MovieLand.Web
             services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddScoped<IFavoritesRepository, FavoritesRepository>();
             services.AddScoped<ICompareRepository, CompareRepository>();
-            services.AddScoped<ICartRepository, CartRepository>();
+            services.AddScoped<IRepository, CartRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IDirectorRepository, DirectorRepository>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
 
 
             // Configure Web layer

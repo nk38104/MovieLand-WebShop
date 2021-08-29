@@ -17,6 +17,8 @@ namespace MovieLand.Application.Mapper
             CreateMap<CartItem, CartItemDTO>().ReverseMap();
             CreateMap<Order, OrderDTO>().ReverseMap();
             CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
+            CreateMap<Director, DirectorDTO>().ReverseMap();
+            CreateMap<Genre, GenreDTO>().ReverseMap();
         }
     }
 }

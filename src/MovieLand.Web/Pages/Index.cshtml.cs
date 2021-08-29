@@ -21,6 +21,9 @@ namespace MovieLand.Web.Pages
         }
 
         public IEnumerable<MovieViewModel> Movies { get; set; } = new List<MovieViewModel>();
+        public IEnumerable<GenreViewModel> Genres { get; set; } = new List<GenreViewModel>();
+        public IEnumerable<DirectorViewModel> Directors { get; set; } = new List<DirectorViewModel>();
+
         [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; }
 
@@ -29,12 +32,14 @@ namespace MovieLand.Web.Pages
         {
             if (!string.IsNullOrEmpty(SearchString))
             {
-                Movies = await _indexPageService.GetMoviesByTitle(SearchString);
+                Movies = await _moviePageService.GetMoviesByTitle(SearchString);
             }
             else
             {
-                Movies = await _indexPageService.GetMovies();
-            }
+                Movies = await _moviePageService.GetMovies();
+            } 
+            
+            GetFilterData();
         }
 
 
@@ -48,12 +53,11 @@ namespace MovieLand.Web.Pages
 
             var username = "bg123";
 
-            await _moviePageService.AddToFavorites(username, movieId);
+            await _indexPageService.AddToFavorites(username, movieId);
             return RedirectToPage();
         }
 
 
-        // Add to Movies folder prob in future(separate index and movies)
         public async Task<IActionResult> OnPostAddToCompareAsync(int movieId)
         {
             //if (!User.Identity.IsAuthenticated)
@@ -63,7 +67,7 @@ namespace MovieLand.Web.Pages
 
             var username = "mz001";
 
-            await _moviePageService.AddToCompare(username, movieId);
+            await _indexPageService.AddToCompare(username, movieId);
             return RedirectToPage();
         }
 
@@ -75,9 +79,51 @@ namespace MovieLand.Web.Pages
 
             var username = "bg123";
 
-            await _moviePageService.AddToCart(username, movieId);
+            await _indexPageService.AddToCart(username, movieId);
 
             return RedirectToPage();
+        }
+
+
+        public async Task OnGetFilterByDecadesAsync(string decade)
+        {
+            Movies = await _moviePageService.GetMoviesByDecade(decade);
+            GetFilterData();
+        }
+
+
+        public async Task OnPostFilterByDirectorAsync(string director)
+        {
+            Movies = await _moviePageService.GetMoviesByDirector(director);
+            GetFilterData();
+        }
+
+
+        public async Task OnPostFilterByGenreAsync(string genre)
+        {
+            Movies = await _moviePageService.GetMoviesByGenre(genre);
+            GetFilterData();
+        }
+
+
+        public async Task OnPostFilterByPriceAsync(double priceFrom, double priceTo)
+        {
+            Movies = await _moviePageService.GetMoviesByPrice(priceFrom, priceTo);
+            GetFilterData();
+        }
+
+
+        public async Task OnPostFilterByRatingAsync(double rating)
+        {
+            Movies = await _moviePageService.GetMoviesByRating(rating);
+            GetFilterData();
+        }
+
+
+        private async void GetFilterData()
+        {
+            Genres = await _indexPageService.GetGenres();
+            Directors = await _indexPageService.GetDirectors();
         }
     }
 }

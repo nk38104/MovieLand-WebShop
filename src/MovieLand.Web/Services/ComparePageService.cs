@@ -23,18 +23,18 @@ namespace MovieLand.Web.Services
         }
 
 
+        public async Task RemoveItem(int compareId, int movieId)
+        {
+            await _compareService.RemoveItem(compareId, movieId);
+        }
+
+
         public async Task<CompareViewModel> GetCompare(string username)
         {
             var compare = await _compareService.GetCompareByUsername(username);
             var mappedCompare = _mapper.Map<CompareViewModel>(compare);
 
             return mappedCompare;
-        }
-
-
-        public async Task RemoveItem(int compareId, int movieId)
-        {
-            await _compareService.RemoveItem(compareId, movieId);
         }
     }
 }

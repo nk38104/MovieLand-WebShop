@@ -21,16 +21,7 @@ namespace MovieLand.Application.Services
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-
-        public async Task<IEnumerable<MovieDTO>> GetMovieList()
-        {
-            var movies = await _movieRepository.GetMovieListAsync();
-            var moviesMapped = ObjectMapper.Mapper.Map<IEnumerable<MovieDTO>>(movies);
-
-            return moviesMapped;
-        }
-
-
+        
         public async Task<MovieDTO> GetMovieById(int movieId)
         {
             var movie = await _movieRepository.GetByIdAsync(movieId);
@@ -51,6 +42,60 @@ namespace MovieLand.Application.Services
         {
             var movies = await _movieRepository.GetMovieByTitleAsync(movieTitle);
             var mappedMovies = ObjectMapper.Mapper.Map<IEnumerable<MovieDTO>>(movies);
+            return mappedMovies;
+        }
+        
+        
+        public async Task<IEnumerable<MovieDTO>> GetMovieList()
+        {
+            var movies = await _movieRepository.GetMovieListAsync();
+            var moviesMapped = ObjectMapper.Mapper.Map<IEnumerable<MovieDTO>>(movies);
+
+            return moviesMapped;
+        }
+
+
+        public async Task<IEnumerable<MovieDTO>> GetMoviesByDecade(string decade)
+        {
+            var movies = await _movieRepository.GetMoviesByDecadeAsync(decade);
+            var mappedMovies = ObjectMapper.Mapper.Map<IEnumerable<MovieDTO>>(movies);
+
+            return mappedMovies;
+        }
+
+
+        public async Task<IEnumerable<MovieDTO>> GetMoviesByDirector(string director)
+        {
+            var movies = await _movieRepository.GetMoviesByDirectorAsync(director);
+            var mappedMovies = ObjectMapper.Mapper.Map<IEnumerable<MovieDTO>>(movies);
+
+            return mappedMovies;
+        }
+
+
+        public async Task<IEnumerable<MovieDTO>> GetMoviesByGenre(string genre)
+        {
+            var movies = await _movieRepository.GetMoviesByGenreAsync(genre);
+            var mappedMovies = ObjectMapper.Mapper.Map<IEnumerable<MovieDTO>>(movies);
+
+            return mappedMovies;
+        }
+
+
+        public async Task<IEnumerable<MovieDTO>> GetMoviesByPrice(double priceFrom, double priceTo)
+        {
+            var movies = await _movieRepository.GetMoviesByPriceAsync(priceFrom, priceTo);
+            var mappedMovies = ObjectMapper.Mapper.Map<IEnumerable<MovieDTO>>(movies);
+
+            return mappedMovies;
+        }
+
+
+        public async Task<IEnumerable<MovieDTO>> GetMoviesByRating(double rating)
+        {
+            var movies = await _movieRepository.GetMoviesByRatingAsync(rating);
+            var mappedMovies = ObjectMapper.Mapper.Map<IEnumerable<MovieDTO>>(movies);
+
             return mappedMovies;
         }
     }

@@ -6,7 +6,8 @@ namespace MovieLand.Web.Interfaces
 {
     public interface ICheckOutPageService
     {
-        Task<CartViewModel> GetCart(string username);
         Task CheckOutOrder(OrderViewModel order, string username);
+
+        Task<CartViewModel> GetCart(string username);
     }
 }

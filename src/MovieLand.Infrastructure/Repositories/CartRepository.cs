@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MovieLand.Infrastructure.Repositories
 {
-    public class CartRepository : Repository<Cart>, ICartRepository
+    public class CartRepository : Repository<Cart>, IRepository
     {
         public CartRepository(MovieLandContext movieLandContext)
             : base(movieLandContext) { }

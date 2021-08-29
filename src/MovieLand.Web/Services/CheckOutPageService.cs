@@ -26,15 +26,6 @@ namespace MovieLand.Web.Services
         }
 
 
-        public async Task<CartViewModel> GetCart(string username)
-        {
-            var cart = await _cartService.GetCartByUsername(username);
-            var mappedCart = _mapper.Map<CartViewModel>(cart);
-
-            return mappedCart;
-        }
-
-
         public async Task CheckOutOrder(OrderViewModel order, string username)
         {
             var cart = await GetCart(username);
@@ -46,6 +37,15 @@ namespace MovieLand.Web.Services
             await _orderService.CheckOutOrder(mappedOrderDTO);
 
             await _cartService.ClearCart(username);
+        }
+
+
+        public async Task<CartViewModel> GetCart(string username)
+        {
+            var cart = await _cartService.GetCartByUsername(username);
+            var mappedCart = _mapper.Map<CartViewModel>(cart);
+
+            return mappedCart;
         }
 
 

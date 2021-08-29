@@ -13,36 +13,14 @@ namespace MovieLand.Web.Services
     public class MoviePageService : IMoviePageService
     {
         private readonly IMovieService _movieService;
-        private readonly IFavoritesService _favoritesService;
-        private readonly ICompareService _compareService;
-        private readonly ICartService _cartService;
         private readonly IMapper _mapper;
         private readonly ILogger<MoviePageService> _logger;
 
-        public MoviePageService(IMovieService movieService, IFavoritesService favoritesService, ICompareService compareService, ICartService cartService, 
-            IMapper mapper, ILogger<MoviePageService> logger)
+        public MoviePageService(IMovieService movieService, IMapper mapper, ILogger<MoviePageService> logger)
         {
             _movieService = movieService ?? throw new ArgumentNullException(nameof(movieService));
-            _favoritesService = favoritesService ?? throw new ArgumentNullException(nameof(favoritesService));
-            _compareService = compareService ?? throw new ArgumentNullException(nameof(compareService));
-            _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        }
-
-
-        public async Task<IEnumerable<MovieViewModel>> GetMovies(string movieTitle)
-        {
-            if (string.IsNullOrWhiteSpace(movieTitle))
-            {
-                var movies = await _movieService.GetMovieList();
-                var mappedMovies = _mapper.Map<IEnumerable<MovieViewModel>>(movies);
-                return mappedMovies;
-            }
-
-            var moviesByTitle = await _movieService.GetMovieByTitle(movieTitle);
-            var mappedByTitle = _mapper.Map<IEnumerable<MovieViewModel>>(moviesByTitle);
-            return mappedByTitle;
         }
 
 
@@ -62,21 +40,81 @@ namespace MovieLand.Web.Services
         }
 
 
-        public async Task AddToFavorites(string username, int movieId)
+        public async Task<IEnumerable<MovieViewModel>> GetMovies()
         {
-            await _favoritesService.AddItem(username, movieId);
-        }
-        
-        
-        public async Task AddToCompare(string username, int movieId)
-        {
-            await _compareService.AddItem(username, movieId);
+            var movies = await _movieService.GetMovieList();
+            var moviesMapped = _mapper.Map<IEnumerable<MovieViewModel>>(movies);
+
+            return moviesMapped;
         }
 
 
-        public async Task AddToCart(string username, int movieId)
+        public async Task<IEnumerable<MovieViewModel>> GetMovies(string movieTitle)
         {
-            await _cartService.AddItem(username, movieId);
+            if (string.IsNullOrWhiteSpace(movieTitle))
+            {
+                var movies = await _movieService.GetMovieList();
+                var mappedMovies = _mapper.Map<IEnumerable<MovieViewModel>>(movies);
+                return mappedMovies;
+            }
+
+            var moviesByTitle = await _movieService.GetMovieByTitle(movieTitle);
+            var mappedByTitle = _mapper.Map<IEnumerable<MovieViewModel>>(moviesByTitle);
+            return mappedByTitle;
+        }
+
+
+        public async Task<IEnumerable<MovieViewModel>> GetMoviesByDecade(string decade)
+        {
+            var movies = await _movieService.GetMoviesByDecade(decade);
+            var moviesMapped = _mapper.Map<IEnumerable<MovieViewModel>>(movies);
+
+            return moviesMapped;
+        }
+
+
+        public async Task<IEnumerable<MovieViewModel>> GetMoviesByDirector(string director)
+        {
+            var movies = await _movieService.GetMoviesByDirector(director);
+            var moviesMapped = _mapper.Map<IEnumerable<MovieViewModel>>(movies);
+
+            return moviesMapped;
+        }
+
+
+        public async Task<IEnumerable<MovieViewModel>> GetMoviesByGenre(string genre)
+        {
+            var movies = await _movieService.GetMoviesByGenre(genre);
+            var moviesMapped = _mapper.Map<IEnumerable<MovieViewModel>>(movies);
+
+            return moviesMapped;
+        }
+
+
+        public async Task<IEnumerable<MovieViewModel>> GetMoviesByPrice(double priceFrom, double priceTo)
+        {
+            var movies = await _movieService.GetMoviesByPrice(priceFrom, priceTo);
+            var moviesMapped = _mapper.Map<IEnumerable<MovieViewModel>>(movies);
+
+            return moviesMapped;
+        }
+
+
+        public async Task<IEnumerable<MovieViewModel>> GetMoviesByRating(double rating)
+        {
+            var movies = await _movieService.GetMoviesByRating(rating);
+            var moviesMapped = _mapper.Map<IEnumerable<MovieViewModel>>(movies);
+
+            return moviesMapped;
+        }
+
+
+        public async Task<IEnumerable<MovieViewModel>> GetMoviesByTitle(string movieTitle)
+        {
+            var movies = await _movieService.GetMovieByTitle(movieTitle);
+            var moviesMapped = _mapper.Map<IEnumerable<MovieViewModel>>(movies);
+
+            return moviesMapped;
         }
     }
 }

@@ -26,26 +26,10 @@ namespace MovieLand.Application.Services
         }
 
 
-        public async Task<CompareDTO> GetCompareByUsername(string username)
-        {
-            var compare = await GetExistingOrCreateNewCompare(username);
-            var compareDTO = ObjectMapper.Mapper.Map<CompareDTO>(compare);
-
-            foreach (var item in compare.MovieCompares)
-            {
-                var movie = await _movieRepository.GetMovieByIdWithGenresAsync(item.MovieId);
-                var movieDTO = ObjectMapper.Mapper.Map<MovieDTO>(movie);
-                compareDTO.Movies.Add(movieDTO);
-            }
-
-            return compareDTO;
-        }
-
-
         public async Task AddItem(string username, int movieId)
         {
             var compare = await GetExistingOrCreateNewCompare(username);
-            
+
             compare.AddItem(movieId);
 
             await _compareRepository.UpdateAsync(compare);
@@ -60,6 +44,22 @@ namespace MovieLand.Application.Services
             compare.RemoveItem(movieId);
 
             await _compareRepository.UpdateAsync(compare);
+        }
+
+
+        public async Task<CompareDTO> GetCompareByUsername(string username)
+        {
+            var compare = await GetExistingOrCreateNewCompare(username);
+            var compareDTO = ObjectMapper.Mapper.Map<CompareDTO>(compare);
+
+            foreach (var item in compare.MovieCompares)
+            {
+                var movie = await _movieRepository.GetMovieByIdWithGenresAsync(item.MovieId);
+                var movieDTO = ObjectMapper.Mapper.Map<MovieDTO>(movie);
+                compareDTO.Movies.Add(movieDTO);
+            }
+
+            return compareDTO;
         }
 
 
