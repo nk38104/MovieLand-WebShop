@@ -9,15 +9,16 @@ namespace MovieLand.Web.Mapper
     {
         public ObjectMapperViewModelProfile()
         {
-            CreateMap<MovieDTO, MovieViewModel>().ReverseMap();
-            CreateMap<FavoritesDTO, FavoritesViewModel>().ReverseMap();
-            CreateMap<CompareDTO, CompareViewModel>().ReverseMap();
             CreateMap<CartDTO, CartViewModel>().ReverseMap();
             CreateMap<CartItemDTO, CartItemViewModel>().ReverseMap();
+            CreateMap<CompareDTO, CompareViewModel>().ReverseMap();
+            CreateMap<DirectorDTO, DirectorViewModel>().ReverseMap();
+            CreateMap<FavoritesDTO, FavoritesViewModel>().ReverseMap();
+            CreateMap<GenreDTO, GenreViewModel>().ReverseMap();
+            CreateMap<MovieDTO, MovieViewModel>().ReverseMap();
             CreateMap<OrderDTO, OrderViewModel>().ReverseMap();
             CreateMap<OrderItemDTO, OrderItemViewModel>().ReverseMap();
-            CreateMap<GenreDTO, GenreViewModel>().ReverseMap();
-            CreateMap<DirectorDTO, DirectorViewModel>().ReverseMap();
+            CreateMap<ReviewDTO, ReviewViewModel>().ReverseMap();
         }
     }
 }

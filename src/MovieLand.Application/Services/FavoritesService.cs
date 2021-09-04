@@ -76,6 +76,7 @@ namespace MovieLand.Application.Services
             };
 
             await _favoritesRepository.AddAsync(newFavorite);
+
             return newFavorite;
         }
     }

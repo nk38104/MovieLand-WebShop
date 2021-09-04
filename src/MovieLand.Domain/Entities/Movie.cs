@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 
 namespace MovieLand.Domain.Entities
@@ -30,5 +31,21 @@ namespace MovieLand.Domain.Entities
         public List<MovieFavorite> MovieFavorites { get; set; }
         public List<MovieCompare> MovieCompares{ get; set; }
         public List<MovieList> MovieLists { get; set; }
+
+
+        public void AddReview(Review review)
+        {
+            if(review != null)
+                Reviews.Add(review);
+        }
+
+
+        public void RemoveReview(int reviewId)
+        {
+            //var reviewToRemove = Reviews.Where(r => r.Id == reviewId).FirstOrDefault();
+            //Reviews.Remove(reviewToRemove);
+
+            Reviews.RemoveAll(r => r.Id == reviewId);
+        }
     }
 }

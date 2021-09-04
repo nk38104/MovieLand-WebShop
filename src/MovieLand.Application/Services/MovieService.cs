@@ -26,6 +26,7 @@ namespace MovieLand.Application.Services
         {
             var movie = await _movieRepository.GetByIdAsync(movieId);
             var mappedMovie = ObjectMapper.Mapper.Map<MovieDTO>(movie);
+
             return mappedMovie;
         }
 
@@ -34,6 +35,7 @@ namespace MovieLand.Application.Services
         {
             var movie = await _movieRepository.GetMovieBySlugAsync(slug);
             var mappedMovie = ObjectMapper.Mapper.Map<MovieDTO>(movie);
+
             return mappedMovie;
         }
 
@@ -42,6 +44,7 @@ namespace MovieLand.Application.Services
         {
             var movies = await _movieRepository.GetMovieByTitleAsync(movieTitle);
             var mappedMovies = ObjectMapper.Mapper.Map<IEnumerable<MovieDTO>>(movies);
+
             return mappedMovies;
         }
         

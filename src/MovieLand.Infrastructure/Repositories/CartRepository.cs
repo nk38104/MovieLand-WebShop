@@ -14,6 +14,7 @@ namespace MovieLand.Infrastructure.Repositories
         public CartRepository(MovieLandContext movieLandContext)
             : base(movieLandContext) { }
 
+
         public async Task<Cart> GetByUsernameAsync(string username)
         {
             var spec = new CartWithItemsSpecification(username);

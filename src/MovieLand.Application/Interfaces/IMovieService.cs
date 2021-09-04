@@ -9,6 +9,7 @@ namespace MovieLand.Application.Interfaces
     {
         Task<MovieDTO> GetMovieById(int movieId);
         Task<MovieDTO> GetMovieBySlug(string slug);
+
         Task<IEnumerable<MovieDTO>> GetMovieByTitle(string movieTitle);
         
         Task<IEnumerable<MovieDTO>> GetMovieList();

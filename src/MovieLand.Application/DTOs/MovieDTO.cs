@@ -1,5 +1,5 @@
 ﻿using MovieLand.Application.DTOs.Base;
-
+using System.Collections.Generic;
 
 namespace MovieLand.Application.DTOs
 {
@@ -15,5 +15,7 @@ namespace MovieLand.Application.DTOs
         public decimal UnitPrice { get; set; }
         public int? UnitsInStock { get; set; }
         public double Rate { get; set; }
+
+        public List<ReviewDTO> Reviews { get; set; }
     }
 }

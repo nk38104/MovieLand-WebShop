@@ -9,16 +9,17 @@ namespace MovieLand.Application.Mapper
     {
         public ObjectMapperProfile()
         {
-            CreateMap<Movie, MovieDTO>()
-                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title)).ReverseMap();
-            CreateMap<Favorite, FavoritesDTO>().ReverseMap();
-            CreateMap<Compare, CompareDTO>().ReverseMap();
             CreateMap<Cart, CartDTO>().ReverseMap();
             CreateMap<CartItem, CartItemDTO>().ReverseMap();
+            CreateMap<Compare, CompareDTO>().ReverseMap();
+            CreateMap<Director, DirectorDTO>().ReverseMap();
+            CreateMap<Favorite, FavoritesDTO>().ReverseMap();
+            CreateMap<Genre, GenreDTO>().ReverseMap();
+            CreateMap<Movie, MovieDTO>()
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title)).ReverseMap();
             CreateMap<Order, OrderDTO>().ReverseMap();
             CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
-            CreateMap<Director, DirectorDTO>().ReverseMap();
-            CreateMap<Genre, GenreDTO>().ReverseMap();
+            CreateMap<Review, ReviewDTO>().ReverseMap();
         }
     }
 }

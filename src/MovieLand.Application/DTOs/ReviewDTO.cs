@@ -1,9 +1,9 @@
-﻿using MovieLand.Domain.Entities.Base;
+﻿using MovieLand.Application.DTOs.Base;
 
 
-namespace MovieLand.Domain.Entities
+namespace MovieLand.Application.DTOs
 {
-    public class Review : Entity
+    public class ReviewDTO : BaseDTO
     {
         public string Username { get; set; }
         public string Email { get; set; }
@@ -12,6 +12,6 @@ namespace MovieLand.Domain.Entities
 
         // 1-n relationships
         public int MovieId { get; set; }
-        public Movie Movie { get; set; }
+        public MovieDTO Movie { get; set; }
     }
 }

@@ -74,6 +74,7 @@ namespace MovieLand.Web
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IDirectorService, DirectorService>();
             services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<IReviewService, ReviewService>();
 
 
             // Configure Infrastructure layer
@@ -88,6 +89,7 @@ namespace MovieLand.Web
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IDirectorRepository, DirectorRepository>();
             services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<IReviewRepository, ReviewRepository>();
 
 
             // Configure Web layer
@@ -117,12 +119,12 @@ namespace MovieLand.Web
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
-                options.Password.RequireDigit = true;
-                options.Password.RequireLowercase = true;
-                options.Password.RequireNonAlphanumeric = true;
-                options.Password.RequireUppercase = true;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 8;
-                options.Password.RequiredUniqueChars = 1;
+                options.Password.RequiredUniqueChars = 0;
             });
         }
     }

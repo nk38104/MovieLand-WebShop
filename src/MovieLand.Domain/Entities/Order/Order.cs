@@ -10,7 +10,6 @@ namespace MovieLand.Domain.Entities
     public class Order : Entity
     {
         public string Username { get; set; }
-        //public Address ShippingInfo { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -29,17 +28,4 @@ namespace MovieLand.Domain.Entities
         // 1-n relationships
         public List<OrderItem> Items { get; set; }
     }
-
-    // Value Object
-    //public class Address
-    //{
-    //    public string FirstName { get; set; }
-    //    public string LastName { get; set; }
-    //    public string Email { get; set; }
-    //    public string ContactNumber { get; set; }
-    //    public string ShippingAddress { get; set; }
-    //    public string City { get; set; }
-    //    public string PostalCode { get; set; }
-    //    public string Country { get; set; }
-    //}
 }

@@ -1,4 +1,5 @@
 ﻿using MovieLand.Web.ViewModels.Base;
+using System.Collections.Generic;
 
 
 namespace MovieLand.Web.ViewModels
@@ -15,5 +16,7 @@ namespace MovieLand.Web.ViewModels
         public decimal UnitPrice { get; set; }
         public int? UnitsInStock { get; set; }
         public double Rate { get; set; }
+
+        public List<ReviewViewModel> Reviews { get; set; }
     }
 }

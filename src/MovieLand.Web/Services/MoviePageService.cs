@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
+using MovieLand.Application.DTOs;
 using MovieLand.Application.Interfaces;
+using MovieLand.Application.Mapper;
 using MovieLand.Web.Interfaces;
 using MovieLand.Web.ViewModels;
 using System;
@@ -27,16 +29,18 @@ namespace MovieLand.Web.Services
         public async Task<MovieViewModel> GetMovieById(int movieId)
         {
             var movie = await _movieService.GetMovieById(movieId);
-            var mappedMovie = _mapper.Map<MovieViewModel>(movie);
-            return mappedMovie;
+            var movieMapped = _mapper.Map<MovieViewModel>(movie);
+
+            return movieMapped;
         }
 
 
         public async Task<MovieViewModel> GetMovieBySlug(string slug)
         {
             var movie = await _movieService.GetMovieBySlug(slug);
-            var mappedMovie = _mapper.Map<MovieViewModel>(movie);
-            return mappedMovie;
+            var movieMapped = _mapper.Map<MovieViewModel>(movie);
+
+            return movieMapped;
         }
 
 
@@ -54,12 +58,14 @@ namespace MovieLand.Web.Services
             if (string.IsNullOrWhiteSpace(movieTitle))
             {
                 var movies = await _movieService.GetMovieList();
-                var mappedMovies = _mapper.Map<IEnumerable<MovieViewModel>>(movies);
-                return mappedMovies;
+                var moviesMapped = _mapper.Map<IEnumerable<MovieViewModel>>(movies);
+
+                return moviesMapped;
             }
 
             var moviesByTitle = await _movieService.GetMovieByTitle(movieTitle);
             var mappedByTitle = _mapper.Map<IEnumerable<MovieViewModel>>(moviesByTitle);
+
             return mappedByTitle;
         }
 

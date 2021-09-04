@@ -60,3 +60,24 @@
         </tr>
     </tbody>
 </table>
+
+<h2>REVIEWS:</h2>
+<ul>
+    @foreach (var review in Model.Movie.Reviews)
+    {
+        <li>
+            @review.Username: @review.Comment
+        </li>
+    }
+</ul>
+
+<form asp-page-handler="AddReviewToMovie" method="post">
+    <input type="email" asp-for="@Model.ReviewForm.Email" placeholder="Enter your email..." />
+    <input type="text" asp-for="@Model.ReviewForm.Comment" placeholder="Enter your comment here..." />
+    <input type="range" asp-for="@Model.ReviewForm.Rate" min="0" max="5" step="0.1" value="0" oninput="this.nextElementSibling.value = this.value">
+    <output>0</output>
+    <input type="hidden" asp-for="@Model.Movie.Id" name="movieId" />
+    <input type="hidden" asp-for="@Model.Movie.Slug" name="movieSlug" />
+
+    <input type="submit" value="Submit">
+</form>
