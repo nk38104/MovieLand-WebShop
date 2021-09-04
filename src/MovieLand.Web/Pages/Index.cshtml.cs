@@ -37,9 +37,9 @@ namespace MovieLand.Web.Pages
             else
             {
                 Movies = await _moviePageService.GetMovies();
-            } 
-            
-            GetFilterData();
+            }
+
+            await SetFilterData();
         }
 
 
@@ -88,42 +88,42 @@ namespace MovieLand.Web.Pages
         public async Task OnGetFilterByDecadesAsync(string decade)
         {
             Movies = await _moviePageService.GetMoviesByDecade(decade);
-            GetFilterData();
+            await SetFilterData();
         }
 
 
         public async Task OnPostFilterByDirectorAsync(string director)
         {
             Movies = await _moviePageService.GetMoviesByDirector(director);
-            GetFilterData();
+            await SetFilterData();
         }
 
 
         public async Task OnPostFilterByGenreAsync(string genre)
         {
             Movies = await _moviePageService.GetMoviesByGenre(genre);
-            GetFilterData();
+            await SetFilterData();
         }
 
 
         public async Task OnPostFilterByPriceAsync(double priceFrom, double priceTo)
         {
             Movies = await _moviePageService.GetMoviesByPrice(priceFrom, priceTo);
-            GetFilterData();
+            await SetFilterData();
         }
 
 
         public async Task OnPostFilterByRatingAsync(double rating)
         {
             Movies = await _moviePageService.GetMoviesByRating(rating);
-            GetFilterData();
+            await SetFilterData();
         }
 
 
-        private async void GetFilterData()
+        private async Task SetFilterData()
         {
-            Genres = await _indexPageService.GetGenres();
             Directors = await _indexPageService.GetDirectors();
+            Genres =  await _indexPageService.GetGenres();
         }
     }
 }
