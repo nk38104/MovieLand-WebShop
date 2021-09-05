@@ -31,8 +31,8 @@ namespace MovieLand.Infrastructure.Data
                 // directors - genres - reviews
                 await SeedDirectorsAsync(movieLandContext);
                 await SeedGenresAsync(movieLandContext);
-                // comment this out at the end (this was just for testing purpose)
-                await SeedReviewsAsync(movieLandContext);
+                // Uncomment line below just for testing purpose if you want some data before you implement user management
+                //await SeedReviewsAsync(movieLandContext);
 
                 // movies - moviesdirectors - moviesgenres - lists
                 await SeedMoviesAsync(movieLandContext);
@@ -40,14 +40,15 @@ namespace MovieLand.Infrastructure.Data
                 await SeedMoviesGenresAsync(movieLandContext);
                 await SeedListAndMoviesAsync(movieLandContext);
 
-                // comment this out at the end (this was just for testing purpose)
+                // Uncomment line below just for testing purpose if you want some data before you implement user management
                 // compares and favorites
-                await SeedCompareAndMoviesAsync(movieLandContext);
-                await SeedFavoriteAndMoviesAsync(movieLandContext);
+                //await SeedCompareAndMoviesAsync(movieLandContext);
+                //await SeedFavoriteAndMoviesAsync(movieLandContext);
 
+                // Uncomment code below just for testing purpose if you want some data before you implement user management
                 // cart and cart items - order and order items
-                await SeedCartAndItemsAsync(movieLandContext);
-                await SeedOrderAndItemsAsync(movieLandContext);
+                //await SeedCartAndItemsAsync(movieLandContext);
+                //await SeedOrderAndItemsAsync(movieLandContext);
             }
             catch (Exception exception)
             {
