@@ -43,6 +43,7 @@ namespace MovieLand.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseStatusCodePagesWithRedirects("/Errors/{0}");
             }
             else
             {
@@ -56,6 +57,7 @@ namespace MovieLand.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -100,6 +102,17 @@ namespace MovieLand.Web
             services.AddScoped<IComparePageService, ComparePageService>();
             services.AddScoped<ICartPageService, CartPageService>();
             services.AddScoped<ICheckOutPageService, CheckOutPageService>();
+
+
+            // Configure Application Cookie
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/index";
+                options.Cookie.Name = "MovieLand";
+                options.Cookie.HttpOnly = true;
+                options.AccessDeniedPath = "/Errors/Unauthorized";
+            });
         }
 
 
@@ -114,6 +127,7 @@ namespace MovieLand.Web
         {
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<MovieLandContext>();
 
             services.Configure<IdentityOptions>(options =>

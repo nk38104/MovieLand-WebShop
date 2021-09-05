@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -30,13 +31,15 @@ namespace MovieLand.Web
         {
             using (var scope = host.Services.CreateScope())
             {
-                var services = scope.ServiceProvider;
-                var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+                var serviceProvider = scope.ServiceProvider;
+                var roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>();
+                var userManager = serviceProvider.GetService<UserManager<IdentityUser>>();
+                var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
 
                 try
                 {
-                    var movieLandContext = services.GetRequiredService<MovieLandContext>();
-                    MovieLandContextSeed.SeedAsync(movieLandContext, loggerFactory).Wait();
+                    var movieLandContext = serviceProvider.GetRequiredService<MovieLandContext>();
+                    MovieLandContextSeed.SeedAsync(movieLandContext, loggerFactory, roleManager, userManager).Wait();
                 }
                 catch (Exception exception)
                 {

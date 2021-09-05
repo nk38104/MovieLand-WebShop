@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MovieLand.Domain.Entities;
 using MovieLand.Domain.Enums;
@@ -14,7 +15,7 @@ namespace MovieLand.Infrastructure.Data
     {
         private static int _retryMax = 10;
 
-        public static async Task SeedAsync(MovieLandContext movieLandContext, ILoggerFactory loggerFactory, int? retry = 0)
+        public static async Task SeedAsync(MovieLandContext movieLandContext, ILoggerFactory loggerFactory, RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager, int? retry = 0)
         {
             int retryForAvailability = retry.Value;
 
@@ -23,9 +24,14 @@ namespace MovieLand.Infrastructure.Data
                 movieLandContext.Database.Migrate();
                 movieLandContext.Database.EnsureCreated();
 
+                // roles - superadmin
+                await SeedRolesAsync(roleManager);
+                await SeedSuperAdminAsync(userManager);
+
                 // directors - genres - reviews
                 await SeedDirectorsAsync(movieLandContext);
                 await SeedGenresAsync(movieLandContext);
+                // comment this out at the end (this was just for testing purpose)
                 await SeedReviewsAsync(movieLandContext);
 
                 // movies - moviesdirectors - moviesgenres - lists
@@ -34,6 +40,7 @@ namespace MovieLand.Infrastructure.Data
                 await SeedMoviesGenresAsync(movieLandContext);
                 await SeedListAndMoviesAsync(movieLandContext);
 
+                // comment this out at the end (this was just for testing purpose)
                 // compares and favorites
                 await SeedCompareAndMoviesAsync(movieLandContext);
                 await SeedFavoriteAndMoviesAsync(movieLandContext);
@@ -49,7 +56,7 @@ namespace MovieLand.Infrastructure.Data
                     retryForAvailability++;
                     var log = loggerFactory.CreateLogger<MovieLandContextSeed>();
                     log.LogError(exception.Message);
-                    await SeedAsync(movieLandContext, loggerFactory, retryForAvailability);
+                    await SeedAsync(movieLandContext, loggerFactory, roleManager, userManager, retryForAvailability);
                 }
                 throw;
             }
@@ -1199,6 +1206,51 @@ namespace MovieLand.Infrastructure.Data
 
             movieLandContext.Orders.AddRange(orders);
             await movieLandContext.SaveChangesAsync();
+        }
+
+
+        private static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
+        {
+            if (roleManager.FindByNameAsync("SuperAdmin").Result == null)
+            {
+                await CreateRole(roleManager, "SuperAdmin");
+            }
+            if (roleManager.FindByNameAsync("Admin").Result == null)
+            {
+                await CreateRole(roleManager, "Admin");
+            }
+            if (roleManager.FindByNameAsync("Client").Result == null)
+            {
+                await CreateRole(roleManager, "Client");
+            }
+        }
+
+
+        private static async Task CreateRole(RoleManager<IdentityRole> roleManager, string roleName)
+        {
+            var role = new IdentityRole();
+            role.Name = roleName;
+            role.NormalizedName = roleName.ToUpper();
+            
+            await roleManager.CreateAsync(role);
+        }
+
+
+        private static async Task SeedSuperAdminAsync(UserManager<IdentityUser> userManager)
+        {
+            var defaultEmail = "superadmin@movieland.com";
+            var defaultPassword = "superadmin123";
+
+            if (userManager.FindByEmailAsync(defaultEmail).Result == null)
+            {
+                var newSuperAdmin = new IdentityUser { Email = defaultEmail, UserName = defaultEmail };
+                var result = await userManager.CreateAsync(newSuperAdmin, defaultPassword);
+
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(newSuperAdmin, "SuperAdmin");
+                }
+            }
         }
     }
 }
