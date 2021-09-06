@@ -6,7 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MovieLand.Application.Interfaces;
+using MovieLand.Application.Interfaces.Account;
 using MovieLand.Application.Services;
+using MovieLand.Application.Services.Account;
 using MovieLand.Domain.Interfaces;
 using MovieLand.Domain.Interfaces.Repositories;
 using MovieLand.Domain.Interfaces.Repositories.Base;
@@ -77,6 +79,7 @@ namespace MovieLand.Web
             services.AddScoped<IDirectorService, DirectorService>();
             services.AddScoped<IGenreService, GenreService>();
             services.AddScoped<IReviewService, ReviewService>();
+            services.AddScoped<IAccountService, AccountService>();
 
 
             // Configure Infrastructure layer
@@ -102,6 +105,7 @@ namespace MovieLand.Web
             services.AddScoped<IComparePageService, ComparePageService>();
             services.AddScoped<ICartPageService, CartPageService>();
             services.AddScoped<ICheckOutPageService, CheckOutPageService>();
+            services.AddScoped<IAccountPageService, AccountPageService>();
 
 
             // Configure Application Cookie

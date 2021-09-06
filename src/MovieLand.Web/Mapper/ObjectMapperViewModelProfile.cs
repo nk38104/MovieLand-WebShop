@@ -19,6 +19,7 @@ namespace MovieLand.Web.Mapper
             CreateMap<OrderDTO, OrderViewModel>().ReverseMap();
             CreateMap<OrderItemDTO, OrderItemViewModel>().ReverseMap();
             CreateMap<ReviewDTO, ReviewViewModel>().ReverseMap();
+            CreateMap<RegisterDTO, RegisterViewModel>().ReverseMap();
         }
     }
 }

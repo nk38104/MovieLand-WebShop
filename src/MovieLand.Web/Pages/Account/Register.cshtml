@@ -1,0 +1,28 @@
+﻿@page
+@model MovieLand.Web.Pages.Account.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+<div>
+    <form method="post">
+        <p>
+            <div>
+                Email: <input type="email" asp-for="@Model.RegisterViewModel.Email" />
+                <span asp-validation-for="@Model.RegisterViewModel.Email"></span>
+            </div>
+            <div>
+                Password: <input type="password" asp-for="@Model.RegisterViewModel.Password" />
+                <span asp-validation-for="@Model.RegisterViewModel.Password"></span>
+            </div>
+            <div>
+                Confirm password: <input type="password" asp-for="@Model.RegisterViewModel.ConfirmPassword" />
+                <span asp-validation-for="@Model.RegisterViewModel.ConfirmPassword"></span>
+            </div>
+        </p>
+
+        <button type="submit" class="btn-success">Register</button>
+    </form>
+    <hr>
+</div>

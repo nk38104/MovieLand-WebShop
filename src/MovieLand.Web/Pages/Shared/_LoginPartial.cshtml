@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">@UserManager.GetUserName(User)</span>
+            </a>
+            <!-- Dropdown - User Information -->
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="#">
+                    <i class="las la-user la-sm la-fw mr-2 text-gray-400"></i>
+                    Profile
+                </a>
+                <div class="dropdown-divider"></div>
+                <form id="logoutForm" class="form-inline" asp-area="" asp-page="/Account/Login" asp-page-handler="Logout" method="post">
+                    <a onclick="$(this).closest('form').submit()" class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                        <i class="las la-sign-out-alt la-sm la-fw mr-2 text-gray-400"></i>
+                        Logout
+                    </a>
+                </form>
+            </div>
+        </li>
+
+    </ul>
+}
+else
+{
+    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+        <ul class="navbar-nav flex-grow-1">
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-page="/Account/Login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-page="/Account/Register">Register</a>
+            </li>
+            <li class="nav-item">
+        </ul>
+    </div>
+}
