@@ -7,9 +7,9 @@
 @* --- SEARCH ---*@
 <div>
     <form>
-        <p>
-            <input type="text" asp-for="SearchString" placeholder="Search movie by title..."/>
-            <input type="submit" value="Search" />
+        <p style="height: 40px">
+            <input class="w-50 h-100 pl-3" type="text" asp-for="SearchString" placeholder="Search movie by title..."/>
+            <input class="h-100 p-1" type="submit" value="Search"/>
         </p>
     </form>
     <hr>
@@ -32,7 +32,7 @@
                                 <label>Max</label>
                                 <input type="number" class="form-control" name="priceTo" placeholder="..." />
                                 <br />
-                                <input type="submit" value="Filter" />
+                                <input type="submit" style="width: 100%;" value="Filter" />
                             </form>
                         </div>
                     </div> <!-- card-body.// -->
@@ -82,9 +82,10 @@
                     <div class="card-body">
                         <div class="custom-control">
                             <form asp-page-handler="FilterByRating" method="post">
-                                <input type="range" name="rating" min="0" max="5" step="0.1" value="0" oninput="this.nextElementSibling.value = this.value">
+                                <input type="range" style="width: 80%;" name="rating" min="0" max="5" step="0.1" value="0" oninput="this.nextElementSibling.value = this.value">
                                 <output>0</output>
-                                <input type="submit" value="Filter" />
+                                <br />
+                                <input type="submit" style="width: 100%; margin-top: 5px;" value="Filter" />
                             </form>
                         </div> <!-- form-check.// -->
                     </div> <!-- card-body.// -->
@@ -93,72 +94,50 @@
         </div> <!-- card.// -->
     </aside> <!-- col.// -->
     <aside class="col-md-9" style="transform: translate(-30%)">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Movies.First().PictureUri)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Movies.First().Title)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Movies.First().Summary)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Movies.First().ReleaseYear)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Movies.First().Duration)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Movies.First().UnitPrice)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var movie in Model.Movies)
-                {
-                    <tr>
-                        <td>
-                            <a asp-page="/Movies/MovieDetail" asp-route-slug="@movie.Slug">
-                                <img src="@Html.DisplayFor(modelItem => movie.PictureUri)" alt="Movie image" style="width: 300px; height: 400px;" />
-                            </a>
-                        </td>
-                        <td>
-                            <a asp-page="/Movies/MovieDetail" asp-route-slug="@movie.Slug">@Html.DisplayFor(modelItem => movie.Title)</a>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => movie.Summary)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => movie.ReleaseYear)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => movie.Duration)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => movie.UnitPrice)
-                        </td>
-                        <td>
-                            <a asp-page="/Movies/MovieDetail" asp-route-slug="@movie.Slug">Movie Details</a> |
-                            <form asp-page-handler="AddToCompare" method="post">
-                                <a href="javascript:;" onclick="parentNode.submit();">Add To Compare</a> |
-                                <input type="hidden" asp-for="@movie.Id" name="movieId" />
-                            </form>
-                            <form asp-page-handler="AddToCart" method="post">
-                                <a href="javascript:;" onclick="parentNode.submit();">Add To Cart</a> |
-                                <input type="hidden" asp-for="@movie.Id" name="movieId" />
-                            </form>
-                            <form asp-page-handler="AddToFavorites" method="post">
-                                <a href="javascript:;" onclick="parentNode.submit();">Add To Favorites</a>
-                                <input type="hidden" asp-for="@movie.Id" name="movieId" />
-                            </form>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        @foreach (var movie in Model.Movies)
+        {
+            <div class="row p-3 bg-white border rounded mb-4 h-auto shadow-sm" style="width: 130%;">
+                <div class="col-md-3">
+                    <img class="rounded w-100" src="@Html.DisplayFor(modelItem => movie.PictureUri)"/>
+                </div>
+                <div class="col-md-6 mt-2">
+                    <h4><a asp-page="/Movies/MovieDetail" asp-route-slug="@movie.Slug">@Html.DisplayFor(modelItem => movie.Title)</a></h4>
+                    <div class="d-flex flex-row">
+                        <div>@Html.DisplayFor(modelItem => movie.Duration) min</div>
+                        <div class="ratings mr-2"><i class="fa fa-star"></i></div><span>@Html.DisplayFor(modelItem => movie.Rate)</span>
+                    </div>
+                    <p class="text-justify summary mb-0">
+                        <br><br>
+                        @Html.DisplayFor(modelItem => movie.Summary)
+                    </p>
+                    <div class="card-middle-form w-100">
+                        <form asp-page-handler="AddToCompare" method="post">
+                            <button class="btn btn-outline-primary btn-sm" type="submit">Add to Compare</button>
+                            <input type="hidden" asp-for="@movie.Id" name="movieId" />
+                        </form>
+                        <form asp-page-handler="AddToFavorites" method="post">
+                            <button class="btn btn-outline-primary btn-sm" type="submit">Add to favorites</button>
+                            <input type="hidden" asp-for="@movie.Id" name="movieId" />
+                        </form>
+                    </div>
+                </div>
+                <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                    <div class="d-flex flex-row">
+                        <h3 class="mr-1">$@Html.DisplayFor(modelItem => movie.UnitPrice)</h3>
+                    </div>
+                    <h6 class="text-success">Free shipping</h6>
+                    <div class="d-flex flex-column justify-content-center" style="margin-top: 5rem;">
+                        <form class="w-100" asp-page="/Movies/MovieDetail" method="get">
+                            <button class="btn btn-primary btn-md" type="submit" style="width: 100%;">Details</button>
+                            <input type="hidden" asp-for="@movie.Slug" name="slug" />
+                        </form>
+                        <form class="w-100" asp-page-handler="AddToCart" method="post">
+                            <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Add to Cart</button>
+                            <input type="hidden" asp-for="@movie.Id" name="movieId" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
     </aside> <!-- col.// -->
 </div> <!-- row.// -->

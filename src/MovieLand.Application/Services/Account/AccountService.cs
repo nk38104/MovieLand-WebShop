@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using MovieLand.Application.DTOs;
+using MovieLand.Application.DTOs.Account;
 using MovieLand.Application.Interfaces.Account;
 using System.Threading.Tasks;
 
@@ -18,6 +19,19 @@ namespace MovieLand.Application.Services.Account
         }
 
 
+        public async Task<SignInResult> LoginUserAsync(LoginDTO userLoginData)
+        {
+            // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+            return await _signInManager.PasswordSignInAsync(userLoginData.Email, userLoginData.Password, userLoginData.RememberMe, lockoutOnFailure: false);
+        }
+
+
+        public async Task LogoutUserAsync()
+        {
+            await _signInManager.SignOutAsync();
+        }
+
+        
         public async Task<bool> RegisterUserAsync(RegisterDTO userRegistrationData)
         {
             var newIdentityUser = new IdentityUser { Email = userRegistrationData.Email, UserName = userRegistrationData.Email };

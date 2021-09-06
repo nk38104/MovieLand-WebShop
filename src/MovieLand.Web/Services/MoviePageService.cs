@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
-using MovieLand.Application.DTOs;
 using MovieLand.Application.Interfaces;
-using MovieLand.Application.Mapper;
 using MovieLand.Web.Interfaces;
 using MovieLand.Web.ViewModels;
 using System;
