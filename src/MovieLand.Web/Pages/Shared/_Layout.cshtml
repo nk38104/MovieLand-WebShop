@@ -9,40 +9,94 @@
     @*<link rel="stylesheet" type="text/css" href="@Url.Content("~/css/site.css")" asp-append-version="true"/>*@
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">MovieLand</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/AboutUs/AboutUs">About Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/ContactUs/ContactUs">ContactUs</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Favorites/Favorites">Favorites</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Cart/Cart">Cart</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Compare/Compare">Compare</a>
-                        </li>
-                    </ul>
+    <div class="super_container">
+        <!-- Header -->
+        <header class="header mb-5">
+            <!-- Top Bar -->
+            <div class="top_bar">
+                <div class="container">
+                    <div class="row">
+                        <div class="col d-flex flex-row">
+                            <div class="top_bar_contact_item">
+                                <div class="top_bar_icon"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918577/phone.png" alt=""></div>(+385)91 1234 567 890
+                            </div>
+                            <div class="top_bar_contact_item">
+                                <div class="top_bar_icon"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918597/mail.png" alt=""></div><a href="mailto:fastsales@gmail.com">movieland@gmail.com</a>
+                            </div>
+                            <div class="top_bar_content ml-auto">
+                                <div class="top_bar_user">
+                                    <partial name="_LoginPartial" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <partial name="_LoginPartial" />
-            </div>
-        </nav>
-    </header>
+            </div> <!-- Header Main -->
+            <div class="header_main">
+                <div class="container">
+                    <div class="row">
+                        <!-- Logo -->
+                        <div class="col-lg-2 col-sm-3 col-3 order-1">
+                            <div class="logo_container">
+                                <div class="logo"><a asp-area="" asp-page="/Index">MovieLand</a></div>
+                            </div>
+                        </div>
+                         <!-- Features -->
+                        <div class="col-lg-10 col-9 order-lg-3 order-2 text-lg-left text-right">
+                            <div class="favorites_cart d-flex flex-row align-items-center justify-content-end">
+                                <div class="comparison d-flex flex-row align-items-center justify-content-end">
+                                    <div class="comparison_icon">
+                                        <img src="~/images/comparison.svg">
+                                    </div>
+                                    <div>
+                                        <div class="feature_text"><a asp-area="" asp-page="/Compare/Compare">Comapre</a></div>
+                                        <div class="feature_count">3</div>
+                                    </div>
+                                </div> <!-- Favorites -->
+                                <div class="favorites d-flex flex-row align-items-center justify-content-end">
+                                    <div class="favorites_icon"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918704/heart.png" alt=""></div>
+                                    <div class="favorites_content">
+                                        <div class="feature_text"><a asp-area="" asp-page="/Favorites/Favorites">Favorites</a></div>
+                                        <div class="feature_count">10</div>
+                                    </div>
+                                </div> <!-- Cart -->
+                                <div class="cart">
+                                    <div class="cart_container d-flex flex-row align-items-center justify-content-end">
+                                        <div class="cart_icon">
+                                            <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918704/cart.png" alt="">
+                                            <div class="cart_count"><span>3</span></div>
+                                        </div>
+                                        <div class="cart_content">
+                                            <div class="feature_text"><a asp-area="" asp-page="/Cart/Cart">Cart</a></div>
+                                            <div class="cart_price">$185</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- Main Navigation -->
+            <nav class="main_nav">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="main_nav_content d-flex flex-row justify-content-center">
+                                <!-- Main Nav Menu -->
+                                <div class="main_nav_menu">
+                                    <ul class="standard_dropdown main_nav_dropdown">
+                                        <li><a asp-area="" asp-page="/Index">Home</a></li>
+                                        <li class="hassubs"> <a asp-area="" asp-page="/AboutUs/AboutUs">About Us</a></li>
+                                        <li class="hassubs"> <a asp-area="" asp-page="/ContactUs/ContactUs">Contact Us</a></li>
+                                    </ul>
+                                </div> <!-- Menu Trigger -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    </div>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
