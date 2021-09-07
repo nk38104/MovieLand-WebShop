@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MovieLand.Web.Interfaces;
@@ -8,7 +9,7 @@ using MovieLand.Web.ViewModels;
 
 namespace MovieLand.Web.Pages.CheckOut
 {
-    //[Authorize]
+    [Authorize]
     public class CheckOutModel : PageModel
     {
         private readonly ICheckOutPageService _checkOutPageService;
@@ -24,23 +25,30 @@ namespace MovieLand.Web.Pages.CheckOut
 
         public async Task OnGetAsync()
         {
-            var username = "bg123";
-            CartViewModel = await _checkOutPageService.GetCart(username);
+            var user = User.Identity;
+
+            if (user != null)
+                CartViewModel = await _checkOutPageService.GetCart(user.Name);
         }
 
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var username = "bg123";
+            var user = User.Identity;
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                CartViewModel = await _checkOutPageService.GetCart(username);
-                return Page();
+                try
+                {
+                    await _checkOutPageService.CheckOutOrder(Order, user.Name);
+                    return RedirectToPage("./OrderSubmitted");
+                }
+                catch(Exception ex)
+                {
+                    return RedirectToPage("./OrderNotSubmitted", ex.ToString());
+                }
             }
-
-            await _checkOutPageService.CheckOutOrder(Order, username);
-            return RedirectToPage("./OrderSubmitted");
+            return RedirectToPage();
         }
     }
 }

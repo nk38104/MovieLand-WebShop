@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MovieLand.Application.DTOs;
@@ -11,6 +12,7 @@ using MovieLand.Web.ViewModels;
 
 namespace MovieLand.Web.Pages.Movies
 {
+    [Authorize]
     public class MovieDetailModel : PageModel
     {
         private readonly IMoviePageService _moviePageService;
@@ -38,7 +40,12 @@ namespace MovieLand.Web.Pages.Movies
 
         public async Task<IActionResult> OnPostAddReviewToMovieAsync(int movieId, string movieSlug)
         {
-            ReviewForm.Username = "bg123";
+            var user = User.Identity;
+
+            if (user == null)
+                return Page();
+
+            ReviewForm.Username = user.Name;
             ReviewForm.MovieId = movieId;
 
             var reviewMapped = _mapper.Map<ReviewDTO>(ReviewForm);

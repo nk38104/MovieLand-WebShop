@@ -117,17 +117,20 @@
                             <br><br>
                             @Html.DisplayFor(modelItem => movie.Summary)
                         </p>
-                        <div class="card-middle-form w-100">
-                            <form asp-page-handler="AddToCompare" method="post">
-                                <button class="btn btn-outline-primary btn-sm" type="submit">Add to Compare</button>
-                                <input type="hidden" asp-for="@movie.Id" name="movieId" />
-                            </form>
-                            <form asp-page-handler="AddToFavorites" method="post">
-                                <button class="btn btn-outline-primary btn-sm" type="submit">Add to favorites</button>
-                                <input type="hidden" asp-for="@movie.Id" name="movieId" />
-                            </form>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="card-middle-form w-100">
+                                <form asp-page-handler="AddToCompare" method="post">
+                                    <button class="btn btn-outline-primary btn-sm" type="submit">Add to Compare</button>
+                                    <input type="hidden" asp-for="@movie.Id" name="movieId" />
+                                </form>
+                                <form asp-page-handler="AddToFavorites" method="post">
+                                    <button class="btn btn-outline-primary btn-sm" type="submit">Add to favorites</button>
+                                    <input type="hidden" asp-for="@movie.Id" name="movieId" />
+                                </form>
+                            </div>
+                        }
                         </div>
-                    </div>
                     <div class="align-items-center align-content-center col-md-3 border-left mt-1">
                         <div class="d-flex flex-row">
                             <h3 class="mr-1">$@Html.DisplayFor(modelItem => movie.UnitPrice)</h3>
@@ -138,10 +141,13 @@
                                 <button class="btn btn-primary btn-md" type="submit" style="width: 100%;">Details</button>
                                 <input type="hidden" asp-for="@movie.Slug" name="slug" />
                             </form>
-                            <form class="w-100" asp-page-handler="AddToCart" method="post">
-                                <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Add to Cart</button>
-                                <input type="hidden" asp-for="@movie.Id" name="movieId" />
-                            </form>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <form class="w-100" asp-page-handler="AddToCart" method="post">
+                                    <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Add to Cart</button>
+                                    <input type="hidden" asp-for="@movie.Id" name="movieId" />
+                                </form>
+                            }
                         </div>
                     </div>
                 </div>

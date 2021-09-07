@@ -43,36 +43,7 @@
                         </div>
                          <!-- Features -->
                         <div class="col-lg-10 col-9 order-lg-3 order-2 text-lg-left text-right">
-                            <div class="favorites_cart d-flex flex-row align-items-center justify-content-end">
-                                <div class="comparison d-flex flex-row align-items-center justify-content-end">
-                                    <div class="comparison_icon">
-                                        <img src="~/images/comparison.svg">
-                                    </div>
-                                    <div>
-                                        <div class="feature_text"><a asp-area="" asp-page="/Compare/Compare">Comapre</a></div>
-                                        <div class="feature_count">3</div>
-                                    </div>
-                                </div> <!-- Favorites -->
-                                <div class="favorites d-flex flex-row align-items-center justify-content-end">
-                                    <div class="favorites_icon"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918704/heart.png" alt=""></div>
-                                    <div class="favorites_content">
-                                        <div class="feature_text"><a asp-area="" asp-page="/Favorites/Favorites">Favorites</a></div>
-                                        <div class="feature_count">10</div>
-                                    </div>
-                                </div> <!-- Cart -->
-                                <div class="cart">
-                                    <div class="cart_container d-flex flex-row align-items-center justify-content-end">
-                                        <div class="cart_icon">
-                                            <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918704/cart.png" alt="">
-                                            <div class="cart_count"><span>3</span></div>
-                                        </div>
-                                        <div class="cart_content">
-                                            <div class="feature_text"><a asp-area="" asp-page="/Cart/Cart">Cart</a></div>
-                                            <div class="cart_price">$185</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <partial name="_FeaturePartial" />
                         </div>
                     </div>
                 </div>

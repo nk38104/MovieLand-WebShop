@@ -1,13 +1,15 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MovieLand.Web.Interfaces;
 using MovieLand.Web.ViewModels;
 
+
 namespace MovieLand.Web.Pages.Favorites
 {
-    //[Authorize]
+    [Authorize]
     public class FavoritesModel : PageModel
     {
         private readonly IFavoritesPageService _favoritesPageService;
@@ -21,12 +23,7 @@ namespace MovieLand.Web.Pages.Favorites
 
         public async Task OnGetAsync()
         {
-            var username = this.User.Identity.Name;
-
-            if(username == null)
-            {
-                username = "bg123";
-            }
+            var username = User.Identity.Name;
 
             Favorites = await _favoritesPageService.GetFavorites(username);
         }

@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MovieLand.Web.Interfaces;
@@ -8,7 +9,7 @@ using MovieLand.Web.ViewModels;
 
 namespace MovieLand.Web.Pages.Compare
 {
-    //[Authorize]
+    [Authorize]
     public class CompareModel : PageModel
     {
         private readonly IComparePageService _comparePageService;
@@ -22,9 +23,10 @@ namespace MovieLand.Web.Pages.Compare
 
         public async Task OnGetAsync()
         {
-            //var username = this.User.Identity.Name;
-            var username = "mz001";
-            CompareViewModel = await _comparePageService.GetCompare(username);
+            var user = User.Identity;
+
+            if (user != null)
+                CompareViewModel = await _comparePageService.GetCompare(user.Name);
         }
 
 

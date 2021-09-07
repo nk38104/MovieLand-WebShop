@@ -52,11 +52,14 @@ namespace MovieLand.Application.Services
             var compare = await GetExistingOrCreateNewCompare(username);
             var compareDTO = ObjectMapper.Mapper.Map<CompareDTO>(compare);
 
-            foreach (var item in compare.MovieCompares)
+            if (compare.MovieCompares.Any())
             {
-                var movie = await _movieRepository.GetMovieByIdWithGenresAsync(item.MovieId);
-                var movieDTO = ObjectMapper.Mapper.Map<MovieDTO>(movie);
-                compareDTO.Movies.Add(movieDTO);
+                foreach (var item in compare.MovieCompares)
+                {
+                    var movie = await _movieRepository.GetMovieByIdWithGenresAsync(item.MovieId);
+                    var movieDTO = ObjectMapper.Mapper.Map<MovieDTO>(movie);
+                    compareDTO.Movies.Add(movieDTO);
+                }
             }
 
             return compareDTO;

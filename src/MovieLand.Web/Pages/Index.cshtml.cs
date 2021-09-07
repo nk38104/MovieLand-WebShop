@@ -43,43 +43,34 @@ namespace MovieLand.Web.Pages
         }
 
 
-        // Add to Movies folder prob in future(separate index and movies)
         public async Task<IActionResult> OnPostAddToFavoritesAsync(int movieId)
         {
-            //if (!User.Identity.IsAuthenticated)
-            //    return RedirectToPage("./Account/Login", new { area = "Identity" });
+            var user = User.Identity;
 
-            //await _moviePageService.AddToFavorites(User.Identity.Name, movieId);
+            if (user.IsAuthenticated)
+                await _indexPageService.AddToFavorites(user.Name, movieId);
 
-            var username = "bg123";
-
-            await _indexPageService.AddToFavorites(username, movieId);
             return RedirectToPage();
         }
 
 
         public async Task<IActionResult> OnPostAddToCompareAsync(int movieId)
         {
-            //if (!User.Identity.IsAuthenticated)
-            //    return RedirectToPage("./Account/Login", new { area = "Identity" });
+            var user = User.Identity;
 
-            //await _moviePageService.AddToFavorites(User.Identity.Name, movieId);
+            if (user.IsAuthenticated)
+                await _indexPageService.AddToCompare(user.Name, movieId);
 
-            var username = "mz001";
-
-            await _indexPageService.AddToCompare(username, movieId);
             return RedirectToPage();
         }
 
 
         public async Task<IActionResult> OnPostAddToCartAsync(int movieId)
         {
-            //if (!User.Identity.IsAuthenticated)
-            //    return RedirectToPage("./Account/Login", new { area = "Identity" });
+            var user = User.Identity;
 
-            var username = "bg123";
-
-            await _indexPageService.AddToCart(username, movieId);
+            if (user.IsAuthenticated)
+                await _indexPageService.AddToCart(user.Name, movieId);
 
             return RedirectToPage();
         }

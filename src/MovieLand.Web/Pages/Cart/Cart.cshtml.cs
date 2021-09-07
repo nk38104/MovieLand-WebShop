@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MovieLand.Web.Interfaces;
@@ -8,6 +9,7 @@ using MovieLand.Web.ViewModels;
 
 namespace MovieLand.Web.Pages.Cart
 {
+    [Authorize]
     public class CartModel : PageModel
     {
         private readonly ICartPageService _cartPageService;
@@ -20,13 +22,10 @@ namespace MovieLand.Web.Pages.Cart
 
         public async Task OnGetAsync()
         {
-            //if (!User.Identity.IsAuthenticated)
-            //{
-            //    return View(cartViewModel);
-            //}
-            var username = "bg123";
+            var user = User.Identity;
 
-            CartViewModel = await _cartPageService.GetCart(username);
+            if (user != null)
+                CartViewModel = await _cartPageService.GetCart(user.Name);
         }
 
 

@@ -51,11 +51,14 @@ namespace MovieLand.Application.Services
             var favorites = await GetExistingOrCreateNewFavorites(username);
             var favoritesDTO = ObjectMapper.Mapper.Map<FavoritesDTO>(favorites);
 
-            foreach (var item in favorites.MovieFavorites)
+            if(favorites.MovieFavorites != null)
             {
-                var movie = await _movieRepository.GetMovieByIdWithGenresAsync(item.MovieId);
-                var movieDTO = ObjectMapper.Mapper.Map<MovieDTO>(movie);
-                favoritesDTO.Movies.Add(movieDTO);
+                foreach (var item in favorites.MovieFavorites)
+                {
+                    var movie = await _movieRepository.GetMovieByIdWithGenresAsync(item.MovieId);
+                    var movieDTO = ObjectMapper.Mapper.Map<MovieDTO>(movie);
+                    favoritesDTO.Movies.Add(movieDTO);
+                }
             }
 
             return favoritesDTO;
