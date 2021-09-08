@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Http;
 
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
@@ -10,11 +11,18 @@
     <div>Hello, <span class="mr-2 d-none d-lg-inline text-gray-600 small">@UserManager.GetUserName(User)</span></div>
     <div>
         <form id="logoutForm" class="form-inline" asp-area="" asp-page="/Account/Login" asp-page-handler="Logout" method="post">
-        <a onclick="$(this).closest('form').submit()" class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-            <i class="las la-sign-out-alt la-sm la-fw mr-2 text-gray-400"></i>
-            Logout
-        </a>
-    </form>
+            <a onclick="$(this).closest('form').submit()" class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                <i class="las la-sign-out-alt la-sm la-fw mr-2 text-gray-400"></i>
+                Logout
+            </a>
+        </form>
+    </div>
+    <div>
+        <a asp-page="/Admin/Directors/Index"> | Admin | - Directors</a>
+        <a asp-page="/Admin/Genres/Index"> - Genres</a>
+        <a asp-page="/Admin/Movies/Index"> - Movies</a>
+        <a asp-page="/Admin/Orders/Index"> - Orders</a>
+        <a asp-page="/Admin/Reviews/Index"> - Reviews</a>
     </div>
     <!--<div class="user_icon"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918647/user.svg" alt=""></div>
     <div>Hello, <span class="mr-2 d-none d-lg-inline text-gray-600 small">@UserManager.GetUserName(User)</span></div>
@@ -47,4 +55,5 @@ else
     <div class="user_icon"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918647/user.svg" alt=""></div>
     <div><a asp-area="" asp-page="/Account/Register">Register</a></div>
     <div><a asp-area="" asp-page="/Account/Login">Login</a></div>
+    <div><a asp-page="/Admin/Directors/Index">Admin - Directors</a></div>
 }

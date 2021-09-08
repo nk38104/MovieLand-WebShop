@@ -35,7 +35,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Pages\Admin\Genres\" />
     <Folder Include="Pages\Admin\Movies\" />
     <Folder Include="Pages\Admin\Orders\" />
     <Folder Include="Pages\Admin\Reviews\" />

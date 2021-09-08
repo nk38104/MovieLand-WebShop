@@ -8,6 +8,12 @@ namespace MovieLand.Domain.Interfaces.Repositories
 {
     public interface IDirectorRepository : IRepository<Director>
     {
+        Task AddDirector(Director director);
+        Task DeleteDirector(Director director);
+        Task UpdateDirector(Director director);
+
+        Task<Director> GetDirectorByIdAsync(int directorId);
+
         Task<IEnumerable<Director>> GetDirectorListAsync();
     }
 }

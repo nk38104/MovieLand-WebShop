@@ -1,0 +1,28 @@
+﻿@page
+@model MovieLand.Web.Pages.Admin.Directors.IndexModel
+
+@{
+    ViewData["Title"] = "Admin - Directors";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Directors</h1>
+
+<p>
+    <a asp-page="./Create" style="color:tomato;">Create New</a>
+</p>
+<table class="table">
+    <tbody>
+        @foreach (var director in Model.Directors) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => director.Name)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@director.Id">Edit</a> |
+                        <a asp-page="./Delete" asp-route-id="@director.Id">Delete</a>
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>
