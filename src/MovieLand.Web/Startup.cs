@@ -68,66 +68,26 @@ namespace MovieLand.Web
             });
         }
 
+
         private void ConfigureMovieLandServices(IServiceCollection services)
         {
-            // Configure Application layer
-            services.AddScoped<IMovieService, MovieService>();
-            services.AddScoped<IFavoritesService, FavoritesService>();
-            services.AddScoped<ICompareService, CompareService>();
-            services.AddScoped<ICartService, CartService>();
-            services.AddScoped<IOrderService, OrderService>();
-            services.AddScoped<IDirectorService, DirectorService>();
-            services.AddScoped<IGenreService, GenreService>();
-            services.AddScoped<IReviewService, ReviewService>();
-            services.AddScoped<IAccountService, AccountService>();
-
-
-            // Configure Infrastructure layer
             ConfigureDatabase(services);
             ConfigureIdentity(services);
-            services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped<IMovieRepository, MovieRepository>();
-            services.AddScoped<IFavoritesRepository, FavoritesRepository>();
-            services.AddScoped<ICompareRepository, CompareRepository>();
-            services.AddScoped<IRepository, CartRepository>();
-            services.AddScoped<IOrderRepository, OrderRepository>();
-            services.AddScoped<IDirectorRepository, DirectorRepository>();
-            services.AddScoped<IGenreRepository, GenreRepository>();
-            services.AddScoped<IReviewRepository, ReviewRepository>();
-
-
-            // Configure Web layer
-            services.AddAutoMapper(typeof(Startup));    // Add AutoMapper
-            services.AddScoped<IIndexPageService, IndexPageService>();
-            services.AddScoped<IMoviePageService, MoviePageService>();
-            services.AddScoped<IFavoritesPageService, FavoritesPageService>();
-            services.AddScoped<IComparePageService, ComparePageService>();
-            services.AddScoped<ICartPageService, CartPageService>();
-            services.AddScoped<ICheckOutPageService, CheckOutPageService>();
-            services.AddScoped<IAccountPageService, AccountPageService>();
-
-
-            // Configure Application Cookie
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.LoginPath = "/Account/Login";
-                options.LogoutPath = "/index";
-                options.Cookie.Name = "MovieLand";
-                options.Cookie.HttpOnly = true;
-                options.AccessDeniedPath = "/Errors/Unauthorized";
-            });
+            ConfigureApplicationLayer(services);
+            ConfigureInfrastructureLayer(services);
+            ConfigureWebLayer(services);
+            ConfigureApplicationCookie(services);
         }
 
 
-        public void ConfigureDatabase(IServiceCollection services)
+        private void ConfigureDatabase(IServiceCollection services)
         {
             services.AddDbContext<MovieLandContext>(c =>
                 c.UseSqlServer(Configuration.GetConnectionString("MovieLandConnection"), x => x.MigrationsAssembly("MovieLand.Web")));
         }
 
 
-        public void ConfigureIdentity(IServiceCollection services)
+        private void ConfigureIdentity(IServiceCollection services)
         {
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI()
@@ -143,6 +103,61 @@ namespace MovieLand.Web
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 8;
                 options.Password.RequiredUniqueChars = 0;
+            });
+        }
+
+
+        private void ConfigureApplicationLayer(IServiceCollection services)
+        {
+            services.AddScoped<IMovieService, MovieService>();
+            services.AddScoped<IFavoritesService, FavoritesService>();
+            services.AddScoped<ICompareService, CompareService>();
+            services.AddScoped<ICartService, CartService>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IDirectorService, DirectorService>();
+            services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<IReviewService, ReviewService>();
+            services.AddScoped<IAccountService, AccountService>();
+        }
+
+
+        private void ConfigureInfrastructureLayer(IServiceCollection services)
+        {
+            services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IMovieRepository, MovieRepository>();
+            services.AddScoped<IFavoritesRepository, FavoritesRepository>();
+            services.AddScoped<ICompareRepository, CompareRepository>();
+            services.AddScoped<IRepository, CartRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IDirectorRepository, DirectorRepository>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<IReviewRepository, ReviewRepository>();
+        }
+
+
+        private void ConfigureWebLayer(IServiceCollection services)
+        {
+            services.AddAutoMapper(typeof(Startup));    // Add AutoMapper
+            services.AddScoped<IIndexPageService, IndexPageService>();
+            services.AddScoped<IMoviePageService, MoviePageService>();
+            services.AddScoped<IFavoritesPageService, FavoritesPageService>();
+            services.AddScoped<IComparePageService, ComparePageService>();
+            services.AddScoped<ICartPageService, CartPageService>();
+            services.AddScoped<ICheckOutPageService, CheckOutPageService>();
+            services.AddScoped<IAccountPageService, AccountPageService>();
+        }
+
+
+        private void ConfigureApplicationCookie(IServiceCollection services)
+        {
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/index";
+                options.Cookie.Name = "MovieLand";
+                options.Cookie.HttpOnly = true;
+                options.AccessDeniedPath = "/Errors/Unauthorized";
             });
         }
     }
