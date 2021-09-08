@@ -17,7 +17,9 @@ using MovieLand.Infrastructure.Logging;
 using MovieLand.Infrastructure.Repositories;
 using MovieLand.Infrastructure.Repositories.Base;
 using MovieLand.Web.Interfaces;
+using MovieLand.Web.Interfaces.Admin;
 using MovieLand.Web.Services;
+using MovieLand.Web.Services.Admin;
 
 
 namespace MovieLand.Web
@@ -77,6 +79,7 @@ namespace MovieLand.Web
             ConfigureInfrastructureLayer(services);
             ConfigureWebLayer(services);
             ConfigureApplicationCookie(services);
+            // Add route configuration
         }
 
 
@@ -139,13 +142,14 @@ namespace MovieLand.Web
         private void ConfigureWebLayer(IServiceCollection services)
         {
             services.AddAutoMapper(typeof(Startup));    // Add AutoMapper
-            services.AddScoped<IIndexPageService, IndexPageService>();
-            services.AddScoped<IMoviePageService, MoviePageService>();
-            services.AddScoped<IFavoritesPageService, FavoritesPageService>();
-            services.AddScoped<IComparePageService, ComparePageService>();
+            services.AddScoped<IAccountPageService, AccountPageService>();
             services.AddScoped<ICartPageService, CartPageService>();
             services.AddScoped<ICheckOutPageService, CheckOutPageService>();
-            services.AddScoped<IAccountPageService, AccountPageService>();
+            services.AddScoped<IComparePageService, ComparePageService>();
+            services.AddScoped<IDirectorPageService, DirectorPageService>();
+            services.AddScoped<IFavoritesPageService, FavoritesPageService>();
+            services.AddScoped<IIndexPageService, IndexPageService>();
+            services.AddScoped<IMoviePageService, MoviePageService>();
         }
 
 
