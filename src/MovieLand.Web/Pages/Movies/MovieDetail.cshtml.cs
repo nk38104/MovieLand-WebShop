@@ -55,5 +55,18 @@ namespace MovieLand.Web.Pages.Movies
             return RedirectToPage("MovieDetail", new { slug = movieSlug });
 
         }
+
+
+        public async Task<IActionResult> OnPostDeleteReviewAsync(int reviewId, string movieSlug)
+        {
+            if(reviewId < 1)
+            {
+                return NotFound();
+            }
+
+            await _reviewService.DeleteReview(reviewId);
+
+            return RedirectToPage("MovieDetail", new { slug = movieSlug });
+        }
     }
 }

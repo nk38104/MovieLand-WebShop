@@ -64,6 +64,24 @@
                 <input asp-for="Movie.Rate" class="form-control" />
                 <span asp-validation-for="Movie.Rate" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="@Model.DirectorIds" class="control-label"></label>
+                @if (Model.DirectorOptions != null)
+                {
+                    <select class="directorsSelect w-100 align-content-center" asp-for="@Model.DirectorIds" asp-items="@Model.DirectorOptions" multiple="multiple">
+                    </select>
+                }
+                <span asp-validation-for="@Model.DirectorIds" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.GenreIds" class="control-label"></label>
+                @if (Model.GenreOptions != null)
+                {
+                    <select class="genresSelect js-states form-control w-100" asp-for="@Model.GenreIds" asp-items="@Model.GenreOptions" multiple="multiple">
+                    </select>
+                }
+                <span asp-validation-for="@Model.GenreIds" class="text-danger"></span>
+            </div>
             <input type="hidden" asp-for="Movie.Id" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -73,9 +91,29 @@
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="../../Index">Back to List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js">
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            //$("#genresSelect").select2();
+            $(".directorsSelect").select2({
+                placeholder: "-- Select directors --",
+                allowClear: true,
+                closeOnSelect: false,
+            });
+            $(".genresSelect").select2({
+                placeholder: "-- Select genres --",
+                allowClear: true,
+                closeOnSelect: false,
+            });
+        });
+    </script>
 }

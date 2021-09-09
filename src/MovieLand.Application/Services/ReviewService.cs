@@ -37,6 +37,14 @@ namespace MovieLand.Application.Services
         }
 
 
+        public async Task DeleteReview(int reviewId)
+        {
+            var review = await _reviewRepository.GetByIdAsync(reviewId);
+
+            await _reviewRepository.DeleteReviewAsync(review);
+        }
+
+
         public async Task RemoveReview(int reviewId, int movieId)
         {
             var movie = await _movieRepository.GetByIdAsync(movieId);

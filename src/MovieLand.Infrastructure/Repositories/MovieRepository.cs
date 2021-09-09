@@ -24,6 +24,13 @@ namespace MovieLand.Infrastructure.Repositories
         }
 
 
+        public async Task<Movie> GetMovieByIdWithGenresAndDirectorsAsync(int movieId)
+        {
+            var spec = new MovieWithGenresAndDirectorsSpecification(movieId);
+            return (await GetAsync(spec)).FirstOrDefault();
+        }
+
+
         public async Task<Movie> GetMovieBySlugAsync(string slug)
         {
             var spec = new MovieSlugSpecification(slug);

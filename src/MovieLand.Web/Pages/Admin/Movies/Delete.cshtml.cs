@@ -23,14 +23,14 @@ namespace MovieLand.Web.Pages.Admin.Movies
         }
 
         
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? movieId)
         {
-            if (id == null)
+            if (movieId == null || movieId < 1)
             {
                 return NotFound();
             }
 
-            Movie = await _moviePageService.GetMovieById((int)id);
+            Movie = await _moviePageService.GetMovieById((int)movieId);
 
             return (Movie == null) ? NotFound() : Page();
         }
@@ -38,7 +38,7 @@ namespace MovieLand.Web.Pages.Admin.Movies
 
         public async Task<IActionResult> OnPostAsync(int? movieId)
         {
-            if (movieId == null)
+            if (movieId == null || movieId < 1)
             {
                 return NotFound();
             }

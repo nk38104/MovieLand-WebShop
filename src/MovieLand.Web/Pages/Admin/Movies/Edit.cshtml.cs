@@ -1,43 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using MovieLand.Domain.Entities;
-using MovieLand.Infrastructure.Data;
+using MovieLand.Web.Interfaces;
+using MovieLand.Web.ViewModels;
+using MovieLand.Web.ViewModels.Directors;
+using MovieLand.Web.ViewModels.Genres;
+
 
 namespace MovieLand.Web.Pages.Admin.Movies
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     public class EditModel : PageModel
     {
-        private readonly MovieLand.Infrastructure.Data.MovieLandContext _context;
-
-        public EditModel(MovieLand.Infrastructure.Data.MovieLandContext context)
-        {
-            _context = context;
-        }
-
+        private readonly IMoviePageService _moviePageService;
+        private readonly IIndexPageService _indexPageService;
         [BindProperty]
-        public Movie Movie { get; set; }
+        public EditMovieViewModel Movie { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        [BindProperty, DisplayName("Directors")]
+        public List<int> DirectorIds { get; set; }
+        public IEnumerable<SelectListItem> DirectorOptions { get; set; } = new List<SelectListItem>();
+
+        [BindProperty, DisplayName("Genres")]
+        public List<int> GenreIds { get; set; }
+        public IEnumerable<SelectListItem> GenreOptions { get; set; } = new List<SelectListItem>();
+
+        public EditModel(IIndexPageService indexPageService, IMoviePageService moviePageService)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Movie = await _context.Movies.FirstOrDefaultAsync(m => m.Id == id);
-
-            if (Movie == null)
-            {
-                return NotFound();
-            }
-            return Page();
+            _indexPageService = indexPageService ?? throw new ArgumentNullException(nameof(indexPageService));
+            _moviePageService = moviePageService ?? throw new ArgumentNullException(nameof(moviePageService));
         }
+
+
+        public async Task<IActionResult> OnGetAsync(int? movieId)
+        {
+            if (movieId == null || movieId < 1)
+            {
+                return NotFound();
+            }
+
+            Movie = await _moviePageService.GetMovieWithGenresAndDirectorsById((int)movieId);
+            DirectorIds = Movie.MovieDirectors.Select(md => md.DirectorId).ToList();
+            GenreIds = Movie.MovieGenres.Select(mg => mg.GenreId).ToList();
+            
+            await SetDirectorOptions(DirectorIds);
+            await SetGenreOptions(GenreIds);
+
+            return (Movie == null) ? NotFound() : Page();
+        }
+
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
@@ -48,13 +65,17 @@ namespace MovieLand.Web.Pages.Admin.Movies
                 return Page();
             }
 
-            _context.Attach(Movie).State = EntityState.Modified;
+            Movie.MovieDirectors = DirectorIds.Select(id => new MovieDirectorViewModel { MovieId = Movie.Id, DirectorId = id }).ToList();
+            Movie.MovieGenres = GenreIds.Select(id => new MovieGenreViewModel { MovieId = Movie.Id, GenreId = id }).ToList();
 
             try
             {
-                await _context.SaveChangesAsync();
+                if (Movie.MovieDirectors != null && Movie.MovieGenres != null)
+                {
+                    await _moviePageService.UpdateMovie(Movie);
+                }
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception)
             {
                 if (!MovieExists(Movie.Id))
                 {
@@ -66,12 +87,41 @@ namespace MovieLand.Web.Pages.Admin.Movies
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("../../Index");
         }
 
-        private bool MovieExists(int id)
+
+        private bool MovieExists(int movieId)
         {
-            return _context.Movies.Any(e => e.Id == id);
+            return  _moviePageService.GetMovieById(movieId) != null;
+        }
+
+
+        private async Task SetDirectorOptions(List<int> directorIds)
+        {
+            var directors = await _indexPageService.GetDirectors();
+
+            DirectorOptions = directors.Select(d =>
+                new SelectListItem
+                {
+                    Value = d.Id.ToString(),
+                    Text = d.Name,
+                    Selected = directorIds.Contains(d.Id)
+                }).ToList();
+        }
+
+
+        private async Task SetGenreOptions(List<int> genreIds)
+        {
+            var genres = await _indexPageService.GetGenres();
+
+            GenreOptions = genres.Select(g =>
+                new SelectListItem
+                {
+                    Value = g.Id.ToString(),
+                    Text = g.Name,
+                    Selected = (genreIds.Contains(g.Id)) ? true : false
+                }).ToList();
         }
     }
 }

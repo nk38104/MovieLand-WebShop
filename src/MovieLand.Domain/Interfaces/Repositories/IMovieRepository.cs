@@ -9,6 +9,7 @@ namespace MovieLand.Domain.Interfaces.Repositories
     public interface IMovieRepository : IRepository<Movie>
     {
         Task<Movie> GetMovieByIdWithGenresAsync(int movieId);
+        Task<Movie> GetMovieByIdWithGenresAndDirectorsAsync(int movieId);
         Task<Movie> GetMovieBySlugAsync(string slug);
 
         Task<IEnumerable<Movie>> GetMovieByTitleAsync(string movieTitle);

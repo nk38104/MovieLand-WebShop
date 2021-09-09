@@ -9,9 +9,11 @@ namespace MovieLand.Web.Interfaces
     {
         Task AddMovie(CreateMovieViewModel newMovie, List<int> genreIds, List<int> directorIds);
         Task DeleteMovie(int movieId);
+        Task UpdateMovie(EditMovieViewModel movie);
 
         Task<MovieViewModel> GetMovieById(int movieId);
         Task<MovieViewModel> GetMovieBySlug(string slug);
+        Task<EditMovieViewModel> GetMovieWithGenresAndDirectorsById(int movieId);
 
         Task<IEnumerable<MovieViewModel>> GetMovies();
         Task<IEnumerable<MovieViewModel>> GetMovies(string movieTitle);

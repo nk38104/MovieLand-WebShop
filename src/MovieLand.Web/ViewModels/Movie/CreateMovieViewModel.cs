@@ -13,7 +13,7 @@ namespace MovieLand.Web.ViewModels
         [Required]
         public string Slug { get; set; }
         [DisplayName("Picture URL")]
-        public string PictureUri { get; set; }
+        public string PictureUri { get; set; } = "https://i.stack.imgur.com/l60Hf.png";
         [Required, DisplayName("Release year")]
         public string ReleaseYear { get; set; }
         [Required]

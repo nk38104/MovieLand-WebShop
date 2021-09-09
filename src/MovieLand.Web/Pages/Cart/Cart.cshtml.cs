@@ -20,12 +20,15 @@ namespace MovieLand.Web.Pages.Cart
             _cartPageService = cartPageService ?? throw new ArgumentNullException(nameof(cartPageService));
         }
 
+
         public async Task OnGetAsync()
         {
             var user = User.Identity;
 
             if (user != null)
+            {
                 CartViewModel = await _cartPageService.GetCart(user.Name);
+            }
         }
 
 

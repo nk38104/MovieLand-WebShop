@@ -67,6 +67,14 @@
     {
         <li>
             @review.Username: @review.Comment
+            @if (@review.Username == User.Identity.Name || User.IsInRole("Admin") || User.IsInRole("Admin"))
+            {
+                <form asp-page-handler="DeleteReview" method="post">
+                    <input type="hidden" asp-for="@review.Id" name="reviewId" />
+                    <input type="hidden" asp-for="@Model.Movie.Slug" name="movieSlug" />
+                    <input type="submit" value="Delete">
+                </form>
+            }
         </li>
     }
 </ul>

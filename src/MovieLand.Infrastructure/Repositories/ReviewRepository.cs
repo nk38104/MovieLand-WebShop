@@ -14,6 +14,12 @@ namespace MovieLand.Infrastructure.Repositories
             : base(movieLandContext) { }
 
 
+        public async Task DeleteReviewAsync(Review review)
+        {
+            await DeleteAsync(review);
+        }
+
+
         public async Task<IEnumerable<Review>> GetReviewsByMovieIdAsync(int movieId)
         {
             return await GetAsync(r => r.MovieId == movieId);

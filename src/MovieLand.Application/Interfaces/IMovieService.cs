@@ -9,9 +9,11 @@ namespace MovieLand.Application.Interfaces
     {
         Task AddMovie(CreateMovieDTO newMovie, List<int> genreIds, List<int> directorIds);
         Task DeleteMovie(int movieId);
+        Task UpdateMovie(EditMovieDTO movie);
 
         Task<MovieDTO> GetMovieById(int movieId);
         Task<MovieDTO> GetMovieBySlug(string slug);
+        Task<EditMovieDTO> GetMovieWithGenresAndDirectorsById(int movieId);
 
         Task<IEnumerable<MovieDTO>> GetMovieByTitle(string movieTitle);
         

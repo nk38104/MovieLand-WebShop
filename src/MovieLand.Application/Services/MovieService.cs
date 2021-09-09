@@ -45,6 +45,14 @@ namespace MovieLand.Application.Services
         }
 
 
+        public async Task UpdateMovie(EditMovieDTO movie)
+        {
+            var movieMapped = ObjectMapper.Mapper.Map<Movie>(movie);
+
+            await _movieRepository.UpdateAsync(movieMapped);
+        }
+
+
         public async Task<MovieDTO> GetMovieById(int movieId)
         {
             var movie = await _movieRepository.GetByIdAsync(movieId);
@@ -60,6 +68,15 @@ namespace MovieLand.Application.Services
             var mappedMovie = ObjectMapper.Mapper.Map<MovieDTO>(movie);
 
             return mappedMovie;
+        }
+
+
+        public async Task<EditMovieDTO> GetMovieWithGenresAndDirectorsById(int movieId)
+        {
+            var movie = await _movieRepository.GetMovieByIdWithGenresAndDirectorsAsync(movieId);
+            var movieMapped = ObjectMapper.Mapper.Map<EditMovieDTO>(movie);
+
+            return movieMapped;
         }
 
 

@@ -5,80 +5,85 @@
 }
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CartViewModel.Items.First().Movie.PictureUri)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CartViewModel.Items.First().Movie.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CartViewModel.Items.First().Movie.Summary)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CartViewModel.Items.First().Movie.ReleaseYear)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CartViewModel.Items.First().Movie.Duration)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CartViewModel.Items.First().Movie.UnitPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CartViewModel.Items.First().Quantity)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.CartViewModel.Items)
-        {
-            <tr>
-                <td>
-                    <a asp-page="/Movies/MovieDetail" asp-route-slug="@item.Movie.Slug">
-                        <img src="@Html.DisplayFor(modelItem => item.Movie.PictureUri)" alt="Movie image" style="width: 300px; height: 400px;" />
-                    </a>
-                </td>
-                <td>
-                    <a asp-page="/Movies/MovieDetail" asp-route-slug="@item.Movie.Slug">@Html.DisplayFor(modelItem => item.Movie.Title)</a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Movie.Summary)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Movie.ReleaseYear)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Movie.Duration)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Movie.UnitPrice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    <a asp-page="/Movies/MovieDetail" asp-route-slug="@item.Movie.Slug">Movie Details</a> |
-                    <form sp-page="/Index" asp-page-handler="AddToCompare" method="post">
-                        <a href="javascript:;" onclick="parentNode.submit();">Add To Compare</a> |
-                        <input type="hidden" asp-for="@item.Movie.Id" name="movieId" />
-                    </form>
-                    <form asp-page-handler="RemoveFromCart" method="post">
-                        <a href="javascript:;" onclick="parentNode.submit();">Remove from Cart</a> |
-                        <input type="hidden" asp-for="@Model.CartViewModel.Id" name="cartId" />
-                        <input type="hidden" asp-for="@item.Id" name="cartItemId" />
-                    </form>
-                    <form asp-page="/Index" asp-page-handler="AddToFavorites" method="post">
-                        <a href="javascript:;" onclick="parentNode.submit();">Add to Favorites</a>
-                        <input type="hidden" asp-for="@item.Movie.Id" name="movieId" />
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<h1>Cart</h1>
 
-<h3>GRAND TOTAL: @Model.CartViewModel.GrandTotal</h3>
-<h4><a asp-page="/CheckOut/CheckOut">CHECK OUT</a></h4>
+<h4>Movies</h4>
+<hr />
+@if (@Model.CartViewModel != null)
+{
+    @foreach (var item in Model.CartViewModel.Items)
+    {
+        <div class="row p-3 bg-white border rounded mb-4 h-auto shadow-sm w-100">
+            <div class="col-md-3">
+                <img class="rounded w-100" src="@Html.DisplayFor(modelItem => item.Movie.PictureUri)" />
+            </div>
+            <div class="col-md-6 mt-2">
+                <h4><a asp-page="/Movies/MovieDetail" asp-route-slug="@item.Movie.Slug">@Html.DisplayFor(modelItem => item.Movie.Title)</a></h4>
+                <div class="d-flex flex-row">
+                    <div>@Html.DisplayFor(modelItem => item.Movie.Duration) min</div>
+                </div>
+                <div class="ratings mr-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="yellow" class="bi bi-star-fill" viewBox="0 0 16 16">
+                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                    </svg>
+                    <span>@Html.DisplayFor(modelItem => item.Movie.Rate)</span>
+                </div>
+                <p class="text-justify summary mb-0">
+                    <br><br>
+                    @Html.DisplayFor(modelItem => item.Movie.Summary)
+                </p>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="card-middle-form w-100">
+                        <form asp-page-handler="AddToCompare" method="post">
+                            <button class="btn btn-outline-primary btn-sm" type="submit">Add to Compare</button>
+                            <input type="hidden" asp-for="@item.Movie.Id" name="item.MovieId" />
+                        </form>
+                        <form asp-page-handler="AddToFavorites" method="post">
+                            <button class="btn btn-outline-primary btn-sm" type="submit">Add to favorites</button>
+                            <input type="hidden" asp-for="@item.Movie.Id" name="item.MovieId" />
+                        </form>
+                    </div>
+                }
+            </div>
+            <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                <div class="d-flex flex-row">
+                    <h3 class="mr-1">$@Html.DisplayFor(modelItem => item.Movie.UnitPrice)</h3>
+                </div>
+                <h6 class="text-success">Free shipping</h6>
+                <div class="d-flex flex-column justify-content-center" style="margin-top: 5rem;">
+                    <form class="w-100" asp-page="/Movies/MovieDetail" method="get">
+                        <button class="btn btn-primary btn-md" type="submit" style="width: 100%;">Details</button>
+                        <input type="hidden" asp-for="@item.Movie.Slug" name="slug" />
+                    </form>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <form class="w-100" asp-page-handler="RemoveFromCart" method="post">
+                            <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Remove from Cart</button>
+                            <input type="hidden" asp-for="@Model.CartViewModel.Id" name="cartId" />
+                            <input type="hidden" asp-for="@item.Id" name="cartItemId" />
+                        </form>
+                    }
+                    @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+                    {
+                        <form class="w-100" asp-page="/Admin/Movies/Delete" method="get">
+                            <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Delete</button>
+                            <input type="hidden" asp-for="@item.Movie.Id" name="item.MovieId" />
+                        </form>
+                        <form class="w-100" asp-page="/Admin/Movies/Edit" method="get">
+                            <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Edit</button>
+                            <input type="hidden" asp-for="@item.Movie.Id" name="item.MovieId" />
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+    <h3>GRAND TOTAL: @Model.CartViewModel.GrandTotal</h3>
+    @if (Model.CartViewModel.Items.Count > 0)
+    {
+        <h4><a asp-page="/CheckOut/CheckOut">CHECK OUT</a></h4>
+
+    }
+}

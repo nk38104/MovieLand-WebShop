@@ -39,6 +39,14 @@ namespace MovieLand.Web.Services
         }
 
 
+        public async Task UpdateMovie(EditMovieViewModel movie)
+        {
+            var movieMapped = _mapper.Map<EditMovieDTO>(movie);
+
+            await _movieService.UpdateMovie(movieMapped);
+        }
+
+
         public async Task<MovieViewModel> GetMovieById(int movieId)
         {
             var movie = await _movieService.GetMovieById(movieId);
@@ -52,6 +60,15 @@ namespace MovieLand.Web.Services
         {
             var movie = await _movieService.GetMovieBySlug(slug);
             var movieMapped = _mapper.Map<MovieViewModel>(movie);
+
+            return movieMapped;
+        }
+
+
+        public async Task<EditMovieViewModel> GetMovieWithGenresAndDirectorsById(int movieId)
+        {
+            var movie = await _movieService.GetMovieWithGenresAndDirectorsById(movieId);
+            var movieMapped = _mapper.Map<EditMovieViewModel>(movie);
 
             return movieMapped;
         }

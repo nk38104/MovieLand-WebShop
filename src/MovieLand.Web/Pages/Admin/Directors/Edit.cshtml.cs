@@ -65,7 +65,7 @@ namespace MovieLand.Web.Pages.Admin.Directors
 
         private bool DirectorExists(int id)
         {
-            return _directorPageService.GetDirectorById(id) == null;
+            return _directorPageService.GetDirectorById(id) != null;
         }
     }
 }
