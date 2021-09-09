@@ -5,6 +5,8 @@ using MovieLand.Application.Interfaces;
 using MovieLand.Web.Interfaces;
 using MovieLand.Web.ViewModels;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
@@ -46,6 +48,24 @@ namespace MovieLand.Web.Services
             var mappedCart = _mapper.Map<CartViewModel>(cart);
 
             return mappedCart;
+        }
+
+
+        public async Task<OrderViewModel> GetOrderById(int orderId)
+        {
+            var order = await _orderService.GetOrderById(orderId);
+            var orderMapped = _mapper.Map<OrderViewModel>(order);
+
+            return orderMapped;
+        }
+
+
+        public async Task<IEnumerable<OrderViewModel>> GetOrders()
+        {
+            var orders = await _orderService.GetOrders();
+            var ordersMapped = _mapper.Map<IEnumerable<OrderViewModel>>(orders);
+
+            return ordersMapped;
         }
 
 

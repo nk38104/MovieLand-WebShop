@@ -5,6 +5,8 @@ using MovieLand.Domain.Entities;
 using MovieLand.Domain.Interfaces;
 using MovieLand.Domain.Interfaces.Repositories;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
@@ -40,6 +42,15 @@ namespace MovieLand.Application.Services
         }
 
 
+        public async Task<OrderDTO> GetOrderById(int orderId)
+        {
+            var order = await _orderRepository.GetByIdAsync(orderId);
+            var orderMapped = ObjectMapper.Mapper.Map<OrderDTO>(order);
+
+            return orderMapped;
+        }
+
+
         public void ValidateOrder(OrderDTO orderDTO)
         {
             if (string.IsNullOrWhiteSpace(orderDTO.Username))
@@ -47,6 +58,15 @@ namespace MovieLand.Application.Services
 
             if (orderDTO.Items.Count == 0)
                 throw new ApplicationException("Order must contain at least one item.");
+        }
+
+
+        public async Task<IEnumerable<OrderDTO>> GetOrders()
+        {
+            var orders = await _orderRepository.GetAllAsync();
+            var ordersMapped = ObjectMapper.Mapper.Map<IEnumerable<OrderDTO>>(orders);
+
+            return ordersMapped;
         }
     }
 }

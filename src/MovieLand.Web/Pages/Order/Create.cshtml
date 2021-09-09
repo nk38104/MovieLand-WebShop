@@ -1,0 +1,113 @@
+﻿@page
+@model MovieLand.Web.Pages.Order.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h3>Order</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Order.FirstName" class="control-label"></label>
+                <input asp-for="Order.FirstName" class="form-control" />
+                <span asp-validation-for="Order.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.LastName" class="control-label"></label>
+                <input asp-for="Order.LastName" class="form-control" />
+                <span asp-validation-for="Order.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.Email" class="control-label"></label>
+                <input asp-for="Order.Email" class="form-control" />
+                <span asp-validation-for="Order.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.ContactNumber" class="control-label"></label>
+                <input asp-for="Order.ContactNumber" class="form-control" />
+                <span asp-validation-for="Order.ContactNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.ShippingAddress" class="control-label"></label>
+                <input asp-for="Order.ShippingAddress" class="form-control" />
+                <span asp-validation-for="Order.ShippingAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.City" class="control-label"></label>
+                <input asp-for="Order.City" class="form-control" />
+                <span asp-validation-for="Order.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.PostalCode" class="control-label"></label>
+                <input asp-for="Order.PostalCode" class="form-control" />
+                <span asp-validation-for="Order.PostalCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.Country" class="control-label"></label>
+                <input asp-for="Order.Country" class="form-control" />
+                <span asp-validation-for="Order.Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                <h4 class="checkout-title">Payment Method</h4>
+                <div class="checkout-payment-method">
+                    <div>
+                        <input asp-for="Order.PaymentMethod" type="radio" id="payment_cash" name="payment-method" value="cash">
+                        <label for="payment_bank">Cash on Delivery</label>
+                    </div>
+
+                    <div>
+                        <input asp-for="Order.PaymentMethod" type="radio" id="payment_cart" name="payment-method" value="card">
+                        <label for="payment_cash">Card online</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <ul>
+                            @if (Model.CartViewModel.Items.Any())
+                            {
+                                foreach (var cartItem in Model.CartViewModel.Items)
+                                {
+                                    <li>@cartItem.Movie.Title X @cartItem.Quantity <span> = $@cartItem.TotalPrice</span></li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                    <div class="form-group" style="text-align: end;">
+                        <p>
+                            Sub Total <span>$@Model.CartViewModel.GrandTotal</span><br />
+                            Shipping Fee <span>$00.00</span>
+                        </p>
+                        <h4 class="font-weight-bold">Grand Total <span>$@Model.CartViewModel.GrandTotal</span></h4>
+                    </div>
+                    <hr />
+                </div>
+            </div>
+            <div style="text-align: end;">
+                <button class="btn btn-primary btn-md" type="submit" style="width: 200px; height: 40px; text-align: center;">Place order</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr/>
+<h3 class="mt-3">Cart Total</h3>
+<hr/>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
