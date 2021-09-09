@@ -8,9 +8,9 @@ namespace MovieLand.Domain.Interfaces.Repositories
 {
     public interface IDirectorRepository : IRepository<Director>
     {
-        Task AddDirector(Director director);
-        Task DeleteDirector(Director director);
-        Task UpdateDirector(Director director);
+        Task AddDirectorAsync(Director director);
+        Task DeleteDirectorAsync(Director director);
+        Task UpdateDirectorAsync(Director director);
 
         Task<Director> GetDirectorByIdAsync(int directorId);
 

@@ -1,8 +1,8 @@
 ﻿@page
-@model MovieLand.Web.Pages.Admin.Directors.DeleteModel
+@model MovieLand.Web.Pages.Admin.Genres.DeleteModel
 
 @{
-    ViewData["Title"] = "Directors - Delete";
+    ViewData["Title"] = "Genres - Delete";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
@@ -10,19 +10,19 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Director</h4>
+    <h4>Genre</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Director.Name)
+            @Html.DisplayNameFor(model => model.Genre.Name)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Director.Name)
+            @Html.DisplayFor(model => model.Genre.Name)
         </dd>
     </dl>
     
     <form method="post">
-        <input type="hidden" asp-for="Director.Id" />
+        <input type="hidden" asp-for="Genre.Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-page="./Index">Back to List</a>
     </form>

@@ -7,6 +7,9 @@ namespace MovieLand.Web.Interfaces
 {
     public interface IMoviePageService
     {
+        Task AddMovie(CreateMovieViewModel newMovie, List<int> genreIds, List<int> directorIds);
+        Task DeleteMovie(int movieId);
+
         Task<MovieViewModel> GetMovieById(int movieId);
         Task<MovieViewModel> GetMovieBySlug(string slug);
 

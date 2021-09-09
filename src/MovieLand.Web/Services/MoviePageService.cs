@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
+using MovieLand.Application.DTOs;
 using MovieLand.Application.Interfaces;
 using MovieLand.Web.Interfaces;
 using MovieLand.Web.ViewModels;
@@ -21,6 +22,20 @@ namespace MovieLand.Web.Services
             _movieService = movieService ?? throw new ArgumentNullException(nameof(movieService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+
+
+        public async Task AddMovie(CreateMovieViewModel newMovie, List<int> genreIds, List<int> directorIds)
+        {
+            var newMovieMapped = _mapper.Map<CreateMovieDTO>(newMovie);
+
+            await _movieService.AddMovie(newMovieMapped, genreIds, directorIds);
+        }
+
+
+        public async Task DeleteMovie(int movieId)
+        {
+            await _movieService.DeleteMovie(movieId);
         }
 
 

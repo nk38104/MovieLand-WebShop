@@ -27,7 +27,7 @@ namespace MovieLand.Application.Services
         {
             var directorMapped = ObjectMapper.Mapper.Map<Director>(director);
 
-            await _directorRepository.AddDirector(directorMapped);
+            await _directorRepository.AddDirectorAsync(directorMapped);
         }
 
 
@@ -35,7 +35,7 @@ namespace MovieLand.Application.Services
         {
             var director = await _directorRepository.GetByIdAsync(directorId);
 
-            await _directorRepository.DeleteDirector(director);
+            await _directorRepository.DeleteDirectorAsync(director);
         }
 
 
@@ -43,16 +43,7 @@ namespace MovieLand.Application.Services
         {
             var directorMapped = ObjectMapper.Mapper.Map<Director>(director);
 
-            await _directorRepository.UpdateDirector(directorMapped);
-        }
-
-
-        public async Task<IEnumerable<DirectorDTO>> GetDirectorList()
-        {
-            var directors = await _directorRepository.GetDirectorListAsync();
-            var directorsMapped = ObjectMapper.Mapper.Map<IEnumerable<DirectorDTO>>(directors);
-
-            return directorsMapped;
+            await _directorRepository.UpdateDirectorAsync(directorMapped);
         }
 
 
@@ -62,6 +53,15 @@ namespace MovieLand.Application.Services
             var directorMapped = ObjectMapper.Mapper.Map<DirectorDTO>(director);
 
             return directorMapped;
+        }
+
+
+        public async Task<IEnumerable<DirectorDTO>> GetDirectorList()
+        {
+            var directors = await _directorRepository.GetDirectorListAsync();
+            var directorsMapped = ObjectMapper.Mapper.Map<IEnumerable<DirectorDTO>>(directors);
+
+            return directorsMapped;
         }
     }
 }

@@ -14,6 +14,30 @@ namespace MovieLand.Infrastructure.Repositories
             : base(movieLandContext) { }
 
 
+        public async Task AddGenreAsync(Genre genre)
+        {
+            await AddAsync(genre);
+        }
+
+
+        public async Task DeleteGenreAsync(Genre genre)
+        {
+            await DeleteAsync(genre);
+        }
+
+
+        public async Task UpdateGenreAsync(Genre genre)
+        {
+            await UpdateAsync(genre);
+        }
+
+
+        public async Task<Genre> GetGenreByIdAsync(int genreId)
+        {
+            return await GetByIdAsync(genreId);
+        }
+
+
         public async Task<IEnumerable<Genre>> GetGenreListAsync()
         {
             return await GetAllAsync();

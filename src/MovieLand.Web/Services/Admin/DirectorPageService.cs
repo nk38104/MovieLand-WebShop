@@ -44,15 +44,6 @@ namespace MovieLand.Web.Services.Admin
         }
  
 
-        public async Task<IEnumerable<DirectorViewModel>> GetDirectors()
-        {
-            var directors = await _directorService.GetDirectorList();
-            var directorsMapped = _mapper.Map<IEnumerable<DirectorViewModel>>(directors);
-            
-            return directorsMapped;
-        }
-
-
         public async Task<DirectorViewModel> GetDirectorById(int directorId)
         {
             var director = await _directorService.GetDirectorById(directorId);
@@ -61,5 +52,13 @@ namespace MovieLand.Web.Services.Admin
             return directorMapped;
         }
 
+
+        public async Task<IEnumerable<DirectorViewModel>> GetDirectors()
+        {
+            var directors = await _directorService.GetDirectorList();
+            var directorsMapped = _mapper.Map<IEnumerable<DirectorViewModel>>(directors);
+            
+            return directorsMapped;
+        }
     }
 }

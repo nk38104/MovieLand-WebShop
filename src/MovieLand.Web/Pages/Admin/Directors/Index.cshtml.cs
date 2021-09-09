@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -15,7 +16,7 @@ namespace MovieLand.Web.Pages.Admin.Directors
 
         public IndexModel(IDirectorPageService directorPageService)
         {
-            _directorPageService = directorPageService;
+            _directorPageService = directorPageService ?? throw new ArgumentNullException(nameof(directorPageService));
         }
 
         

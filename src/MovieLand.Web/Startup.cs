@@ -148,6 +148,7 @@ namespace MovieLand.Web
             services.AddScoped<IComparePageService, ComparePageService>();
             services.AddScoped<IDirectorPageService, DirectorPageService>();
             services.AddScoped<IFavoritesPageService, FavoritesPageService>();
+            services.AddScoped<IGenrePageService, GenrePageService>();
             services.AddScoped<IIndexPageService, IndexPageService>();
             services.AddScoped<IMoviePageService, MoviePageService>();
         }

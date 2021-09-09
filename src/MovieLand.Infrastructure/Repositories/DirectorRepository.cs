@@ -15,33 +15,33 @@ namespace MovieLand.Infrastructure.Repositories
             : base(movieLandContext) { }
 
 
-        public async Task AddDirector(Director director)
+        public async Task AddDirectorAsync(Director director)
         {
             await AddAsync(director);
         }
 
 
-        public async Task DeleteDirector(Director director)
+        public async Task DeleteDirectorAsync(Director director)
         {
             await DeleteAsync(director);
         }
 
 
-        public async Task UpdateDirector(Director director)
+        public async Task UpdateDirectorAsync(Director director)
         {
             await UpdateAsync(director);
-        }
-
-
-        public async Task<IEnumerable<Director>> GetDirectorListAsync()
-        {
-            return await GetAllAsync();
         }
 
 
         public async Task<Director> GetDirectorByIdAsync(int directorId)
         {
             return await GetByIdAsync(directorId);
+        }
+
+
+        public async Task<IEnumerable<Director>> GetDirectorListAsync()
+        {
+            return await GetAllAsync();
         }
     }
 }

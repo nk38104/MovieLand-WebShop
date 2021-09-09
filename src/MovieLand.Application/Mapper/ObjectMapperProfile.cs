@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MovieLand.Application.DTOs;
 using MovieLand.Domain.Entities;
-using System.Threading.Tasks;
 
 
 namespace MovieLand.Application.Mapper
@@ -18,6 +17,7 @@ namespace MovieLand.Application.Mapper
             CreateMap<Genre, GenreDTO>().ReverseMap();
             CreateMap<Movie, MovieDTO>()
                 .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title)).ReverseMap();
+            CreateMap<Movie, CreateMovieDTO>().ReverseMap();
             CreateMap<Order, OrderDTO>().ReverseMap();
             CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
             CreateMap<Review, ReviewDTO>().ReverseMap();

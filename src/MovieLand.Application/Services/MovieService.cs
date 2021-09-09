@@ -1,10 +1,12 @@
 ﻿using MovieLand.Application.DTOs;
 using MovieLand.Application.Interfaces;
 using MovieLand.Application.Mapper;
+using MovieLand.Domain.Entities;
 using MovieLand.Domain.Interfaces;
 using MovieLand.Domain.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 
@@ -18,10 +20,31 @@ namespace MovieLand.Application.Services
         public MovieService(IMovieRepository movieRepository, IAppLogger<MovieService> logger)
         {
             _movieRepository = movieRepository ?? throw new ArgumentNullException(nameof(movieRepository));
+            _movieRepository = movieRepository ?? throw new ArgumentNullException(nameof(movieRepository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        
+
+        public async Task AddMovie(CreateMovieDTO newMovie, List<int> genreIds, List<int> directorIds)
+        {
+            var newMovieMapped = ObjectMapper.Mapper.Map<Movie>(newMovie);
+            var movie = await _movieRepository.AddAsync(newMovieMapped);
+
+            movie.MovieDirectors = directorIds.Select(id => new MovieDirector { MovieId = movie.Id, DirectorId = id }).ToList();
+            movie.MovieGenres = genreIds.Select(id => new MovieGenre { MovieId = movie.Id, GenreId = id }).ToList();
+
+            await _movieRepository.UpdateAsync(movie);
+        }
+
+
+        public async Task DeleteMovie(int movieId)
+        {
+            var movie = await _movieRepository.GetByIdAsync(movieId);
+
+            await _movieRepository.DeleteAsync(movie);
+        }
+
+
         public async Task<MovieDTO> GetMovieById(int movieId)
         {
             var movie = await _movieRepository.GetByIdAsync(movieId);

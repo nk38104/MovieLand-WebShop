@@ -1,23 +1,23 @@
 ﻿@page
-@model MovieLand.Web.Pages.Admin.Directors.CreateModel
+@model MovieLand.Web.Pages.Admin.Genres.CreateModel
 
 @{
-    ViewData["Title"] = "Admin - Directors - Create";
+    ViewData["Title"] = "Genres - Create";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
 <h1>Create</h1>
 
-<h4>Director</h4>
+<h4>Genre</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Director.Name" class="control-label"></label>
-                <input asp-for="Director.Name" class="form-control" />
-                <span asp-validation-for="Director.Name" class="text-danger"></span>
+                <label asp-for="Genre.Name" class="control-label"></label>
+                <input asp-for="Genre.Name" class="form-control" />
+                <span asp-validation-for="Genre.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

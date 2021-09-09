@@ -7,18 +7,18 @@ using MovieLand.Web.Interfaces.Admin;
 using MovieLand.Web.ViewModels;
 
 
-namespace MovieLand.Web.Pages.Admin.Directors
+namespace MovieLand.Web.Pages.Admin.Genres
 {
     [Authorize(Roles = "Admin,SuperAdmin")]
     public class EditModel : PageModel
     {
-        private readonly IDirectorPageService _directorPageService;
+        private readonly IGenrePageService _genrePageService;
         [BindProperty]
-        public DirectorViewModel Director { get; set; }
+        public GenreViewModel Genre { get; set; }
 
-        public EditModel(IDirectorPageService directorPageService)
+        public EditModel(IGenrePageService genrePageService)
         {
-            _directorPageService = directorPageService ?? throw new ArgumentNullException(nameof(directorPageService));
+            _genrePageService = genrePageService ?? throw new ArgumentNullException(nameof(genrePageService));
         }
 
 
@@ -29,10 +29,11 @@ namespace MovieLand.Web.Pages.Admin.Directors
                 return NotFound();
             }
 
-            Director = await _directorPageService.GetDirectorById((int)id);
+            Genre = await _genrePageService.GetGenreById((int)id);
 
-            return (Director == null) ? NotFound() : Page();
+            return (Genre == null) ? NotFound() : Page();
         }
+
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
@@ -45,11 +46,11 @@ namespace MovieLand.Web.Pages.Admin.Directors
 
             try
             {
-                await _directorPageService.UpdateDirector(Director);
+                await _genrePageService.UpdateGenre(Genre);
             }
             catch (Exception)
             {
-                if (!DirectorExists(Director.Id))
+                if (!GenreExists(Genre.Id))
                 {
                     return NotFound();
                 }
@@ -63,9 +64,9 @@ namespace MovieLand.Web.Pages.Admin.Directors
         }
 
 
-        private bool DirectorExists(int id)
+        private bool GenreExists(int id)
         {
-            return _directorPageService.GetDirectorById(id) == null;
+            return _genrePageService.GetGenreById(id) == null;
         }
     }
 }
