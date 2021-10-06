@@ -12,7 +12,6 @@ using MovieLand.Web.ViewModels;
 
 namespace MovieLand.Web.Pages.Movies
 {
-    [Authorize]
     public class MovieDetailModel : PageModel
     {
         private readonly IMoviePageService _moviePageService;

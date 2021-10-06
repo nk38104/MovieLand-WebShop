@@ -61,6 +61,7 @@ namespace MovieLand.Application.Services.Account
                 await _signInManager.PasswordSignInAsync(newUser.Email, userRegistrationData.Password, false, lockoutOnFailure: false);
                 return roleResult;
             }
+
             return roleResult;
         }
     }

@@ -1594,4 +1594,17 @@ select {
     font-weight: 500;
 }
 
+.search-bar {
+    width: 50%;
+    height: 100%;
+    padding-left: 10px;
+}
+
+.search-button {
+    transform: translateY(-2px);
+    width: 40px;
+    height: 105%;
+    border-radius: 5px;
+    background-color: #1b6ec2;
+}
 
