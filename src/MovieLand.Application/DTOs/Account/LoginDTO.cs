@@ -7,7 +7,7 @@ namespace MovieLand.Application.DTOs.Account
     public class LoginDTO : BaseDTO
     {
         [Required]
-        public string Email { get; set; }
+        public string Username { get; set; }
 
         [Required]
         public string Password { get; set; }

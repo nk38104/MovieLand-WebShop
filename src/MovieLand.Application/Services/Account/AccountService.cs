@@ -21,8 +21,13 @@ namespace MovieLand.Application.Services.Account
 
         public async Task<SignInResult> LoginUserAsync(LoginDTO userLoginData)
         {
+            if(userLoginData.Username.Contains('@'))
+            {
+                userLoginData.Username = (await _userManager.FindByEmailAsync(userLoginData.Username)).ToString();
+            }
+
             // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-            return await _signInManager.PasswordSignInAsync(userLoginData.Email, userLoginData.Password, userLoginData.RememberMe, lockoutOnFailure: false);
+            return await _signInManager.PasswordSignInAsync(userLoginData.Username, userLoginData.Password, userLoginData.RememberMe = false, lockoutOnFailure: false);
         }
 
 

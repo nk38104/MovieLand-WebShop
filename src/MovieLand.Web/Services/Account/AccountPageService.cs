@@ -44,6 +44,7 @@ namespace MovieLand.Web.Services
         public async Task<bool> RegisterUser(RegisterViewModel userRegistrationData)
         {
             var userRegistrationDataMapped = _mapper.Map<RegisterDTO>(userRegistrationData);
+
             return await _accountService.RegisterUserAsync(userRegistrationDataMapped);
         }
     }

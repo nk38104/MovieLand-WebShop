@@ -18,11 +18,11 @@
                         <div asp-validation-summary="All" class="text-danger"></div>
 
                         <div class="form-group">
-                            <input asp-for="@Model.LoginViewModel.Email" type="email" class="form-control form-control-user" aria-describedby="emailHelp" placeholder="Enter Email Address...">
-                            <span asp-validation-for="@Model.LoginViewModel.Email" class="text-danger"></span>
+                            <input asp-for="@Model.LoginViewModel.Username" class="form-control form-control-user" aria-describedby="emailHelp" placeholder="Enter username or email...">
+                            <span asp-validation-for="@Model.LoginViewModel.Username" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <input asp-for="@Model.LoginViewModel.Password" type="password" class="form-control form-control-user" placeholder="Password">
+                            <input asp-for="@Model.LoginViewModel.Password" type="password" class="form-control form-control-user" placeholder="Enter password...">
                             <span asp-validation-for="@Model.LoginViewModel.Password" class="text-danger"></span>
                         </div>
                         <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
