@@ -7,6 +7,11 @@ namespace MovieLand.Web.ViewModels
     public class RegisterViewModel : BaseViewModel
     {
         [Required]
+        [Display(Name = "Username")]
+        [RegularExpression(@"^[a-zA-Z0-9'' ']+$", ErrorMessage = "Special characters are not allowed in username.")]
+        public string Username { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

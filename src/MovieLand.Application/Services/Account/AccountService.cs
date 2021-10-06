@@ -34,7 +34,7 @@ namespace MovieLand.Application.Services.Account
         
         public async Task<bool> RegisterUserAsync(RegisterDTO userRegistrationData)
         {
-            var newIdentityUser = new IdentityUser { Email = userRegistrationData.Email, UserName = userRegistrationData.Email };
+            var newIdentityUser = new IdentityUser { Email = userRegistrationData.Email, UserName = userRegistrationData.Username };
             var registrationResult = await _userManager.CreateAsync(newIdentityUser, userRegistrationData.Password);
 
             if (registrationResult.Succeeded)

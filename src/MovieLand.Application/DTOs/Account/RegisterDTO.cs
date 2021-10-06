@@ -7,6 +7,9 @@ namespace MovieLand.Application.DTOs
     public class RegisterDTO : BaseDTO
     {
         [Required]
+        public string Username { get; set; }
+
+        [Required]
         public string Email { get; set; }
 
         [Required]

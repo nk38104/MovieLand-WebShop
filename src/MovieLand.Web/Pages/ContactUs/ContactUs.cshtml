@@ -16,26 +16,34 @@
                 <div class="col-lg-6">
                     <div class="contact-box ml-3">
                         <h1 class="font-weight-light mt-2">Quick Contact</h1>
-                        <form class="mt-4">
+                        <form class="mt-4" method="post">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <div class="form-group mt-2">
-                                        <input class="form-control" type="text" placeholder="Enter your full name...">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Contact.Name" class="control-label"></label>
+                                        <input asp-for="@Model.Contact.Name" class="form-control" placeholder="Enter your full name..."/>
+                                        <span asp-validation-for="@Model.Contact.Name" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <div class="form-group mt-2">
-                                        <input class="form-control" type="email" placeholder="Enter your e-mail adress...">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Contact.Email" class="control-label"></label>
+                                        <input asp-for="@Model.Contact.Email" class="form-control" placeholder="Enter your e-mail adress..." />
+                                        <span asp-validation-for="@Model.Contact.Email" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <div class="form-group mt-2">
-                                        <input class="form-control" type="text" placeholder="Enter message subject...">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Contact.Subject" class="control-label"></label>
+                                        <input asp-for="@Model.Contact.Subject" class="form-control" placeholder="Enter message subject..." />
+                                        <span asp-validation-for="@Model.Contact.Subject" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <div class="form-group mt-2">
-                                        <textarea class="form-control" rows="3" placeholder="Enter your message here..."></textarea>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.Contact.Message" class="control-label"></label>
+                                        <textarea asp-for="@Model.Contact.Message" class="form-control" placeholder="Enter your message here..."></textarea>
+                                        <span asp-validation-for="@Model.Contact.Message" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
