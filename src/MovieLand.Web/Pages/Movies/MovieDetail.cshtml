@@ -4,88 +4,181 @@
     ViewData["Title"] = "Movie Detail";
 }
 
-<h1>Movie Detail</h1>
+<h1>Movie Details</h1>
 <br />
 <br />
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Movie.PictureUri)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Movie.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Movie.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Movie.ReleaseYear)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Movie.Duration)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Movie.UnitPrice)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                <img src="@Html.DisplayFor(modelItem => Model.Movie.PictureUri)" alt="Movie image" style="width: 300px; height: 400px;"/>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.Movie.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.Movie.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.Movie.ReleaseYear)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.Movie.Duration)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.Movie.UnitPrice)
-            </td>
-            <td>
-                <a asp-page="./Compare/AddToCompare" asp-route-id="@Model.Movie.Id">AddToCompare</a> |
-                <a asp-page="./Cart/AddToCart" asp-route-id="@Model.Movie.Id">AddToCart</a> |
-                <a asp-page="./Favorites/AddToFavorites" asp-route-id="@Model.Movie.Id">AddToFavorites</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
+@*<table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.PictureUri)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.ReleaseYear)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.Duration)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Movie.UnitPrice)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <img src="@Html.DisplayFor(modelItem => Model.Movie.PictureUri)" alt="Movie image" style="width: 300px; height: 400px;" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Movie.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Movie.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Movie.ReleaseYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Movie.Duration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Movie.UnitPrice)
+                </td>
+                <td>
+                    <a asp-page="./Compare/AddToCompare" asp-route-id="@Model.Movie.Id">AddToCompare</a> |
+                    <a asp-page="./Cart/AddToCart" asp-route-id="@Model.Movie.Id">AddToCart</a> |
+                    <a asp-page="./Favorites/AddToFavorites" asp-route-id="@Model.Movie.Id">AddToFavorites</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-<h2>REVIEWS:</h2>
-<ul>
-    @foreach (var review in Model.Movie.Reviews)
-    {
-        <li>
-            @review.Username: @review.Comment
-            @if (@review.Username == User.Identity.Name || User.IsInRole("Admin") || User.IsInRole("Admin"))
-            {
-                <form asp-page-handler="DeleteReview" method="post">
-                    <input type="hidden" asp-for="@review.Id" name="reviewId" />
-                    <input type="hidden" asp-for="@Model.Movie.Slug" name="movieSlug" />
-                    <input type="submit" value="Delete">
+    <h2>REVIEWS:</h2>
+    <ul>
+        @foreach (var review in Model.Movie.Reviews)
+        {
+            <li>
+                @review.Username: @review.Comment
+                @if (@review.Username == User.Identity.Name || User.IsInRole("Admin") || User.IsInRole("Admin"))
+                {
+                    <form asp-page-handler="DeleteReview" method="post">
+                        <input type="hidden" asp-for="@review.Id" name="reviewId" />
+                        <input type="hidden" asp-for="@Model.Movie.Slug" name="movieSlug" />
+                        <input type="submit" value="Delete">
+                    </form>
+                }
+            </li>
+        }
+    </ul>
+
+    <form asp-page-handler="AddReviewToMovie" method="post">
+        <input type="email" asp-for="@Model.ReviewForm.Email" placeholder="Enter your email..." />
+        <input type="text" asp-for="@Model.ReviewForm.Comment" placeholder="Enter your comment here..." />
+        <input type="range" asp-for="@Model.ReviewForm.Rate" min="0" max="5" step="0.1" value="0" oninput="this.nextElementSibling.value = this.value">
+        <output>0</output>
+        <input type="hidden" asp-for="@Model.Movie.Id" name="movieId" />
+        <input type="hidden" asp-for="@Model.Movie.Slug" name="movieSlug" />
+
+        <input type="submit" value="Submit">
+    </form>*@
+
+
+<!--Section: Block Content-->
+<section class="mb-5">
+    <div class="row">
+        <div class="col-md-6 mb-4 mb-md-0">
+            <div id="mdb-lightbox-ui"></div>
+            <div class="mdb-lightbox">
+                <div class="row product-gallery mx-1">
+                    <div class="col-12 mb-0">
+                        <figure class="view overlay rounded z-depth-1 main-img">
+                            <a href="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15a.jpg"
+                               data-size="710x823">
+                                <img src="@Model.Movie.PictureUri" alt="Movie image"
+                                     class="img-fluid z-depth-1">
+                            </a>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2>@Model.Movie.Title</h2>
+            <p class="mb-2 text-muted text-uppercase small">Genres</p>
+            <ul class="rating">
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#1b6ec2" class="bi bi-star-fill" viewBox="0 0 16 16">
+                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                    </svg>
+                    @Model.Movie.Rate / 5.0
+                </li>
+            </ul>
+            <h4 class="mt-2"><span class="mr-1"><strong>$@Model.Movie.UnitPrice</strong></span></h4>
+            <p class="pt-1">
+                @Model.Movie.Description
+            </p>
+            <div class="table-responsive">
+                <table class="table table-sm table-borderless mb-0">
+                    <tbody>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Director/s</strong></th>
+                            <td>TEMP</td>
+                        </tr>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Duration</strong></th>
+                            <td>@Model.Movie.Duration min</td>
+                        </tr>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Delivery</strong></th>
+                            <td>Global, E-mail</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+            <div class="table-responsive mb-2">
+                <table class="table table-sm table-borderless">
+                    <tbody>
+                        <tr>
+                            <td class="pl-0 pb-0 w-25">Quantity</td>
+                        </tr>
+                        <tr>
+                            <td class="pl-0">
+                                <div class="def-number-input number-input safari_only mb-0">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                            class="minus"></button>
+                                    <input class="quantity" min="0" name="quantity" value="1" type="number">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                            class="plus"></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="w-100" style="position: absolute; bottom: 25%;">
+                <form class="w-100" asp-page-handler="AddToCart" method="post">
+                    <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Add to Cart</button>
+                    <input type="hidden" asp-for="@Model.Movie.Id" name="movieId" />
                 </form>
-            }
-        </li>
-    }
-</ul>
-
-<form asp-page-handler="AddReviewToMovie" method="post">
-    <input type="email" asp-for="@Model.ReviewForm.Email" placeholder="Enter your email..." />
-    <input type="text" asp-for="@Model.ReviewForm.Comment" placeholder="Enter your comment here..." />
-    <input type="range" asp-for="@Model.ReviewForm.Rate" min="0" max="5" step="0.1" value="0" oninput="this.nextElementSibling.value = this.value">
-    <output>0</output>
-    <input type="hidden" asp-for="@Model.Movie.Id" name="movieId" />
-    <input type="hidden" asp-for="@Model.Movie.Slug" name="movieSlug" />
-
-    <input type="submit" value="Submit">
-</form>
+                <form asp-page-handler="AddToFavorites" method="post">
+                    <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Add to Favorites</button>
+                    <input type="hidden" asp-for="@Model.Movie.Id" name="movieId" />
+                </form>
+                <form asp-page-handler="AddToCompare" method="post">
+                    <button class="btn btn-outline-primary bbtn-md mt-2 w-100" type="submit">Add to Compare</button>
+                    <input type="hidden" asp-for="@Model.Movie.Id" name="movieId" />
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Section: Block Content-->
