@@ -1608,3 +1608,9 @@ select {
     background-color: #1b6ec2;
 }
 
+/* --- MOVIE DETAIL PAGE --- */
+
+.review-info-tab:active {
+    text-decoration: underline;
+}
+/* --- MOVIE DETAIL PAGE --- */

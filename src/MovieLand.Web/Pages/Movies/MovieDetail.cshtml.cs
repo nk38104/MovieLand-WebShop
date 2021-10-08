@@ -51,7 +51,6 @@ namespace MovieLand.Web.Pages.Movies
             await _reviewService.AddReview(reviewMapped);
 
             return RedirectToPage("MovieDetail", new { slug = movieSlug });
-
         }
 
 
