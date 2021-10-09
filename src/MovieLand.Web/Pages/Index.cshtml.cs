@@ -43,36 +43,36 @@ namespace MovieLand.Web.Pages
         }
 
 
-        public async Task<IActionResult> OnPostAddToFavoritesAsync(int movieId)
+        public async Task<IActionResult> OnPostAddToFavoritesAsync(int movieId, string requestPagePath)
         {
             var user = User.Identity;
 
             if (user.IsAuthenticated)
                 await _indexPageService.AddToFavorites(user.Name, movieId);
 
-            return RedirectToPage();
+            return RedirectToPage(requestPagePath);
         }
 
 
-        public async Task<IActionResult> OnPostAddToCompareAsync(int movieId)
+        public async Task<IActionResult> OnPostAddToCompareAsync(int movieId, string requestPagePath)
         {
             var user = User.Identity;
 
             if (user.IsAuthenticated)
                 await _indexPageService.AddToCompare(user.Name, movieId);
 
-            return RedirectToPage();
+            return RedirectToPage(requestPagePath);
         }
 
 
-        public async Task<IActionResult> OnPostAddToCartAsync(int movieId)
+        public async Task<IActionResult> OnPostAddToCartAsync(int movieId, string requestPagePath)
         {
             var user = User.Identity;
 
             if (user.IsAuthenticated)
                 await _indexPageService.AddToCart(user.Name, movieId);
 
-            return RedirectToPage();
+            return RedirectToPage(requestPagePath);
         }
 
 

@@ -38,10 +38,12 @@
                         <form asp-page-handler="AddToCompare" method="post">
                             <button class="btn btn-outline-primary btn-sm" type="submit">Add to Compare</button>
                             <input type="hidden" asp-for="@item.Movie.Id" name="item.MovieId" />
+                            <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />
                         </form>
                         <form asp-page-handler="AddToFavorites" method="post">
-                            <button class="btn btn-outline-primary btn-sm" type="submit">Add to favorites</button>
+                            <button class="btn btn-outline-primary btn-sm" type="submit">Add to Favorites</button>
                             <input type="hidden" asp-for="@item.Movie.Id" name="item.MovieId" />
+                            <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />
                         </form>
                     </div>
                 }
