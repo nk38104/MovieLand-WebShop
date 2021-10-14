@@ -9,6 +9,7 @@ namespace MovieLand.Web.Interfaces
     public interface ICheckOutPageService
     {
         Task CheckOutOrder(OrderViewModel order, string username);
+        Task DeleteOrder(int orderId);
 
         Task<CartViewModel> GetCart(string username);
         Task<OrderViewModel> GetOrderById(int order);

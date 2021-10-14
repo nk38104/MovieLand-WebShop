@@ -4,38 +4,34 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using MovieLand.Domain.Entities;
-using MovieLand.Infrastructure.Data;
+using MovieLand.Web.Services;
 using MovieLand.Web.ViewModels;
+
 
 namespace MovieLand.Web.Pages.Order
 {
     public class DetailsModel : PageModel
     {
-        private readonly MovieLand.Infrastructure.Data.MovieLandContext _context;
+        private readonly CheckOutPageService _checkOutPageService;
 
-        public DetailsModel(MovieLand.Infrastructure.Data.MovieLandContext context)
+        public DetailsModel(CheckOutPageService checkOutPageService)
         {
-            _context = context;
+            _checkOutPageService = checkOutPageService;
         }
 
         public OrderViewModel Order { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+
+        public async Task<IActionResult> OnGetAsync(int? orderId)
         {
-            if (id == null)
+            if (orderId == null)
             {
                 return NotFound();
             }
 
-            //Order = await _context.Orders.FirstOrDefaultAsync(m => m.Id == id);
+            Order = await _checkOutPageService.GetOrderById((int)orderId);
 
-            if (Order == null)
-            {
-                return NotFound();
-            }
-            return Page();
+            return (Order == null) ? NotFound() : Page();
         }
     }
 }

@@ -5,7 +5,6 @@ using MovieLand.Domain.Entities;
 using MovieLand.Domain.Interfaces;
 using MovieLand.Domain.Interfaces.Repositories;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -21,6 +20,14 @@ namespace MovieLand.Application.Services
         {
             _orderRepository = orderRepository ?? throw new ArgumentNullException(nameof(orderRepository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+
+
+        public async Task DeleteOrder(int orderId)
+        {
+            var order = await _orderRepository.GetByIdAsync(orderId);
+            
+            await _orderRepository.DeleteAsync(order);
         }
 
 

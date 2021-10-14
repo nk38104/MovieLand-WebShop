@@ -7,6 +7,7 @@ namespace MovieLand.Application.Interfaces
 {
     public interface IOrderService
     {
+        Task DeleteOrder(int orderId);
         Task<OrderDTO> CheckOutOrder(OrderDTO orderDTO);
         Task<OrderDTO> GetOrderById(int orderId);
         

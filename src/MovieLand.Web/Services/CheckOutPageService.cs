@@ -42,6 +42,12 @@ namespace MovieLand.Web.Services
         }
 
 
+        public async Task DeleteOrder(int orderId)
+        {
+            await _orderService.DeleteOrder(orderId);
+        }
+
+
         public async Task<CartViewModel> GetCart(string username)
         {
             var cart = await _cartService.GetCartByUsername(username);

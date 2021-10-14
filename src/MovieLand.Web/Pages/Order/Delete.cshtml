@@ -6,11 +6,11 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Delete</h1>
+<h1>Delete order - n.@Model.Order.Id</h1>
 
 <h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Order</h4>
+<div class="mt-4">
+    <h3><b>Order  n.@Model.Order.Id </b></h3>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -94,7 +94,7 @@
     </dl>
     
     <form method="post">
-        <input type="hidden" asp-for="Order.Id" />
+        <input type="hidden" asp-for="Order.Id" name="orderId"/>
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-page="./Index">Back to List</a>
     </form>

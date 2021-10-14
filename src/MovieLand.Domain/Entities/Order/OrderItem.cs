@@ -15,5 +15,10 @@ namespace MovieLand.Domain.Entities
         // 1-1 relationship
         public int MovieId { get; set; }
         public Movie Movie { get; set; }
+
+        // n-1 relationship
+        [ForeignKey("OrderId")]
+        public int OrderId { get; set; }
+        public virtual Order Order { get; set; }
     }
 }

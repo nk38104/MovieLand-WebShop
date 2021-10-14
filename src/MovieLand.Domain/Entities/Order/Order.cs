@@ -26,6 +26,6 @@ namespace MovieLand.Domain.Entities
         public decimal GrandTotal { get; set; }
 
         // 1-n relationships
-        public List<OrderItem> Items { get; set; }
+        public virtual List<OrderItem> Items { get; set; }
     }
 }

@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using MovieLand.Domain.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
+using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace MovieLand.Infrastructure.Data
 {
@@ -44,6 +45,7 @@ namespace MovieLand.Infrastructure.Data
             builder.Entity<MovieFavorite>(ConfigureMovieFavorite);
             builder.Entity<MovieGenre>(ConfigureMovieGenre);
             builder.Entity<MovieList>(ConfigureMovieList);
+            builder.Entity<OrderItem>(ConfigureOrderOnDelete);
         }
 
 
@@ -85,6 +87,16 @@ namespace MovieLand.Infrastructure.Data
         private void ConfigureMovieList(EntityTypeBuilder<MovieList> builder)
         {
             builder.HasKey(md => new { md.MovieId, md.ListId });
+        }
+
+
+        private void ConfigureOrderOnDelete(EntityTypeBuilder<OrderItem> builder)
+        {
+            builder.HasOne<Order>(oi => oi.Order)
+                .WithMany(o => o.Items)
+                .HasForeignKey(e => e.OrderId)
+                .IsRequired(true)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
