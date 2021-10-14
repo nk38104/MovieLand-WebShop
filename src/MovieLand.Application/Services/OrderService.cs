@@ -31,6 +31,14 @@ namespace MovieLand.Application.Services
         }
 
 
+        public async Task UpdateOrder(OrderDTO orderDTO)
+        {
+            var mappedOrder = ObjectMapper.Mapper.Map<Order>(orderDTO);
+
+            await _orderRepository.UpdateAsync(mappedOrder);
+        }
+
+
         public async Task<OrderDTO> CheckOutOrder(OrderDTO orderDTO)
         {
             ValidateOrder(orderDTO);

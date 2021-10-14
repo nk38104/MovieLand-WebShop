@@ -10,6 +10,7 @@ namespace MovieLand.Web.Interfaces
     {
         Task CheckOutOrder(OrderViewModel order, string username);
         Task DeleteOrder(int orderId);
+        Task UpdateOrder(OrderViewModel order);
 
         Task<CartViewModel> GetCart(string username);
         Task<OrderViewModel> GetOrderById(int order);

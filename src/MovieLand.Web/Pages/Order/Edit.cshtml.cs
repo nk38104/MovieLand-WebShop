@@ -1,43 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using MovieLand.Domain.Entities;
-using MovieLand.Infrastructure.Data;
+using MovieLand.Web.Interfaces;
 using MovieLand.Web.ViewModels;
+
 
 namespace MovieLand.Web.Pages.Order
 {
     public class EditModel : PageModel
     {
-        private readonly MovieLand.Infrastructure.Data.MovieLandContext _context;
-
-        public EditModel(MovieLand.Infrastructure.Data.MovieLandContext context)
-        {
-            _context = context;
-        }
-
+        private readonly ICheckOutPageService _checkOutPageService;
+        private readonly IMapper _mapper;
+        
         [BindProperty]
         public OrderViewModel Order { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public EditModel(ICheckOutPageService checkOutPageService, IMapper mapper)
         {
-            if (id == null)
+            _checkOutPageService = checkOutPageService ?? throw new ArgumentNullException(nameof(checkOutPageService));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+        }
+
+
+        public async Task<IActionResult> OnGetAsync(int? orderId)
+        {
+            if (orderId == null)
             {
                 return NotFound();
             }
 
-            //Order = await _context.Orders.FirstOrDefaultAsync(m => m.Id == id);
+            Order = await _checkOutPageService.GetOrderById((int)orderId);
 
-            if (Order == null)
-            {
-                return NotFound();
-            }
-            return Page();
+            return (Order == null) ? NotFound() : Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -53,9 +51,9 @@ namespace MovieLand.Web.Pages.Order
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _checkOutPageService.UpdateOrder(Order);
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception)
             {
                 if (!OrderExists(Order.Id))
                 {
@@ -70,9 +68,10 @@ namespace MovieLand.Web.Pages.Order
             return RedirectToPage("./Index");
         }
 
-        private bool OrderExists(int id)
+
+        private bool OrderExists(int orderId)
         {
-            return _context.Orders.Any(e => e.Id == id);
+            return _checkOutPageService.GetOrderById(orderId) != null;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MovieLand.Web.Interfaces;
@@ -15,7 +16,7 @@ namespace MovieLand.Web.Pages.Order
 
         public DetailsModel(ICheckOutPageService checkOutPageService)
         {
-            _checkOutPageService = checkOutPageService;
+            _checkOutPageService = checkOutPageService ?? throw new ArgumentNullException(nameof(checkOutPageService));
         }
 
 

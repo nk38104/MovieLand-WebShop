@@ -48,6 +48,14 @@ namespace MovieLand.Web.Services
         }
 
 
+        public async Task UpdateOrder(OrderViewModel order)
+        {
+            var mappedOrderDTO = _mapper.Map<OrderDTO>(order);
+
+            await _orderService.UpdateOrder(mappedOrderDTO);
+        }
+
+
         public async Task<CartViewModel> GetCart(string username)
         {
             var cart = await _cartService.GetCartByUsername(username);
