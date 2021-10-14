@@ -6,17 +6,12 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Orders</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
+@* Layout plan: 3 tables for 3 order statuses *@
+<table class="table mt-4">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().Username)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().FirstName)
             </th>
@@ -27,31 +22,10 @@
                 @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().ContactNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().ShippingAddress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().City)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().PostalCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().Country)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().PaymentMethod)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().Status)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().DateOrdered)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().GrandTotal)
             </th>
             <th></th>
         </tr>
@@ -59,9 +33,6 @@
     <tbody>
 @foreach (var item in Model.Orders) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
@@ -72,31 +43,10 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ContactNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShippingAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostalCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Country)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PaymentMethod)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DateOrdered)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GrandTotal)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
