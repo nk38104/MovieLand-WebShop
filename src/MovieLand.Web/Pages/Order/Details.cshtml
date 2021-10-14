@@ -8,8 +8,8 @@
 
 <h1>Details</h1>
 
-<div>
-    <h4>Order</h4>
+<div class="mt-4">
+    <h3><b>Order n.@Model.Order.Id</b></h3>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -93,6 +93,6 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Order.Id">Edit</a> |
+    <a asp-page="./Edit" asp-route-orderId="@Model.Order.Id">Edit</a> |
     <a asp-page="./Index">Back to List</a>
 </div>

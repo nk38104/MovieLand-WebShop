@@ -21,14 +21,14 @@ namespace MovieLand.Web.Pages.Order
         }
 
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? orderId)
         {
-            if (id == null)
+            if (orderId == null)
             {
                 return NotFound();
             }
 
-            Order = await _checkOutPageService.GetOrderById((int)id);
+            Order = await _checkOutPageService.GetOrderById((int)orderId);
 
             return (Order == null) ? NotFound() : Page();
         }
