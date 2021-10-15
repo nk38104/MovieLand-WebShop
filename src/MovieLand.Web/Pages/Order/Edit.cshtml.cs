@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using MovieLand.Web.Interfaces;
 using MovieLand.Web.ViewModels;
+using MovieLand.Web.ViewModels.Enums;
 
 
 namespace MovieLand.Web.Pages.Order
