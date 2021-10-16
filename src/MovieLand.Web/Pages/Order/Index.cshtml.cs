@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MovieLand.Web.Interfaces;
@@ -9,6 +10,7 @@ using MovieLand.Web.ViewModels;
 
 namespace MovieLand.Web.Pages.Order
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly ICheckOutPageService _checkOutPageService;

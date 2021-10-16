@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MovieLand.Web.Interfaces;
 using MovieLand.Web.ViewModels;
-using MovieLand.Web.ViewModels.Enums;
 
 
 namespace MovieLand.Web.Pages.Order
 {
+    [Authorize]
     public class EditModel : PageModel
     {
         private readonly ICheckOutPageService _checkOutPageService;
