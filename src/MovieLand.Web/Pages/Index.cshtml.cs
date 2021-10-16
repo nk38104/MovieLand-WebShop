@@ -50,7 +50,7 @@ namespace MovieLand.Web.Pages
             if (user.IsAuthenticated)
                 await _indexPageService.AddToFavorites(user.Name, movieId);
 
-            return RedirectToPage(requestPagePath);
+            return Redirect(requestPagePath);
         }
 
 
