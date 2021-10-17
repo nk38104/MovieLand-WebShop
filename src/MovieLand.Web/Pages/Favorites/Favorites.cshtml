@@ -34,7 +34,7 @@
                 @if (User.Identity.IsAuthenticated)
                 {
             <div class="card-middle-form w-100">
-                <form asp-page-handler="AddToCompare" method="post">
+                <form asp-page="../Index" asp-page-handler="AddToCompare" method="post">
                     <button class="btn btn-outline-primary btn-sm" type="submit">Add to Compare</button>
                     <input type="hidden" asp-for="@movie.Id" name="movieId" />
                     <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />
@@ -59,7 +59,7 @@
                     </form>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <form class="w-100" asp-page-handler="AddToCart" method="post">
+                        <form class="w-100" asp-page="../Index" asp-page-handler="AddToCart" method="post">
                             <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Add to Cart</button>
                             <input type="hidden" asp-for="@movie.Id" name="movieId" />
                             <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />

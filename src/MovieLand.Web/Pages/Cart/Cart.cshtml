@@ -9,7 +9,7 @@
 
 <h4>Movies</h4>
 <hr />
-@if (@Model.CartViewModel != null)
+@if (@Model.CartViewModel != null && @Model.CartViewModel.Items != null)
 {
     @foreach (var item in Model.CartViewModel.Items)
     {
@@ -35,14 +35,14 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <div class="card-middle-form w-100">
-                        <form asp-page-handler="AddToCompare" method="post">
+                        <form asp-page="../Index" asp-page-handler="AddToCompare" method="post">
                             <button class="btn btn-outline-primary btn-sm" type="submit">Add to Compare</button>
-                            <input type="hidden" asp-for="@item.Movie.Id" name="item.MovieId" />
+                            <input type="hidden" asp-for="@item.Movie.Id" name="movieId" />
                             <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />
                         </form>
-                        <form asp-page-handler="AddToFavorites" method="post">
+                        <form asp-page="../Index" asp-page-handler="AddToFavorites" method="post">
                             <button class="btn btn-outline-primary btn-sm" type="submit">Add to Favorites</button>
-                            <input type="hidden" asp-for="@item.Movie.Id" name="item.MovieId" />
+                            <input type="hidden" asp-for="@item.Movie.Id" name="movieId" />
                             <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />
                         </form>
                     </div>
@@ -74,7 +74,7 @@
                         </form>
                         <form class="w-100" asp-page="/Admin/Movies/Edit" method="get">
                             <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Edit</button>
-                            <input type="hidden" asp-for="@item.Movie.Id" name="item.MovieId" />
+                            <input type="hidden" asp-for="@item.Movie.Id" name="movieId" />
                         </form>
                     }
                 </div>

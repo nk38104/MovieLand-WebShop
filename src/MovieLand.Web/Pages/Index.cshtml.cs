@@ -61,7 +61,7 @@ namespace MovieLand.Web.Pages
             if (user.IsAuthenticated)
                 await _indexPageService.AddToCompare(user.Name, movieId);
 
-            return RedirectToPage(requestPagePath);
+            return Redirect(requestPagePath);
         }
 
 
@@ -72,7 +72,7 @@ namespace MovieLand.Web.Pages
             if (user.IsAuthenticated)
                 await _indexPageService.AddToCart(user.Name, movieId);
 
-            return RedirectToPage(requestPagePath);
+            return Redirect(requestPagePath);
         }
 
 
