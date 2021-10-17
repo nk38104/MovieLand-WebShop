@@ -1,7 +1,7 @@
 ﻿@page
 @model MovieLand.Web.Pages.ContactUs.ContactUsModel
 @{
-    ViewData["Title"] = "Contact us";
+    ViewData["Title"] = "Contact Us";
 }
 
 <div class="contact3 py-5">
@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="card-shadow">
-                        <img src="https://images.unsplash.com/20/bw-room.JPG?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="img-fluid">
+                        <img src="https://images.unsplash.com/20/bw-room.JPG?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="img-fluid rounded">
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -42,12 +42,12 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label asp-for="@Model.Contact.Message" class="control-label"></label>
-                                        <textarea asp-for="@Model.Contact.Message" class="form-control" placeholder="Enter your message here..."></textarea>
+                                        <textarea asp-for="@Model.Contact.Message" class="form-control" style="height: 174px; resize: none;" placeholder="Enter your message here..."></textarea>
                                         <span asp-validation-for="@Model.Contact.Message" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <button type="submit" class="btn btn-danger-gradiant mt-3 text-white border-0 px-3 py-2"><span> SUBMIT </span></button>
+                                    <button type="submit" class="btn btn-danger-gradiant mt-3 text-white border-0 px-3 py-2 w-100"><span> SUBMIT </span></button>
                                 </div>
                             </div>
                         </form>
