@@ -85,14 +85,12 @@
             <input type="hidden" asp-for="Movie.Id" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
+                <a style="position: absolute; bottom: 0; margin-left: 1rem;" asp-page="@Model.RequestPagePath">Go back</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-page="../../Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -14,8 +14,10 @@ namespace MovieLand.Web.Pages.Admin.Movies
     public class DeleteModel : PageModel
     {
         private readonly IMoviePageService _moviePageService;
+        
         [BindProperty]
         public MovieViewModel Movie { get; set; }
+        public string RequestPagePath { get; set; }
 
         public DeleteModel(IMoviePageService moviePageService)
         {
@@ -23,7 +25,7 @@ namespace MovieLand.Web.Pages.Admin.Movies
         }
 
         
-        public async Task<IActionResult> OnGetAsync(int? movieId)
+        public async Task<IActionResult> OnGetAsync(int? movieId, string requestPagePath)
         {
             if (movieId == null || movieId < 1)
             {
@@ -31,12 +33,13 @@ namespace MovieLand.Web.Pages.Admin.Movies
             }
 
             Movie = await _moviePageService.GetMovieById((int)movieId);
+            RequestPagePath = (requestPagePath == "/") ? "/Index" : requestPagePath;
 
             return (Movie == null) ? NotFound() : Page();
         }
 
 
-        public async Task<IActionResult> OnPostAsync(int? movieId)
+        public async Task<IActionResult> OnPostAsync(int? movieId, string requestPagePath)
         {
             if (movieId == null || movieId < 1)
             {
@@ -45,7 +48,7 @@ namespace MovieLand.Web.Pages.Admin.Movies
 
             await _moviePageService.DeleteMovie((int)movieId);
 
-            return RedirectToPage("../../Index");
+            return Redirect(requestPagePath);
         }
     }
 }

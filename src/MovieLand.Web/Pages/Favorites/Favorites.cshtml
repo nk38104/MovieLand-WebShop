@@ -70,10 +70,12 @@
                         <form class="w-100" asp-page="/Admin/Movies/Delete" method="get">
                             <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Delete</button>
                             <input type="hidden" asp-for="@movie.Id" name="movieId" />
+                            <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />
                         </form>
                         <form class="w-100" asp-page="/Admin/Movies/Edit" method="get">
                             <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Edit</button>
                             <input type="hidden" asp-for="@movie.Id" name="movieId" />
+                            <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />
                         </form>
                     }
                 </div>

@@ -20,16 +20,16 @@ namespace MovieLand.Web.Pages.Admin.Movies
     {
         private readonly IMoviePageService _moviePageService;
         private readonly IIndexPageService _indexPageService;
+
         [BindProperty]
         public EditMovieViewModel Movie { get; set; }
-
         [BindProperty, DisplayName("Directors")]
         public List<int> DirectorIds { get; set; }
         public IEnumerable<SelectListItem> DirectorOptions { get; set; } = new List<SelectListItem>();
-
         [BindProperty, DisplayName("Genres")]
         public List<int> GenreIds { get; set; }
         public IEnumerable<SelectListItem> GenreOptions { get; set; } = new List<SelectListItem>();
+        public string RequestPagePath { get; set; }
 
         public EditModel(IIndexPageService indexPageService, IMoviePageService moviePageService)
         {
@@ -38,7 +38,7 @@ namespace MovieLand.Web.Pages.Admin.Movies
         }
 
 
-        public async Task<IActionResult> OnGetAsync(int? movieId)
+        public async Task<IActionResult> OnGetAsync(int? movieId, string requestPagePath)
         {
             if (movieId == null || movieId < 1)
             {
@@ -48,6 +48,7 @@ namespace MovieLand.Web.Pages.Admin.Movies
             Movie = await _moviePageService.GetMovieWithGenresAndDirectorsById((int)movieId);
             DirectorIds = Movie.MovieDirectors.Select(md => md.DirectorId).ToList();
             GenreIds = Movie.MovieGenres.Select(mg => mg.GenreId).ToList();
+            RequestPagePath = (requestPagePath == "/") ? "/Index" : requestPagePath;
             
             await SetDirectorOptions(DirectorIds);
             await SetGenreOptions(GenreIds);
@@ -58,7 +59,7 @@ namespace MovieLand.Web.Pages.Admin.Movies
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string requestPagePath)
         {
             if (!ModelState.IsValid)
             {
@@ -87,7 +88,7 @@ namespace MovieLand.Web.Pages.Admin.Movies
                 }
             }
 
-            return RedirectToPage("../../Index");
+            return Redirect(requestPagePath);
         }
 
 
