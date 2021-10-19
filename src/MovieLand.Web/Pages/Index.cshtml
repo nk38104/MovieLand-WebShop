@@ -55,7 +55,7 @@
                 </header>
                 <div class="filter-content">
                     <div class="card-body">
-                        <div class="custom-control">
+                        <!--<div class="custom-control">
                             @foreach (var director in Model.Directors)
                             {
                                 <form asp-page-handler="FilterByDirector" method="post">
@@ -63,7 +63,15 @@
                                     <input type="hidden" asp-for="@director.Name" name="director" />
                                 </form>
                             }
-                        </div> <!-- form-check.// -->
+                        </div>--> <!-- form-check.// -->
+                        <div>
+                            <form asp-page-handler="FilterByDirector" method="post">
+                                <div>
+                                    @Html.DropDownListFor(m => m.directorSelectedValue, new SelectList(Model.Directors, "Name", "Name"))
+                                </div>
+                                <input type="submit" class="filter-button mt-2" value="Filter" />
+                            </form>
+                        </div>
                     </div> <!-- card-body.// -->
                 </div>
             </article> <!-- card-group-item.// -->
@@ -73,7 +81,7 @@
                 </header>
                 <div class="filter-content">
                     <div class="card-body">
-                        <div class="custom-control">
+                        <!--<div class="custom-control">
                             @foreach (var genre in Model.Genres)
                             {
                                 <form asp-page-handler="FilterByGenre" method="post">
@@ -81,7 +89,15 @@
                                     <input type="hidden" asp-for="@genre.Name" name="genre" />
                                 </form>
                             }
-                        </div> <!-- form-check.// -->
+                        </div>--> <!-- form-check.// -->
+                        <div>
+                            <form asp-page-handler="FilterByGenre" method="post">
+                                <div>
+                                    @Html.DropDownListFor(m => m.genreSelectedValue, new SelectList(Model.Genres, "Name", "Name"))
+                                </div>
+                                <input type="submit" class="filter-button mt-2" value="Filter" />
+                            </form>
+                        </div>
                     </div> <!-- card-body.// -->
                 </div>
             </article> <!-- card-group-item.// -->
@@ -91,7 +107,8 @@
                 </header>
                 <div class="filter-content">
                     <div class="card-body">
-                        <div class="custom-control">
+                        @*<div class="custom-control">*@
+                        <div>
                             <form asp-page-handler="FilterByRating" method="post">
                                 <input type="range" style="width: 80%;" name="rating" min="0" max="5" step="0.1" value="0" oninput="this.nextElementSibling.value = this.value">
                                 <output class="ml-2" style="transform: translateY(-15%); font-size: 18px;">0</output>

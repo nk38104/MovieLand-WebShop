@@ -24,6 +24,9 @@ namespace MovieLand.Web.Pages
         public IEnumerable<GenreViewModel> Genres { get; set; } = new List<GenreViewModel>();
         public IEnumerable<DirectorViewModel> Directors { get; set; } = new List<DirectorViewModel>();
 
+        public string genreSelectedValue { get; set; }
+        public string directorSelectedValue { get; set; }
+
         [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; }
 
@@ -83,16 +86,16 @@ namespace MovieLand.Web.Pages
         }
 
 
-        public async Task OnPostFilterByDirectorAsync(string director)
+        public async Task OnPostFilterByDirectorAsync(string directorSelectedValue)
         {
-            Movies = await _moviePageService.GetMoviesByDirector(director);
+            Movies = await _moviePageService.GetMoviesByDirector(directorSelectedValue);
             await SetFilterData();
         }
 
 
-        public async Task OnPostFilterByGenreAsync(string genre)
+        public async Task OnPostFilterByGenreAsync(string genreSelectedValue)
         {
-            Movies = await _moviePageService.GetMoviesByGenre(genre);
+            Movies = await _moviePageService.GetMoviesByGenre(genreSelectedValue);
             await SetFilterData();
         }
 
