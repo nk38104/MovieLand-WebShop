@@ -1,6 +1,6 @@
 # MovieLand
 
-MovieLand is an movie web shop application done for university class project.
+MovieLand is a movie web shop application done for university class project.
 
 </br>
 
