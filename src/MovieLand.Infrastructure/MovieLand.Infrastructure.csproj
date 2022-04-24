@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MovieLand.Application\MovieLand.Application.csproj" />
-    <ProjectReference Include="..\MovieLand.Domain\MovieLand.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using MovieLand.Application.DTOs;
+using MovieLand.Application.Interfaces;
 using MovieLand.Web.Interfaces;
 using MovieLand.Web.ViewModels;
 using System;
@@ -12,15 +14,15 @@ namespace MovieLand.Web.Pages
     public class IndexModel : PageModel
     {
         private readonly IIndexPageService _indexPageService;
-        private readonly IMoviePageService _moviePageService;
+        private readonly IMovieService _movieService;
 
-        public IndexModel(IIndexPageService indexPageService, IMoviePageService moviePageService)
+        public IndexModel(IIndexPageService indexPageService, IMoviePageService moviePageService, IMovieService movieService)
         {
             _indexPageService = indexPageService ?? throw new ArgumentNullException(nameof(indexPageService));
-            _moviePageService = moviePageService ?? throw new ArgumentNullException(nameof(moviePageService));
+            _movieService = movieService ?? throw new ArgumentNullException(nameof(movieService));
         }
 
-        public IEnumerable<MovieViewModel> Movies { get; set; } = new List<MovieViewModel>();
+        public IEnumerable<MovieDTO> Movies { get; set; } = new List<MovieDTO>();
         public IEnumerable<GenreViewModel> Genres { get; set; } = new List<GenreViewModel>();
         public IEnumerable<DirectorViewModel> Directors { get; set; } = new List<DirectorViewModel>();
 
@@ -33,13 +35,14 @@ namespace MovieLand.Web.Pages
 
         public async Task OnGetAsync()
         {
+            // TODO: set searcha as another function
             if (!string.IsNullOrEmpty(SearchString))
-            {
-                Movies = await _moviePageService.GetMoviesByTitle(SearchString);
+            { 
+                Movies = await _movieService.GetMovieByTitle(SearchString);
             }
             else
             {
-                Movies = await _moviePageService.GetMovies();
+                Movies = await _movieService.GetMovieList();
             }
 
             await SetFilterData();
@@ -81,35 +84,35 @@ namespace MovieLand.Web.Pages
 
         public async Task OnGetFilterByDecadesAsync(string decade)
         {
-            Movies = await _moviePageService.GetMoviesByDecade(decade);
+            Movies = await _movieService.GetMoviesByDecade(decade);
             await SetFilterData();
         }
 
 
         public async Task OnPostFilterByDirectorAsync(string directorSelectedValue)
         {
-            Movies = await _moviePageService.GetMoviesByDirector(directorSelectedValue);
+            Movies = await _movieService.GetMoviesByDirector(directorSelectedValue);
             await SetFilterData();
         }
 
 
         public async Task OnPostFilterByGenreAsync(string genreSelectedValue)
         {
-            Movies = await _moviePageService.GetMoviesByGenre(genreSelectedValue);
+            Movies = await _movieService.GetMoviesByGenre(genreSelectedValue);
             await SetFilterData();
         }
 
 
         public async Task OnPostFilterByPriceAsync(double priceFrom, double priceTo)
         {
-            Movies = await _moviePageService.GetMoviesByPrice(priceFrom, priceTo);
+            Movies = await _movieService.GetMoviesByPrice(priceFrom, priceTo);
             await SetFilterData();
         }
 
 
         public async Task OnPostFilterByRatingAsync(double rating)
         {
-            Movies = await _moviePageService.GetMoviesByRating(rating);
+            Movies = await _movieService.GetMoviesByRating(rating);
             await SetFilterData();
         }
 
