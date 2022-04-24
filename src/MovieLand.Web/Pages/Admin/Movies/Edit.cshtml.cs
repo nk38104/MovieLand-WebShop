@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using MovieLand.Web.Interfaces;
-using MovieLand.Web.ViewModels;
-using MovieLand.Web.ViewModels.Directors;
-using MovieLand.Web.ViewModels.Genres;
+using MovieLand.Application.DTOs;
+using MovieLand.Application.DTOs.Director;
+using MovieLand.Application.DTOs.Genre;
+using MovieLand.Application.Interfaces;
 
 
 namespace MovieLand.Web.Pages.Admin.Movies
@@ -18,11 +18,12 @@ namespace MovieLand.Web.Pages.Admin.Movies
     [Authorize(Roles = "Admin,SuperAdmin")]
     public class EditModel : PageModel
     {
-        private readonly IMoviePageService _moviePageService;
-        private readonly IIndexPageService _indexPageService;
+        private readonly IDirectorService _directorService;
+        private readonly IGenreService _genreService;
+        private readonly IMovieService _movieService;
 
         [BindProperty]
-        public EditMovieViewModel Movie { get; set; }
+        public EditMovieDTO Movie { get; set; }
         [BindProperty, DisplayName("Directors")]
         public List<int> DirectorIds { get; set; }
         public IEnumerable<SelectListItem> DirectorOptions { get; set; } = new List<SelectListItem>();
@@ -31,10 +32,11 @@ namespace MovieLand.Web.Pages.Admin.Movies
         public IEnumerable<SelectListItem> GenreOptions { get; set; } = new List<SelectListItem>();
         public string RequestPagePath { get; set; }
 
-        public EditModel(IIndexPageService indexPageService, IMoviePageService moviePageService)
+        public EditModel(IDirectorService directorService, IGenreService genreService, IMovieService movieService)
         {
-            _indexPageService = indexPageService ?? throw new ArgumentNullException(nameof(indexPageService));
-            _moviePageService = moviePageService ?? throw new ArgumentNullException(nameof(moviePageService));
+            _directorService = directorService ?? throw new ArgumentNullException(nameof(directorService));
+            _genreService = genreService ?? throw new ArgumentNullException(nameof(genreService));
+            _movieService = movieService ?? throw new ArgumentNullException(nameof(movieService));
         }
 
 
@@ -45,7 +47,7 @@ namespace MovieLand.Web.Pages.Admin.Movies
                 return NotFound();
             }
 
-            Movie = await _moviePageService.GetMovieWithGenresAndDirectorsById((int)movieId);
+            Movie = await _movieService.GetMovieWithGenresAndDirectorsById((int)movieId);
             DirectorIds = Movie.MovieDirectors.Select(md => md.DirectorId).ToList();
             GenreIds = Movie.MovieGenres.Select(mg => mg.GenreId).ToList();
             RequestPagePath = (requestPagePath == "/") ? "/Index" : requestPagePath;
@@ -66,14 +68,14 @@ namespace MovieLand.Web.Pages.Admin.Movies
                 return Page();
             }
 
-            Movie.MovieDirectors = DirectorIds.Select(id => new MovieDirectorViewModel { MovieId = Movie.Id, DirectorId = id }).ToList();
-            Movie.MovieGenres = GenreIds.Select(id => new MovieGenreViewModel { MovieId = Movie.Id, GenreId = id }).ToList();
+            Movie.MovieDirectors = DirectorIds.Select(id => new MovieDirectorDTO { MovieId = Movie.Id, DirectorId = id }).ToList();
+            Movie.MovieGenres = GenreIds.Select(id => new MovieGenreDTO { MovieId = Movie.Id, GenreId = id }).ToList();
 
             try
             {
                 if (Movie.MovieDirectors != null && Movie.MovieGenres != null)
                 {
-                    await _moviePageService.UpdateMovie(Movie);
+                    await _movieService.UpdateMovie(Movie);
                 }
             }
             catch (Exception)
@@ -94,13 +96,13 @@ namespace MovieLand.Web.Pages.Admin.Movies
 
         private bool MovieExists(int movieId)
         {
-            return  _moviePageService.GetMovieById(movieId) != null;
+            return  _movieService.GetMovieById(movieId) != null;
         }
 
 
         private async Task SetDirectorOptions(List<int> directorIds)
         {
-            var directors = await _indexPageService.GetDirectors();
+            var directors = await _directorService.GetDirectorList();
 
             DirectorOptions = directors.Select(d =>
                 new SelectListItem
@@ -114,7 +116,7 @@ namespace MovieLand.Web.Pages.Admin.Movies
 
         private async Task SetGenreOptions(List<int> genreIds)
         {
-            var genres = await _indexPageService.GetGenres();
+            var genres = await _genreService.GetGenreList();
 
             GenreOptions = genres.Select(g =>
                 new SelectListItem

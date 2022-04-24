@@ -137,7 +137,7 @@ namespace MovieLand.Web
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IReviewRepository, ReviewRepository>();
         }
-
+         
 
         private void ConfigureWebLayer(IServiceCollection services)
         {
@@ -149,15 +149,13 @@ namespace MovieLand.Web
             services.AddScoped<IDirectorPageService, DirectorPageService>();
             services.AddScoped<IFavoritesPageService, FavoritesPageService>();
             services.AddScoped<IGenrePageService, GenrePageService>();
-            services.AddScoped<IIndexPageService, IndexPageService>();
-            services.AddScoped<IMoviePageService, MoviePageService>();
             services.AddScoped<IEmailService, EmailService>();
         }
 
 
         private void ConfigureApplicationCookie(IServiceCollection services)
         {
-            services.ConfigureApplicationCookie(options =>
+            services.ConfigureApplicationCookie(options => 
             {
                 options.LoginPath = "/Account/Login";
                 options.LogoutPath = "/index";

@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MovieLand.Application.DTOs;
 using MovieLand.Application.Interfaces;
-using MovieLand.Web.Interfaces;
-using MovieLand.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,18 +11,27 @@ namespace MovieLand.Web.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly IIndexPageService _indexPageService;
         private readonly IMovieService _movieService;
+        private readonly ICartService _cartService;
+        private readonly ICompareService _compareService;
+        private readonly IDirectorService _directorService;
+        private readonly IFavoritesService _favoritesService;
+        private readonly IGenreService _genreService;
 
-        public IndexModel(IIndexPageService indexPageService, IMoviePageService moviePageService, IMovieService movieService)
+        public IndexModel(IMovieService movieService, IGenreService genreService, IDirectorService directorService,
+            IFavoritesService favoritesService, ICompareService compareService, ICartService cartService)
         {
-            _indexPageService = indexPageService ?? throw new ArgumentNullException(nameof(indexPageService));
+            _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
+            _compareService = compareService ?? throw new ArgumentNullException(nameof(compareService));
+            _directorService = directorService ?? throw new ArgumentNullException(nameof(directorService));
+            _favoritesService = favoritesService ?? throw new ArgumentNullException(nameof(favoritesService));
+            _genreService = genreService ?? throw new ArgumentNullException(nameof(genreService));
             _movieService = movieService ?? throw new ArgumentNullException(nameof(movieService));
         }
 
         public IEnumerable<MovieDTO> Movies { get; set; } = new List<MovieDTO>();
-        public IEnumerable<GenreViewModel> Genres { get; set; } = new List<GenreViewModel>();
-        public IEnumerable<DirectorViewModel> Directors { get; set; } = new List<DirectorViewModel>();
+        public IEnumerable<GenreDTO> Genres { get; set; } = new List<GenreDTO>();
+        public IEnumerable<DirectorDTO> Directors { get; set; } = new List<DirectorDTO>();
 
         public string genreSelectedValue { get; set; }
         public string directorSelectedValue { get; set; }
@@ -54,7 +61,7 @@ namespace MovieLand.Web.Pages
             var user = User.Identity;
 
             if (user.IsAuthenticated)
-                await _indexPageService.AddToFavorites(user.Name, movieId);
+                await _favoritesService.AddItem(user.Name, movieId);
 
             return Redirect(requestPagePath);
         }
@@ -65,7 +72,9 @@ namespace MovieLand.Web.Pages
             var user = User.Identity;
 
             if (user.IsAuthenticated)
-                await _indexPageService.AddToCompare(user.Name, movieId);
+            {
+                await _compareService.AddItem(user.Name, movieId);
+            }
 
             return Redirect(requestPagePath);
         }
@@ -76,7 +85,7 @@ namespace MovieLand.Web.Pages
             var user = User.Identity;
 
             if (user.IsAuthenticated)
-                await _indexPageService.AddToCart(user.Name, movieId);
+                await _cartService.AddItem(user.Name, movieId);
 
             return Redirect(requestPagePath);
         }
@@ -119,8 +128,8 @@ namespace MovieLand.Web.Pages
 
         private async Task SetFilterData()
         {
-            Directors = await _indexPageService.GetDirectors();
-            Genres =  await _indexPageService.GetGenres();
+            Directors = await _directorService.GetDirectorList();
+            Genres =  await _genreService.GetGenreList();
         }
     }
 }
