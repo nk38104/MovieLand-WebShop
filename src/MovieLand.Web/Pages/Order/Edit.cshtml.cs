@@ -4,8 +4,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MovieLand.Web.Interfaces;
-using MovieLand.Web.ViewModels;
+using MovieLand.Application.DTOs;
+using MovieLand.Application.Interfaces;
 
 
 namespace MovieLand.Web.Pages.Order
@@ -13,15 +13,15 @@ namespace MovieLand.Web.Pages.Order
     [Authorize]
     public class EditModel : PageModel
     {
-        private readonly ICheckOutPageService _checkOutPageService;
+        private readonly ICheckoutService _checkoutService;
         private readonly IMapper _mapper;
         
         [BindProperty]
-        public OrderViewModel Order { get; set; }
+        public OrderDTO Order { get; set; }
 
-        public EditModel(ICheckOutPageService checkOutPageService, IMapper mapper)
+        public EditModel(ICheckoutService checkoutService, IMapper mapper)
         {
-            _checkOutPageService = checkOutPageService ?? throw new ArgumentNullException(nameof(checkOutPageService));
+            _checkoutService = checkoutService ?? throw new ArgumentNullException(nameof(checkoutService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
@@ -33,7 +33,7 @@ namespace MovieLand.Web.Pages.Order
                 return NotFound();
             }
 
-            Order = await _checkOutPageService.GetOrderById((int)orderId);
+            Order = await _checkoutService.GetOrderById((int)orderId);
 
             return (Order == null) ? NotFound() : Page();
         }
@@ -51,7 +51,7 @@ namespace MovieLand.Web.Pages.Order
 
             try
             {
-                await _checkOutPageService.UpdateOrder(Order);
+                await _checkoutService.UpdateOrder(Order);
             }
             catch (Exception)
             {
@@ -71,7 +71,7 @@ namespace MovieLand.Web.Pages.Order
 
         private bool OrderExists(int orderId)
         {
-            return _checkOutPageService.GetOrderById(orderId) != null;
+            return _checkoutService.GetOrderById(orderId) != null;
         }
     }
 }

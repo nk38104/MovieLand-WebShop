@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MovieLand.Web.Interfaces;
-using MovieLand.Web.ViewModels;
+using MovieLand.Application.DTOs;
+using MovieLand.Application.Interfaces;
 
 
 namespace MovieLand.Web.Pages.Order
@@ -12,13 +12,13 @@ namespace MovieLand.Web.Pages.Order
     [Authorize]
     public class DetailsModel : PageModel
     {
-        private readonly ICheckOutPageService _checkOutPageService;
+        private readonly ICheckoutService _checkoutService;
         
-        public OrderViewModel Order { get; set; }
+        public OrderDTO Order { get; set; }
 
-        public DetailsModel(ICheckOutPageService checkOutPageService)
+        public DetailsModel(ICheckoutService checkoutService)
         {
-            _checkOutPageService = checkOutPageService ?? throw new ArgumentNullException(nameof(checkOutPageService));
+            _checkoutService = checkoutService ?? throw new ArgumentNullException(nameof(checkoutService));
         }
 
 
@@ -29,7 +29,7 @@ namespace MovieLand.Web.Pages.Order
                 return NotFound();
             }
 
-            Order = await _checkOutPageService.GetOrderById((int)orderId);
+            Order = await _checkoutService.GetOrderById((int)orderId);
 
             return (Order == null) ? NotFound() : Page();
         }

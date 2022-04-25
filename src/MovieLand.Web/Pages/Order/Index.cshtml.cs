@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MovieLand.Web.Interfaces;
-using MovieLand.Web.ViewModels;
+using MovieLand.Application.DTOs;
+using MovieLand.Application.Interfaces;
 
 
 namespace MovieLand.Web.Pages.Order
@@ -13,19 +13,19 @@ namespace MovieLand.Web.Pages.Order
     [Authorize]
     public class IndexModel : PageModel
     {
-        private readonly ICheckOutPageService _checkOutPageService;
+        private readonly ICheckoutService _checkoutService;
         [BindProperty]
-        public IEnumerable<OrderViewModel> Orders { get; set; } = new List<OrderViewModel>();
+        public IEnumerable<OrderDTO> Orders { get; set; } = new List<OrderDTO>();
 
-        public IndexModel(ICheckOutPageService checkOutPageService)
+        public IndexModel(ICheckoutService checkoutService)
         {
-            _checkOutPageService = checkOutPageService ?? throw new ArgumentNullException(nameof(checkOutPageService));
+            _checkoutService = checkoutService ?? throw new ArgumentNullException(nameof(checkoutService));
         }
 
 
         public async Task OnGetAsync()
         {
-            Orders = await _checkOutPageService.GetOrders();
+            Orders = await _checkoutService.GetOrders();
         }
     }
 }

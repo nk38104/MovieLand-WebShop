@@ -112,6 +112,7 @@ namespace MovieLand.Web
 
         private void ConfigureApplicationLayer(IServiceCollection services)
         {
+            services.AddScoped<ICheckoutService, CheckoutService>();
             services.AddScoped<IMovieService, MovieService>();
             services.AddScoped<IFavoritesService, FavoritesService>();
             services.AddScoped<ICompareService, CompareService>();
@@ -143,7 +144,6 @@ namespace MovieLand.Web
         {
             services.AddAutoMapper(typeof(Startup));    // Add AutoMapper
             services.AddScoped<IAccountPageService, AccountPageService>();
-            services.AddScoped<ICheckOutPageService, CheckOutPageService>();
             services.AddScoped<IDirectorPageService, DirectorPageService>();
             services.AddScoped<IGenrePageService, GenrePageService>();
             services.AddScoped<IEmailService, EmailService>();

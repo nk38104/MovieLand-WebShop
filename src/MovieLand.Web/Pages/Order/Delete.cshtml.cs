@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using MovieLand.Application.DTOs;
+using MovieLand.Application.Interfaces;
 using MovieLand.Web.Interfaces;
 using MovieLand.Web.ViewModels;
 
@@ -12,14 +14,14 @@ namespace MovieLand.Web.Pages.Order
     [Authorize]
     public class DeleteModel : PageModel
     {
-        private readonly ICheckOutPageService _checkOutPageService;
+        private readonly ICheckoutService _checkoutService;
         
         [BindProperty]
-        public OrderViewModel Order { get; set; }
+        public OrderDTO Order { get; set; }
 
-        public DeleteModel(ICheckOutPageService checkOutPageService)
+        public DeleteModel(ICheckoutService checkoutService)
         {
-            _checkOutPageService = checkOutPageService ?? throw new ArgumentNullException(nameof(checkOutPageService));
+            _checkoutService = checkoutService ?? throw new ArgumentNullException(nameof(checkoutService));
         }
 
 
@@ -30,7 +32,7 @@ namespace MovieLand.Web.Pages.Order
                 return NotFound();
             }
 
-            Order = await _checkOutPageService.GetOrderById((int)orderId);
+            Order = await _checkoutService.GetOrderById((int)orderId);
 
             return (Order == null) ? NotFound() : Page();
         }
@@ -40,7 +42,7 @@ namespace MovieLand.Web.Pages.Order
         {
             // Change delete to cascade from restricted
             // Add delete validation later
-            await _checkOutPageService.DeleteOrder(orderId);
+            await _checkoutService.DeleteOrder(orderId);
 
             return RedirectToPage("../Index");
         }

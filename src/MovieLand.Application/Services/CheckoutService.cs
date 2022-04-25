@@ -2,40 +2,37 @@
 using Microsoft.Extensions.Logging;
 using MovieLand.Application.DTOs;
 using MovieLand.Application.Interfaces;
-using MovieLand.Web.Interfaces;
-using MovieLand.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
-namespace MovieLand.Web.Services
+namespace MovieLand.Application.Services
 {
-    public class CheckOutPageService : ICheckOutPageService
+    public class CheckoutService : ICheckoutService
     {
         private readonly ICartService _cartService;
         private readonly IOrderService _orderService;
         private readonly IMapper _mapper;
-        private readonly ILogger<CheckOutPageService> _logger;
+        private readonly ILogger<CheckoutService> _logger;
 
-        public CheckOutPageService(ICartService cartService, IOrderService orderService, IMapper mapper, ILogger<CheckOutPageService> logger)
+        public CheckoutService(ICartService cartService, IOrderService orderService, IMapper mapper, ILogger<CheckoutService> logger)
         {
             _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
-            _orderService= orderService ?? throw new ArgumentNullException(nameof(orderService));
+            _orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
 
-        public async Task CheckOutOrder(OrderViewModel order, string username)
+        public async Task CheckOutOrder(OrderDTO order, string username)
         {
             var cart = await GetCart(username);
 
             CopyCartItemsToOrderItems(order, cart);
             SetUsernameToOrder(order, username);
 
-            var mappedOrderDTO = _mapper.Map<OrderDTO>(order);
-            await _orderService.CheckOutOrder(mappedOrderDTO);
+            await _orderService.CheckOutOrder(order);
 
             await _cartService.ClearCart(username);
         }
@@ -47,47 +44,42 @@ namespace MovieLand.Web.Services
         }
 
 
-        public async Task UpdateOrder(OrderViewModel order)
+        public async Task UpdateOrder(OrderDTO order)
         {
-            var mappedOrderDTO = _mapper.Map<OrderDTO>(order);
-
-            await _orderService.UpdateOrder(mappedOrderDTO);
+            await _orderService.UpdateOrder(order);
         }
 
 
-        public async Task<CartViewModel> GetCart(string username)
+        public async Task<CartDTO> GetCart(string username)
         {
             var cart = await _cartService.GetCartByUsername(username);
-            var mappedCart = _mapper.Map<CartViewModel>(cart);
 
-            return mappedCart;
+            return cart;
         }
 
 
-        public async Task<OrderViewModel> GetOrderById(int orderId)
+        public async Task<OrderDTO> GetOrderById(int orderId)
         {
             var order = await _orderService.GetOrderById(orderId);
-            var orderMapped = _mapper.Map<OrderViewModel>(order);
 
-            return orderMapped;
+            return order;
         }
 
 
-        public async Task<IEnumerable<OrderViewModel>> GetOrders()
+        public async Task<IEnumerable<OrderDTO>> GetOrders()
         {
             var orders = await _orderService.GetOrders();
-            var ordersMapped = _mapper.Map<IEnumerable<OrderViewModel>>(orders);
 
-            return ordersMapped;
+            return orders;
         }
 
 
-        public void CopyCartItemsToOrderItems(OrderViewModel order, CartViewModel cart)
+        public void CopyCartItemsToOrderItems(OrderDTO order, CartDTO cart)
         {
             foreach (var cartItem in cart.Items)
             {
                 order.Items.Add(
-                    new OrderItemViewModel
+                    new OrderItemDTO
                     {
                         Quantity = cartItem.Quantity,
                         UnitPrice = cartItem.UnitPrice,
@@ -99,7 +91,7 @@ namespace MovieLand.Web.Services
         }
 
 
-        public void SetUsernameToOrder(OrderViewModel order, string username)
+        public void SetUsernameToOrder(OrderDTO order, string username)
         {
             order.Username = username;
         }
