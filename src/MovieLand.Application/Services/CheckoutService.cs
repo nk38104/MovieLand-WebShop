@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using MovieLand.Application.DTOs;
 using MovieLand.Application.Interfaces;
 using System;
@@ -13,14 +12,12 @@ namespace MovieLand.Application.Services
     {
         private readonly ICartService _cartService;
         private readonly IOrderService _orderService;
-        private readonly IMapper _mapper;
         private readonly ILogger<CheckoutService> _logger;
 
-        public CheckoutService(ICartService cartService, IOrderService orderService, IMapper mapper, ILogger<CheckoutService> logger)
+        public CheckoutService(ICartService cartService, IOrderService orderService, ILogger<CheckoutService> logger)
         {
             _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
             _orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -30,10 +27,9 @@ namespace MovieLand.Application.Services
             var cart = await GetCart(username);
 
             CopyCartItemsToOrderItems(order, cart);
-            SetUsernameToOrder(order, username);
+            order.Username = username;
 
             await _orderService.CheckOutOrder(order);
-
             await _cartService.ClearCart(username);
         }
 
@@ -88,12 +84,8 @@ namespace MovieLand.Application.Services
                     }
                 );
             }
-        }
 
-
-        public void SetUsernameToOrder(OrderDTO order, string username)
-        {
-            order.Username = username;
+            order.GrandTotal = cart.GrandTotal;
         }
     }
 }

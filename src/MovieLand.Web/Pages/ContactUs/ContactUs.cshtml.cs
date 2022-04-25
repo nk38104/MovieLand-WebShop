@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MovieLand.Web.Interfaces;
-using MovieLand.Web.ViewModels;
+using MovieLand.Application.DTOs;
+using MovieLand.Infrastructure.Interfaces;
 using System;
 
 
@@ -12,7 +12,7 @@ namespace MovieLand.Web.Pages.ContactUs
         private readonly IEmailService _emailService;
 
         [BindProperty]
-        public ContactViewModel Contact { get; set; }
+        public ContactDTO Contact { get; set; }
 
         public ContactUsModel(IEmailService emailWebService)
         {

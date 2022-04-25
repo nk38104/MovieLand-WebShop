@@ -13,11 +13,11 @@ using MovieLand.Domain.Interfaces;
 using MovieLand.Domain.Interfaces.Repositories;
 using MovieLand.Domain.Interfaces.Repositories.Base;
 using MovieLand.Infrastructure.Data;
+using MovieLand.Infrastructure.Interfaces;
 using MovieLand.Infrastructure.Logging;
 using MovieLand.Infrastructure.Repositories;
 using MovieLand.Infrastructure.Repositories.Base;
-using MovieLand.Web.Interfaces;
-using MovieLand.Web.Services;
+using MovieLand.Infrastructure.Services;
 
 
 namespace MovieLand.Web
@@ -36,6 +36,7 @@ namespace MovieLand.Web
         {
             ConfigureMovieLandServices(services);
 
+            services.AddAutoMapper(typeof(Startup));
             services.AddRazorPages();
         }
 
@@ -135,13 +136,12 @@ namespace MovieLand.Web
             services.AddScoped<IDirectorRepository, DirectorRepository>();
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IReviewRepository, ReviewRepository>();
+            services.AddScoped<IEmailService, EmailService>();
         }
          
 
         private void ConfigureWebLayer(IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(Startup));    // Add AutoMapper
-            services.AddScoped<IEmailService, EmailService>();
         }
 
 

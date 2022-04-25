@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
-using MovieLand.Web.Interfaces;
-using MovieLand.Web.ViewModels;
+using MovieLand.Application.DTOs;
+using MovieLand.Infrastructure.Interfaces;
 using System;
 using System.Net;
 using System.Net.Mail;
 
 
-namespace MovieLand.Web.Services
+namespace MovieLand.Infrastructure.Services
 {
     public class EmailService : IEmailService
     {
@@ -17,18 +17,18 @@ namespace MovieLand.Web.Services
         public EmailService(IMapper mapper, ILogger<EmailService> logger)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            _logger= logger ?? throw new ArgumentNullException(nameof(logger));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
 
-        public void SendEmail(ContactViewModel contact)
+        public void SendEmail(ContactDTO contact)
         {
             var host = "smtp.mailtrap.io";
             var port = 2525;
 
             var client = new SmtpClient(host, port)
             {
-                Credentials = new NetworkCredential("646b5458ce6a5d", "5e0c0c991b797a"),
+                Credentials = new NetworkCredential("0fab9f4bc8a446", "cc52c1e25a21d4"),
                 EnableSsl = true
             };
 
