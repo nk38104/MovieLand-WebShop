@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MovieLand.Web.Interfaces;
-using MovieLand.Web.ViewModels;
+using MovieLand.Application.DTOs;
+using MovieLand.Application.Interfaces;
 
 
 namespace MovieLand.Web.Pages.Favorites
@@ -12,12 +12,12 @@ namespace MovieLand.Web.Pages.Favorites
     [Authorize]
     public class FavoritesModel : PageModel
     {
-        private readonly IFavoritesPageService _favoritesPageService;
-        public FavoritesViewModel Favorites { get; set; } = new FavoritesViewModel();
+        private readonly IFavoritesService  _favoritesService;
+        public FavoritesDTO Favorites { get; set; } = new FavoritesDTO();
 
-        public FavoritesModel(IFavoritesPageService favoritesPageService)
+        public FavoritesModel(IFavoritesService  favoritesService)
         {
-            _favoritesPageService = favoritesPageService ?? throw new ArgumentNullException(nameof(favoritesPageService));
+            _favoritesService = favoritesService ?? throw new ArgumentNullException(nameof(favoritesService));
         }
 
 
@@ -25,13 +25,13 @@ namespace MovieLand.Web.Pages.Favorites
         {
             var username = User.Identity.Name;
 
-            Favorites = await _favoritesPageService.GetFavorites(username);
+            Favorites = await _favoritesService.GetFavoritesByUsername(username);
         }
 
 
         public async Task<IActionResult> OnPostRemoveFromFavoritesAsync(int favoritesId, int movieId)
         {
-            await _favoritesPageService.RemoveMovie(favoritesId, movieId);
+            await _favoritesService.RemoveItem(favoritesId, movieId);
 
             return RedirectToPage();
         }

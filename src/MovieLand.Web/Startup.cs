@@ -145,7 +145,6 @@ namespace MovieLand.Web
             services.AddScoped<IAccountPageService, AccountPageService>();
             services.AddScoped<ICheckOutPageService, CheckOutPageService>();
             services.AddScoped<IDirectorPageService, DirectorPageService>();
-            services.AddScoped<IFavoritesPageService, FavoritesPageService>();
             services.AddScoped<IGenrePageService, GenrePageService>();
             services.AddScoped<IEmailService, EmailService>();
         }
