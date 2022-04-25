@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MovieLand.Web.Interfaces;
-using MovieLand.Web.ViewModels;
+using MovieLand.Application.DTOs;
+using MovieLand.Application.Interfaces.Account;
 using System.Threading.Tasks;
 
 
@@ -9,13 +9,13 @@ namespace MovieLand.Web.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        private readonly IAccountPageService _accountPageService;
+        private readonly IAccountService _accountService;
         [BindProperty]
-        public RegisterViewModel RegisterViewModel { get; set; } = new();
+        public RegisterDTO RegisterViewModel { get; set; } = new RegisterDTO();
 
-        public RegisterModel(IAccountPageService accountPageService)
+        public RegisterModel(IAccountService accountService)
         {
-            _accountPageService = accountPageService;
+            _accountService = accountService;
         }
 
 
@@ -29,7 +29,7 @@ namespace MovieLand.Web.Pages.Account
         {
             if (ModelState.IsValid)
             {
-                var registrationResult = await _accountPageService.RegisterUser(RegisterViewModel);
+                var registrationResult = await _accountService.RegisterUserAsync(RegisterViewModel);
 
                 if (registrationResult)
                 {
