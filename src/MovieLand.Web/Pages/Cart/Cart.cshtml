@@ -9,9 +9,9 @@
 
 <h4>Movies</h4>
 <hr />
-@if (@Model.CartViewModel != null && @Model.CartViewModel.Items != null)
+@if (@Model.Cart != null && @Model.Cart.Items != null)
 {
-    @foreach (var item in Model.CartViewModel.Items)
+    @foreach (var item in Model.Cart.Items)
     {
         <div class="row p-3 bg-white border rounded mb-4 h-auto shadow-sm w-100">
             <div class="col-md-3">
@@ -62,7 +62,7 @@
                     {
                         <form class="w-100" asp-page-handler="RemoveFromCart" method="post">
                             <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Remove from Cart</button>
-                            <input type="hidden" asp-for="@Model.CartViewModel.Id" name="cartId" />
+                            <input type="hidden" asp-for="@Model.Cart.Id" name="cartId" />
                             <input type="hidden" asp-for="@item.Id" name="cartItemId" />
                         </form>
                     }
@@ -84,8 +84,8 @@
         </div>
     }
 
-    <h3>GRAND TOTAL: @Model.CartViewModel.GrandTotal</h3>
-    @if (Model.CartViewModel.Items.Count > 0)
+    <h3>GRAND TOTAL: @Model.Cart.GrandTotal</h3>
+    @if (Model.Cart.Items.Count > 0)
     {
         <h4><a asp-page="/Order/Create">CHECK OUT</a></h4>
 

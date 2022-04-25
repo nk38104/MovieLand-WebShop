@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MovieLand.Web.Interfaces;
-using MovieLand.Web.ViewModels;
+using MovieLand.Application.DTOs;
+using MovieLand.Application.Interfaces;
 
 
 namespace MovieLand.Web.Pages.Cart
@@ -12,12 +12,12 @@ namespace MovieLand.Web.Pages.Cart
     [Authorize]
     public class CartModel : PageModel
     {
-        private readonly ICartPageService _cartPageService;
-        public CartViewModel CartViewModel { get; set; } = new CartViewModel();
+        private readonly ICartService _cartService;
+        public CartDTO Cart { get; set; } = new CartDTO();
 
-        public CartModel(ICartPageService cartPageService)
+        public CartModel(ICartService cartService)
         {
-            _cartPageService = cartPageService ?? throw new ArgumentNullException(nameof(cartPageService));
+            _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
         }
 
 
@@ -27,14 +27,14 @@ namespace MovieLand.Web.Pages.Cart
 
             if (user != null)
             {
-                CartViewModel = await _cartPageService.GetCart(user.Name);
+                Cart = await _cartService.GetCartByUsername(user.Name);
             }
         }
 
 
         public async Task<IActionResult> OnPostRemoveFromCartAsync(int cartId, int cartItemId)
         {
-            await _cartPageService.RemoveItem(cartId, cartItemId);
+            await _cartService.RemoveItem(cartId, cartItemId);
 
             return RedirectToPage();
         }
