@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MovieLand.Web.Interfaces;
-using MovieLand.Web.ViewModels;
+using MovieLand.Application.DTOs;
+using MovieLand.Application.Interfaces;
 
 
 namespace MovieLand.Web.Pages.Admin.Movies
@@ -13,15 +12,15 @@ namespace MovieLand.Web.Pages.Admin.Movies
     [Authorize(Roles = "Admin,SuperAdmin")]
     public class DeleteModel : PageModel
     {
-        private readonly IMoviePageService _moviePageService;
+        private readonly IMovieService _movieService;
         
         [BindProperty]
-        public MovieViewModel Movie { get; set; }
+        public MovieDTO Movie { get; set; }
         public string RequestPagePath { get; set; }
 
-        public DeleteModel(IMoviePageService moviePageService)
+        public DeleteModel(IMovieService movieService)
         {
-            _moviePageService = moviePageService ?? throw new ArgumentNullException(nameof(moviePageService));
+            _movieService = movieService ?? throw new ArgumentNullException(nameof(movieService));
         }
 
         
@@ -32,7 +31,7 @@ namespace MovieLand.Web.Pages.Admin.Movies
                 return NotFound();
             }
 
-            Movie = await _moviePageService.GetMovieById((int)movieId);
+            Movie = await _movieService.GetMovieById((int)movieId);
             RequestPagePath = (requestPagePath == "/") ? "/Index" : requestPagePath;
 
             return (Movie == null) ? NotFound() : Page();
@@ -46,7 +45,7 @@ namespace MovieLand.Web.Pages.Admin.Movies
                 return NotFound();
             }
 
-            await _moviePageService.DeleteMovie((int)movieId);
+            await _movieService.DeleteMovie((int)movieId);
 
             return Redirect(requestPagePath);
         }
