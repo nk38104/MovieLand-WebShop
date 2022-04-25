@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MovieLand.Web.Interfaces;
-using MovieLand.Web.ViewModels;
+using MovieLand.Application.DTOs;
+using MovieLand.Application.Interfaces;
 
 
 namespace MovieLand.Web.Pages.Compare
@@ -12,12 +12,12 @@ namespace MovieLand.Web.Pages.Compare
     [Authorize]
     public class CompareModel : PageModel
     {
-        private readonly IComparePageService _comparePageService;
-        public CompareViewModel CompareViewModel { get; set; } = new CompareViewModel();
+        private readonly ICompareService _compareService ;
+        public CompareDTO CompareViewModel{ get; set; } = new CompareDTO();
 
-        public CompareModel(IComparePageService comparePageService)
+        public CompareModel(ICompareService compareService )
         {
-            _comparePageService = comparePageService ?? throw new ArgumentNullException(nameof(comparePageService));
+            _compareService  = compareService  ?? throw new ArgumentNullException(nameof(compareService ));
         }
 
 
@@ -26,13 +26,13 @@ namespace MovieLand.Web.Pages.Compare
             var user = User.Identity;
 
             if (user != null)
-                CompareViewModel = await _comparePageService.GetCompare(user.Name);
+                CompareViewModel = await _compareService .GetCompareByUsername(user.Name);
         }
 
 
         public async Task<IActionResult> OnPostRemoveFromCompare(int compareId, int movieId)
         {
-            await _comparePageService.RemoveItem(compareId, movieId);
+            await _compareService .RemoveItem(compareId, movieId);
 
             return RedirectToPage();
         }

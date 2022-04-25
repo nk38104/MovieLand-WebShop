@@ -144,7 +144,6 @@ namespace MovieLand.Web
             services.AddAutoMapper(typeof(Startup));    // Add AutoMapper
             services.AddScoped<IAccountPageService, AccountPageService>();
             services.AddScoped<ICheckOutPageService, CheckOutPageService>();
-            services.AddScoped<IComparePageService, ComparePageService>();
             services.AddScoped<IDirectorPageService, DirectorPageService>();
             services.AddScoped<IFavoritesPageService, FavoritesPageService>();
             services.AddScoped<IGenrePageService, GenrePageService>();
