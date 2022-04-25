@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MovieLand.Web.Interfaces.Admin;
-using MovieLand.Web.ViewModels;
+using MovieLand.Application.DTOs;
+using MovieLand.Application.Interfaces;
 
 
 namespace MovieLand.Web.Pages.Admin.Genres
@@ -12,10 +12,10 @@ namespace MovieLand.Web.Pages.Admin.Genres
     [Authorize(Roles = "Admin,SuperAdmin")]
     public class IndexModel : PageModel
     {
-        private readonly IGenrePageService _genresPageService;
-        public IEnumerable<GenreViewModel> Genres { get; set; } = new List<GenreViewModel>();
+        private readonly IGenreService _genresPageService;
+        public IEnumerable<GenreDTO> Genres { get; set; } = new List<GenreDTO>();
 
-        public IndexModel(IGenrePageService genresPageService)
+        public IndexModel(IGenreService genresPageService)
         {
             _genresPageService = genresPageService ?? throw new ArgumentNullException(nameof(genresPageService));
         }
@@ -23,7 +23,7 @@ namespace MovieLand.Web.Pages.Admin.Genres
 
         public async Task OnGetAsync()
         {
-            Genres = await _genresPageService.GetGenres();
+            Genres = await _genresPageService.GetGenreList();
         }
     }
 }

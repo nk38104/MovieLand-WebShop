@@ -3,22 +3,21 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MovieLand.Web.Interfaces.Admin;
-using MovieLand.Web.ViewModels;
-
+using MovieLand.Application.DTOs;
+using MovieLand.Application.Interfaces;
 
 namespace MovieLand.Web.Pages.Admin.Genres
 {
     [Authorize(Roles = "Admin,SuperAdmin")]
     public class EditModel : PageModel
     {
-        private readonly IGenrePageService _genrePageService;
+        private readonly IGenreService _genreService;
         [BindProperty]
-        public GenreViewModel Genre { get; set; }
+        public GenreDTO Genre { get; set; }
 
-        public EditModel(IGenrePageService genrePageService)
+        public EditModel(IGenreService genreService)
         {
-            _genrePageService = genrePageService ?? throw new ArgumentNullException(nameof(genrePageService));
+            _genreService = genreService ?? throw new ArgumentNullException(nameof(genreService));
         }
 
 
@@ -29,7 +28,7 @@ namespace MovieLand.Web.Pages.Admin.Genres
                 return NotFound();
             }
 
-            Genre = await _genrePageService.GetGenreById((int)id);
+            Genre = await _genreService.GetGenreById((int)id);
 
             return (Genre == null) ? NotFound() : Page();
         }
@@ -46,7 +45,7 @@ namespace MovieLand.Web.Pages.Admin.Genres
 
             try
             {
-                await _genrePageService.UpdateGenre(Genre);
+                await _genreService.UpdateGenre(Genre);
             }
             catch (Exception)
             {
@@ -66,7 +65,7 @@ namespace MovieLand.Web.Pages.Admin.Genres
 
         private bool GenreExists(int id)
         {
-            return _genrePageService.GetGenreById(id) == null;
+            return _genreService.GetGenreById(id) == null;
         }
     }
 }
