@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MovieLand.Web.Interfaces.Admin;
-using MovieLand.Web.ViewModels;
+using MovieLand.Application.DTOs;
+using MovieLand.Application.Interfaces;
 
 
 namespace MovieLand.Web.Pages.Admin.Directors
@@ -12,13 +12,13 @@ namespace MovieLand.Web.Pages.Admin.Directors
     [Authorize(Roles = "Admin,SuperAdmin")]
     public class EditModel : PageModel
     {
-        private readonly IDirectorPageService _directorPageService;
+        private readonly IDirectorService _directorService;
         [BindProperty]
-        public DirectorViewModel Director { get; set; }
+        public DirectorDTO Director { get; set; }
 
-        public EditModel(IDirectorPageService directorPageService)
+        public EditModel(IDirectorService directorService)
         {
-            _directorPageService = directorPageService ?? throw new ArgumentNullException(nameof(directorPageService));
+            _directorService = directorService ?? throw new ArgumentNullException(nameof(directorService));
         }
 
 
@@ -29,7 +29,7 @@ namespace MovieLand.Web.Pages.Admin.Directors
                 return NotFound();
             }
 
-            Director = await _directorPageService.GetDirectorById((int)id);
+            Director = await _directorService.GetDirectorById((int)id);
 
             return (Director == null) ? NotFound() : Page();
         }
@@ -45,7 +45,7 @@ namespace MovieLand.Web.Pages.Admin.Directors
 
             try
             {
-                await _directorPageService.UpdateDirector(Director);
+                await _directorService.UpdateDirector(Director);
             }
             catch (Exception)
             {
@@ -65,7 +65,7 @@ namespace MovieLand.Web.Pages.Admin.Directors
 
         private bool DirectorExists(int id)
         {
-            return _directorPageService.GetDirectorById(id) != null;
+            return _directorService.GetDirectorById(id) != null;
         }
     }
 }

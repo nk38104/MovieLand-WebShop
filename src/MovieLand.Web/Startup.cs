@@ -143,9 +143,6 @@ namespace MovieLand.Web
         private void ConfigureWebLayer(IServiceCollection services)
         {
             services.AddAutoMapper(typeof(Startup));    // Add AutoMapper
-            services.AddScoped<IAccountPageService, AccountPageService>();
-            services.AddScoped<IDirectorPageService, DirectorPageService>();
-            services.AddScoped<IGenrePageService, GenrePageService>();
             services.AddScoped<IEmailService, EmailService>();
         }
 

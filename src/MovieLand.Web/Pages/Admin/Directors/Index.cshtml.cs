@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MovieLand.Web.Interfaces.Admin;
-using MovieLand.Web.ViewModels;
+using MovieLand.Application.DTOs;
+using MovieLand.Application.Interfaces;
 
 
 namespace MovieLand.Web.Pages.Admin.Directors
@@ -12,19 +12,19 @@ namespace MovieLand.Web.Pages.Admin.Directors
     [Authorize(Roles = "Admin,SuperAdmin")]
     public class IndexModel : PageModel
     {
-        private readonly IDirectorPageService _directorPageService;
+        private readonly IDirectorService _directorService;
 
-        public IndexModel(IDirectorPageService directorPageService)
+        public IndexModel(IDirectorService directorService)
         {
-            _directorPageService = directorPageService ?? throw new ArgumentNullException(nameof(directorPageService));
+            _directorService = directorService ?? throw new ArgumentNullException(nameof(directorService));
         }
 
         
-        public IEnumerable<DirectorViewModel> Directors { get; set; } = new List<DirectorViewModel>();
+        public IEnumerable<DirectorDTO> Directors { get; set; } = new List<DirectorDTO>();
 
         public async Task OnGetAsync()
         {
-            Directors = await _directorPageService.GetDirectors();
+            Directors = await _directorService.GetDirectorList();
         }
     }
 }

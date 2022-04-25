@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MovieLand.Web.Interfaces.Admin;
-using MovieLand.Web.ViewModels;
+using MovieLand.Application.DTOs;
+using MovieLand.Application.Interfaces;
 
 
 namespace MovieLand.Web.Pages.Admin.Directors
@@ -12,13 +12,13 @@ namespace MovieLand.Web.Pages.Admin.Directors
     [Authorize(Roles = "Admin,SuperAdmin")]
     public class CreateModel : PageModel
     {
-        private readonly IDirectorPageService _directorPageService;
+        private readonly IDirectorService _directorService;
         [BindProperty]
-        public DirectorViewModel Director { get; set; }
+        public DirectorDTO Director { get; set; }
 
-        public CreateModel(IDirectorPageService directorPageService)
+        public CreateModel(IDirectorService directorService)
         {
-            _directorPageService = directorPageService ?? throw new ArgumentNullException(nameof(directorPageService));
+            _directorService = directorService ?? throw new ArgumentNullException(nameof(directorService));
         }
 
 
@@ -36,7 +36,7 @@ namespace MovieLand.Web.Pages.Admin.Directors
                 return Page();
             }
 
-            await _directorPageService.AddDirector(Director);
+            await _directorService.AddDirector(Director);
 
             return RedirectToPage("./Index");
         }

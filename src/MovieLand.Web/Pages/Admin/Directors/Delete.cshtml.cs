@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MovieLand.Web.Interfaces.Admin;
-using MovieLand.Web.ViewModels;
+using MovieLand.Application.DTOs;
+using MovieLand.Application.Interfaces;
 
 
 namespace MovieLand.Web.Pages.Admin.Directors
@@ -12,13 +12,13 @@ namespace MovieLand.Web.Pages.Admin.Directors
     [Authorize(Roles = "Admin,SuperAdmin")]
     public class DeleteModel : PageModel
     {
-        private readonly IDirectorPageService _directorPageService;
+        private readonly IDirectorService _directorService;
         [BindProperty]
-        public DirectorViewModel Director { get; set; }
+        public DirectorDTO Director { get; set; }
 
-        public DeleteModel(IDirectorPageService directorPageService)
+        public DeleteModel(IDirectorService directorService)
         {
-            _directorPageService = directorPageService ?? throw new ArgumentNullException(nameof(directorPageService));
+            _directorService = directorService ?? throw new ArgumentNullException(nameof(directorService));
         }
 
 
@@ -27,7 +27,7 @@ namespace MovieLand.Web.Pages.Admin.Directors
             if (id == null)
                 return NotFound();
 
-            Director = await _directorPageService.GetDirectorById((int)id);
+            Director = await _directorService.GetDirectorById((int)id);
 
             return (Director == null) ? NotFound() : Page();
         }
@@ -38,7 +38,7 @@ namespace MovieLand.Web.Pages.Admin.Directors
             if (id == null)
                 return NotFound();
 
-            await _directorPageService.DeleteDirector((int)id);
+            await _directorService.DeleteDirector((int)id);
 
             return RedirectToPage("./Index");
         }
