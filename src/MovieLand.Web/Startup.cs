@@ -17,9 +17,7 @@ using MovieLand.Infrastructure.Logging;
 using MovieLand.Infrastructure.Repositories;
 using MovieLand.Infrastructure.Repositories.Base;
 using MovieLand.Web.Interfaces;
-using MovieLand.Web.Interfaces.Admin;
 using MovieLand.Web.Services;
-using MovieLand.Web.Services.Admin;
 
 
 namespace MovieLand.Web

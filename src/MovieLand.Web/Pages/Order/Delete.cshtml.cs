@@ -5,9 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MovieLand.Application.DTOs;
 using MovieLand.Application.Interfaces;
-using MovieLand.Web.Interfaces;
-using MovieLand.Web.ViewModels;
-
 
 namespace MovieLand.Web.Pages.Order
 {

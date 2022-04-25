@@ -61,13 +61,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="Order.PaymentMethod" class="control-label"></label>
-                <select class="border border-secondary rounded w-100 p-2" asp-for="Order.PaymentMethod" asp-items="Html.GetEnumSelectList<MovieLand.Web.ViewModels.Enums.PaymentMethodEnumViewModel>()">
+                <select class="border border-secondary rounded w-100 p-2" asp-for="Order.PaymentMethod" asp-items="Html.GetEnumSelectList<MovieLand.Application.DTOs.Enums.PaymentMethodEnumDTO>()">
                 </select>
                 <span asp-validation-for="Order.PaymentMethod" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Order.Status" class="control-label"></label>
-                <select class="border border-secondary rounded w-100 p-2" aria-label=".form-select-sm example" asp-for="Order.Status" asp-items="Html.GetEnumSelectList<MovieLand.Web.ViewModels.Enums.OrderStatusEnumViewModel>()">
+                <select class="border border-secondary rounded w-100 p-2" aria-label=".form-select-sm example" asp-for="Order.Status" asp-items="Html.GetEnumSelectList<MovieLand.Application.DTOs.Enums.OrderStatusEnumDTO>()">
                 </select>
                 <span asp-validation-for="Order.Status" class="text-danger"></span>
             </div>
