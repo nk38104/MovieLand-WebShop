@@ -2,21 +2,21 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MovieLand.Web.Interfaces;
-using MovieLand.Web.ViewModels.Account;
+using MovieLand.Application.DTOs.Account;
+using MovieLand.Application.Interfaces.Account;
 
 
 namespace MovieLand.Web.Pages.Account
 {
     public class LoginModel : PageModel
     {
-        private readonly IAccountPageService _accountPageService;
+        private readonly IAccountService _accountService;
         [BindProperty]
-        public LoginViewModel LoginViewModel { get; set; } = new();
+        public LoginDTO LoginViewModel { get; set; } = new LoginDTO();
 
-        public LoginModel(IAccountPageService accountPageService)
+        public LoginModel(IAccountService accountService)
         {
-            _accountPageService = accountPageService ?? throw new ArgumentNullException(nameof(accountPageService));
+            _accountService = accountService ?? throw new ArgumentNullException(nameof(accountService));
         }
 
 
@@ -29,7 +29,7 @@ namespace MovieLand.Web.Pages.Account
         {
             if (ModelState.IsValid)
             {
-                var resultLogin = await _accountPageService.LoginUser(LoginViewModel);
+                var resultLogin = await _accountService.LoginUserAsync(LoginViewModel);
                 
                 if (resultLogin.Succeeded)
                     return LocalRedirect("/");
@@ -42,7 +42,7 @@ namespace MovieLand.Web.Pages.Account
 
         public async Task<IActionResult> OnPostLogoutAsync()
         {
-            await _accountPageService.LogoutUser();
+            await _accountService.LogoutUserAsync();
             return LocalRedirect("/");
         }
     }
