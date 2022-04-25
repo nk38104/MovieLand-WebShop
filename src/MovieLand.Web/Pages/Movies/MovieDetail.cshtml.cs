@@ -13,25 +13,25 @@ namespace MovieLand.Web.Pages.Movies
 {
     public class MovieDetailModel : PageModel
     {
-        private readonly IMoviePageService _moviePageService;
+        private readonly IMovieService _movieService;
         private readonly IReviewService _reviewService;
         private readonly IMapper _mapper;
 
-        public MovieDetailModel(IMoviePageService moviePageService, IReviewService reviewService, IMapper mapper)
+        public MovieDetailModel(IMovieService movieService, IReviewService reviewService, IMapper mapper)
         {
-            _moviePageService = moviePageService ?? throw new ArgumentNullException(nameof(moviePageService));
+            _movieService = movieService ?? throw new ArgumentNullException(nameof(movieService));
             _reviewService = reviewService ?? throw new ArgumentNullException(nameof(reviewService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public MovieViewModel Movie { get; set; } = new MovieViewModel();
+        public MovieDTO Movie { get; set; } = new MovieDTO();
         [BindProperty]
-        public ReviewViewModel ReviewForm { get; set; } = new ReviewViewModel();
+        public ReviewDTO ReviewForm { get; set; } = new ReviewDTO();
 
 
         public async Task OnGetAsync(string slug)
         {
-            Movie = await _moviePageService.GetMovieBySlug(slug);
+            Movie = await _movieService.GetMovieBySlug(slug);
             TempData["Slug"] = slug;
         }
         
