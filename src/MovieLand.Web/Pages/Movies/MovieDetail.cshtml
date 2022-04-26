@@ -61,40 +61,44 @@
                 </table>
             </div>
             <hr>
-            <div class="table-responsive mb-2">
-                <table class="table table-sm table-borderless">
-                    <tbody>
-                        <tr>
-                            <td class="pl-0 pb-0 w-25">Quantity</td>
-                        </tr>
-                        <tr>
-                            <td class="pl-0">
-                                <div class="def-number-input number-input safari_only mb-0">
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                            class="minus"></button>
-                                    <input class="quantity" min="0" name="quantity" value="1" type="number">
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                            class="plus"></button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="w-100" style="position: absolute; bottom: 25%;">
-                <form class="w-100" asp-page-handler="AddToCart" method="post">
-                    <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Add to Cart</button>
-                    <input type="hidden" asp-for="@Model.Movie.Id" name="movieId" />
-                </form>
-                <form asp-page-handler="AddToFavorites" method="post">
-                    <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Add to Favorites</button>
-                    <input type="hidden" asp-for="@Model.Movie.Id" name="movieId" />
-                </form>
-                <form asp-page-handler="AddToCompare" method="post">
-                    <button class="btn btn-outline-primary bbtn-md mt-2 w-100" type="submit">Add to Compare</button>
-                    <input type="hidden" asp-for="@Model.Movie.Id" name="movieId" />
-                </form>
-            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="table-responsive mb-2">
+                    <table class="table table-sm table-borderless">
+                        <tbody>
+                            <tr>
+                                <td class="pl-0 pb-0 w-25">Quantity</td>
+                            </tr>
+                            <tr>
+                                <td class="pl-0">
+                                    <div class="def-number-input number-input safari_only mb-0">
+                                        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                                class="minus"></button>
+                                        <input class="quantity" min="0" name="quantity" value="1" type="number">
+                                        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                                class="plus"></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="w-100" style="position: absolute; bottom: 25%;">
+                    <form class="w-100" asp-page-handler="AddToCart" method="post">
+                        <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Add to Cart</button>
+                        <input type="hidden" asp-for="@Model.Movie.Id" name="movieId" />
+                    </form>
+                    <form asp-page-handler="AddToFavorites" method="post">
+                        <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Add to Favorites</button>
+                        <input type="hidden" asp-for="@Model.Movie.Id" name="movieId" />
+                    </form>
+                    <form asp-page-handler="AddToCompare" method="post">
+                        <button class="btn btn-outline-primary bbtn-md mt-2 w-100" type="submit">Add to Compare</button>
+                        <input type="hidden" asp-for="@Model.Movie.Id" name="movieId" />
+                    </form>
+                </div>
+            }
         </div>
     </div>
 </section>
@@ -153,7 +157,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr/>
+                    <hr />
                 }
                 <hr>
                 <div>
@@ -180,5 +184,3 @@
     </div>
 }
 <!-- Classic tabs -->
-
-
