@@ -38,13 +38,16 @@
                 <div class="container">
                     <div class="row">
                         <!-- Logo -->
-                        <div class="col-lg-2 col-sm-3 col-3 order-1">
+                        <div class="col-lg-3 col-sm-4 col-4 order-1">
                             <div class="logo_container">
-                                <div class="logo"><a asp-area="" asp-page="/Index">MovieLand</a></div>
+                                <div class="logo" style="display: flex; align-items: center">
+                                    <img src="~/images/movie.png" height="36" width="36"/>
+                                    <a asp-area="" asp-page="/Index" style="margin-left: 5px">MovieLand</a>
+                                </div>
                             </div>
                         </div>
                         <!-- Features -->
-                        <div class="col-lg-10 col-9 order-lg-3 order-2 text-lg-left text-right">
+                        <div class="col-lg-9 col-sm-4 col-8 order-lg-3 order-2 text-lg-left text-right">
                             <partial name="_FeaturePartial" />
                         </div>
                     </div>

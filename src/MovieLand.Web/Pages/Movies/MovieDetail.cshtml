@@ -11,7 +11,7 @@
 <!--Section: Block Content-->
 <section class="mb-5">
     <div class="row">
-        <div class="col-md-6 mb-4 mb-md-0">
+        <div class="col-md-4 mb-4 mb-md-0">
             <div id="mdb-lightbox-ui"></div>
             <div class="mdb-lightbox">
                 <div class="row product-gallery mx-1">
@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
             <h2>@Model.Movie.Title</h2>
             <p class="mb-2 text-muted text-uppercase small">Genres</p>
             <ul class="rating">
@@ -84,7 +84,7 @@
                     </table>
                 </div>
 
-                <div class="w-100" style="position: absolute; bottom: 25%;">
+                <div class="w-100">
                     <form class="w-100" asp-page-handler="AddToCart" method="post">
                         <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Add to Cart</button>
                         <input type="hidden" asp-for="@Model.Movie.Id" name="movieId" />
