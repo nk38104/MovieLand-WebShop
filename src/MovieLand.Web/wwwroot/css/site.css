@@ -13,9 +13,9 @@ a {
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #0e8ce4;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -257,7 +257,7 @@ body {
     font-size: 14px;
     font-weight: 400;
     background: #FFFFFF;
-    color: #000000
+    color: #000000;
 }
 
 div {
@@ -265,12 +265,12 @@ div {
     position: relative;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 
 ul {
     list-style: none;
-    margin-bottom: 0px
+    margin-bottom: 0px;
 }
 
 p {
@@ -404,53 +404,8 @@ section {
     float: right
 }
 
-.trans_200 {
-    -webkit-transition: all 200ms ease;
-    -moz-transition: all 200ms ease;
-    -ms-transition: all 200ms ease;
-    -o-transition: all 200ms ease;
-    transition: all 200ms ease
-}
-
-.trans_300 {
-    -webkit-transition: all 300ms ease;
-    -moz-transition: all 300ms ease;
-    -ms-transition: all 300ms ease;
-    -o-transition: all 300ms ease;
-    transition: all 300ms ease
-}
-
-.trans_400 {
-    -webkit-transition: all 400ms ease;
-    -moz-transition: all 400ms ease;
-    -ms-transition: all 400ms ease;
-    -o-transition: all 400ms ease;
-    transition: all 400ms ease
-}
-
-.trans_500 {
-    -webkit-transition: all 500ms ease;
-    -moz-transition: all 500ms ease;
-    -ms-transition: all 500ms ease;
-    -o-transition: all 500ms ease;
-    transition: all 500ms ease
-}
-
 .fill_height {
     height: 100%;
-}
-
-.super_container {
-    width: 100%;
-    overflow: hidden;
-}
-
-.prlx_parent {
-    overflow: hidden;
-}
-
-.prlx {
-    height: 130% !important;
 }
 
 .nopadding {
@@ -961,11 +916,17 @@ select {
 
 .comparison_icon img {
     margin-right: 15px;
-    width: 42px;
+    width: 30px;
+}
+
+.feature-icon img {
+    height: 40px;
+    width: 100%;
 }
 
 .favorites_icon img {
-    width: 100%
+    height: 40px;
+    width: 100%;
 }
 
 .feature_content {
@@ -1510,7 +1471,7 @@ select {
     }
 
     .favorites_icon {
-        width: 20px
+        width: 20px;
     }
 
     .cart_content {
@@ -1605,7 +1566,7 @@ select {
     width: 40px;
     height: 105%;
     border-radius: 5px;
-    background-color: #1b6ec2;
+    background-color: #0e8ce4;
 }
 
 /* --- MOVIE DETAIL PAGE --- */
