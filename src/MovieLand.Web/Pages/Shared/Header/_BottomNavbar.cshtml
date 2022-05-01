@@ -1,0 +1,36 @@
+﻿<div class="bottom-navbar border-bottom box-shadow">
+    <div class="container">
+        <div class="row">
+            <!-- Logo -->
+            <div class="col-lg-3 col-sm-4 col-4 order-1">
+                <div class="logo_container">
+                    <div class="logo d-flex align-items-center">
+                        <img src="~/images/movie.png" height="36" width="36" />
+                        <a asp-area="" asp-page="/Index" style="margin-left: 5px">MovieLand</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Main Nav Menu -->
+            <div class="col-lg-6 order-2 d-flex justify-content-center align-items-center text-center">
+                <div class="main_nav_content">
+                    <ul class="standard_dropdown main_nav_dropdown">
+                        <li><a class="link-primary" asp-area="" asp-page="/Index">Home</a></li>
+                        <li class="hassubs"><a class="link-primary" asp-area="" asp-page="/AboutUs/AboutUs">About Us</a></li>
+                        <li class="hassubs"><a class="link-primary" asp-area="" asp-page="/ContactUs/ContactUs">Contact Us</a></li>
+                        @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+                        {
+                            <li class="hassubs"><a class="text-success" href="~/Admin/Directors/Index"> | Directors</a></li>
+                            <li class="hassubs"><a class="text-success" href="~/Admin/Genres/Index"> Genres</a></li>
+                            <li class="hassubs"><a class="text-success" href="~/Order/Index"> Orders |</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <!-- Menu Trigger -->
+            <!-- Features -->
+            <div class="col-lg-3 col-sm-4 col-8 order-lg-3 order-3 text-right">
+                <partial name="_FeaturePartial" />
+            </div>
+        </div>
+    </div>
+</div> <!-- Main Navigation -->

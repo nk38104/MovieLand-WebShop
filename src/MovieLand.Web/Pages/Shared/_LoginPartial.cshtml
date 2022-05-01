@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using Microsoft.AspNetCore.Http;
+
 
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
@@ -7,15 +7,14 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <div>
+    <div style="border-right: 1px solid black;">
         <img class="user_icon" src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918647/user.svg" alt="">
-        Hello, <span class="mr-2 d-none d-lg-inline text-gray-600">@UserManager.GetUserName(User)</span>
+        Hello, <span class="mr-4 d-none d-lg-inline text-gray-600">@UserManager.GetUserName(User)</span>
     </div>
-
+    
     <div>
         <form id="logoutForm" class="form-inline" asp-area="" asp-page="/Account/Login" asp-page-handler="Logout" method="post">
-            <a onclick="$(this).closest('form').submit()" class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                <i class="las la-sign-out-alt la-sm la-fw mr-2 text-gray-400"></i>
+            <a onclick="$(this).closest('form').submit()" class="link-primary" href="#" data-toggle="modal" data-target="#logoutModal">
                 Logout
             </a>
         </form>
@@ -23,7 +22,12 @@
 }
 else
 {
-    <div class="user_icon"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918647/user.svg" alt=""></div>
-    <div><a asp-area="" asp-page="/Account/Register">Register</a></div>
-    <div><a asp-area="" asp-page="/Account/Login">Login</a></div>
+    <div class="pr-3" style="border-right: 1px solid #212529;">
+        <img class="user-icon" src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918647/user.svg" alt="">
+        <a class="link-primary" asp-area="" asp-page="/Account/Register">Register</a>
+    </div>
+    
+    <div class="pl-3">
+        <a class="link-primary" asp-area="" asp-page="/Account/Login">Login</a>
+    </div>
 }

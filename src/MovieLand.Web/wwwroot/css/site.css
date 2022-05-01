@@ -424,19 +424,27 @@ section {
     transition: all 200ms ease
 }
 
-    .button a {
-        display: block;
-        font-size: 18px;
-        font-weight: 400;
-        line-height: 48px;
-        color: #FFFFFF;
-        padding-left: 35px;
-        padding-right: 35px
-    }
+.button a {
+    display: block;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 48px;
+    color: #FFFFFF;
+    padding-left: 35px;
+    padding-right: 35px
+}
 
-    .button:hover {
-        opacity: 0.8
-    }
+.button:hover {
+    opacity: 0.8
+}
+
+.link-primary {
+    color: #212529;
+}
+
+.link-primary:hover {
+    color: #0e8ce4;
+}
 
 .header {
     position: relative;
@@ -455,64 +463,6 @@ section {
     display: none
 }
 
-.top_bar_contact {
-    display: inline-block
-}
-
-.top_bar_contact_item {
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 56px;
-    margin-right: 40px
-}
-
-    .top_bar_contact_item:not(:first-child) {
-        margin-right: 0px
-    }
-
-    .top_bar_contact_item a {
-        font-size: 16px;
-        font-weight: 300;
-        line-height: 56px;
-        color: #000;
-        -webkit-transition: all 200ms ease;
-        -moz-transition: all 200ms ease;
-        -ms-transition: all 200ms ease;
-        -o-transition: all 200ms ease;
-        transition: all 200ms ease
-    }
-
-        .top_bar_contact_item a:hover {
-            color: #8a8a8a
-        }
-
-    .top_bar_contact_item:last-child {
-        margin-right: 0px
-    }
-
-.top-navbar-contact-section {
-    display: inline-block;
-}
-
-.top-navbar-icon {
-    display: inline-block;
-    margin-right: 14px;
-    -webkit-transform: translateY(-2px);
-    -moz-transform: translateY(-2px);
-    -ms-transform: translateY(-2px);
-    -o-transform: translateY(-2px);
-    transform: translateY(-2px)
-}
-
-.top_bar_menu {
-    display: inline-block
-}
-
-.top_bar_dropdown li {
-    padding-left: 13px;
-    padding-right: 13px
-}
-
 .standard_dropdown li {
     display: inline-block;
     position: relative;
@@ -527,7 +477,7 @@ section {
         .standard_dropdown li li a {
             display: block;
             width: 100%;
-            border-bottom: solid 1px #f2f2f2;
+            border-bottom: solid 1px black;
             font-size: 16px
         }
 
@@ -598,23 +548,13 @@ section {
     top: 0 !important
 }
 
-.top_bar_user {
+.user-icon {
     display: inline-block;
-    margin-left: 35px
+    margin-right: 5px;
+    width: 15px;
 }
 
-.user_icon {
-    display: inline-block;
-    margin-right: 7px;
-    -webkit-transform: translateY(-2px);
-    -moz-transform: translateY(-2px);
-    -ms-transform: translateY(-2px);
-    -o-transform: translateY(-2px);
-    transform: translateY(-2px);
-    width: 15px
-}
-
-    .user_icon img {
+    .user-icon img {
         width: 100%
     }
 
@@ -1379,7 +1319,7 @@ select {
         line-height: 40px
     }
 
-    .user_icon {
+    .user-icon {
         -webkit-transform: translateY(-1px);
         -moz-transform: translateY(-1px);
         -ms-transform: translateY(-1px);
