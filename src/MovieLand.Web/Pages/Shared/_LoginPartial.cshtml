@@ -8,15 +8,13 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <div style="border-right: 1px solid black;">
-        <img class="user_icon" src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918647/user.svg" alt="">
+        <img class="user-icon" src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918647/user.svg" alt="">
         Hello, <span class="mr-4 d-none d-lg-inline text-gray-600">@UserManager.GetUserName(User)</span>
     </div>
     
     <div>
-        <form id="logoutForm" class="form-inline" asp-area="" asp-page="/Account/Login" asp-page-handler="Logout" method="post">
-            <a onclick="$(this).closest('form').submit()" class="link-primary" href="#" data-toggle="modal" data-target="#logoutModal">
-                Logout
-            </a>
+        <form id="logoutForm" class="form-inline pl-4" asp-area="" asp-page="/Account/Login" asp-page-handler="Logout" method="post">
+            <a class="link-primary" onclick="$(this).closest('form').submit()">Logout</a>
         </form>
     </div>
 }
