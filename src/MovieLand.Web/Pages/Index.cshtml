@@ -16,177 +16,282 @@
     <hr>
 </div>
 
-@*@if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
-    {
-        <div>
-            <h4 class="ml-4"><a asp-page="/Admin/Movies/Create"><u>Add new movie</u></a></h4>
-        </div>
-    }*@
 
-@* --- FILTERING SIDEBAR AND MOVIES *@
-<!--<div class="row">
-    <aside class="col-md-3" style="transform: translate(-100%)">
-        <div class="card">
+@if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+{
+<div>
+    <h4 class="ml-4"><a asp-page="/Admin/Movies/Create"><u>Add new movie</u></a></h4>
+</div>}
+
+<div class="main">
+    <div class="row">
+        <div class="filter-sidebar col-3">
             <article class="card-group-item">
                 <header class="card-header filter-header">
                     <h5 class="title">Price range</h5>
                 </header>
                 <div class="filter-content">
-                        <div>
-                    <div class="card-body">
+                    <div>
+                        <div class="card-body">
+                            <input type="number" />
+                            <input type="number" />
                         </div>
                     </div> <!-- card-body.// -->
-<!--</div>
-</article>-->
- <!-- card-group-item.// -->
-<!--<article class="card-group-item">
-    <header class="card-header filter-header">
-        <h5 class="title">Directors</h5>
-    </header>
-    <div class="filter-content">
-        <div class="card-body">-->
-<!--<div class="custom-control">
-    @foreach (var director in Model.Directors)
-    {
-        <form asp-page-handler="FilterByDirector" method="post">
-            <a href="javascript:;" onclick="parentNode.submit();">@director.Name</a>
-            <input type="hidden" asp-for="@director.Name" name="director" />
-        </form>
-    }
-</div>-->
-<!-- form-check.// -->
-<!--<div>
-        <form asp-page-handler="FilterByDirector" method="post">
-            <div>
-                @Html.DropDownListFor(m => m.directorSelectedValue, new SelectList(Model.Directors, "Name", "Name"))
-            </div>
-            <input type="submit" class="filter-button mt-2" value="Filter" />
-        </form>
-    </div>
-</div>-->
- <!-- card-body.// -->
-<!--</div>
-</article>-->
- <!-- card-group-item.// -->
-<!--<article class="card-group-item">
-    <header class="card-header filter-header">
-        <h5 class="title">Genres</h5>
-    </header>
-    <div class="filter-content">
-        <div class="card-body">-->
-<!--<div class="custom-control">
-    @foreach (var genre in Model.Genres)
-    {
-        <form asp-page-handler="FilterByGenre" method="post">
-            <a href="javascript:;" onclick="parentNode.submit();">@genre.Name</a>
-            <input type="hidden" asp-for="@genre.Name" name="genre" />
-        </form>
-    }
-</div>-->
-<!-- form-check.// -->
-<!--<div>
-        <form asp-page-handler="FilterByGenre" method="post">
-            <div>
-                @Html.DropDownListFor(m => m.genreSelectedValue, new SelectList(Model.Genres, "Name", "Name"))
-            </div>
-            <input type="submit" class="filter-button mt-2" value="Filter" />
-        </form>
-    </div>
-</div>-->
- <!-- card-body.// -->
-<!--</div>
-</article>-->
- <!-- card-group-item.// -->
-<!--<article class="card-group-item">
-    <header class="card-header filter-header">
-        <h5 class="title">Rating</h5>
-    </header>
-    <div class="filter-content">
-        <div class="card-body">-->
-@*<div class="custom-control">*@
-@*<div>
-    <form asp-page-handler="FilterByRating" method="post">
-        <input type="range" style="width: 80%;" name="rating" min="0" max="5" step="0.1" value="0" oninput="this.nextElementSibling.value = this.value">
-        <output class="ml-2" style="transform: translateY(-15%); font-size: 18px;">0</output>
-        <br />
-        <input type="submit" class="filter-button mt-2" value="Filter" />
-    </form>
-</div>-->*@ <!-- form-check.// -->
-<!--</div>--> <!-- card-body.// -->
-<!--</div>
-</article>-->
- <!-- card-group-item.// -->
-<!--</div>--> <!-- card.// -->
-<!--</aside>--> <!-- col.// -->
-<!--<aside class="col-md-9" style="transform: translate(-30%)">
-        @foreach (var movie in Model.Movies)
-        {
-<div class="row p-3 bg-white border rounded mb-4 h-auto shadow-sm" style="width: 130%;">
-    <div class="col-md-3">
-        <img class="rounded w-100" src="@Html.DisplayFor(modelItem => movie.PictureUri)" />
-    </div>
-    <div class="col-md-6 mt-2">
-        <h4><a asp-page="/Movies/MovieDetail" asp-route-slug="@movie.Slug">@Html.DisplayFor(modelItem => movie.Title)</a></h4>
-        <div class="d-flex flex-row">
-            <div>@Html.DisplayFor(modelItem => movie.Duration) min</div>
+                </div>
+            </article>
+            <article class="card-group-item">
+                <header class="card-header filter-header">
+                    <h5 class="title">Price range</h5>
+                </header>
+                <div class="filter-content">
+                    <div>
+                        <div class="card-body">
+                            <input type="number" />
+                            <input type="number" />
+                        </div>
+                    </div> <!-- card-body.// -->
+                </div>
+            </article>
         </div>
-        <div class="ratings mr-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#1b6ec2" class="bi bi-star-fill" viewBox="0 0 16 16">
-                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-            </svg>
-            <span>@Html.DisplayFor(modelItem => movie.Rate) / 5.0</span>
-        </div>
-        <p class="text-justify summary mb-0">
-            <br><br>
-            @Html.DisplayFor(modelItem => movie.Summary)
-        </p>
-        @if (User.Identity.IsAuthenticated)
-        {
-<div class="card-middle-form w-100">
-    <form asp-page-handler="AddToCompare" method="post">
-        <button class="btn btn-outline-primary btn-sm" type="submit">Add to Compare</button>
-        <input type="hidden" asp-for="@movie.Id" name="movieId" />
-        <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />
-    </form>
-    <form asp-page-handler="AddToFavorites" method="post">
-        <button class="btn btn-outline-primary btn-sm" type="submit">Add to Favorites</button>
-        <input type="hidden" asp-for="@movie.Id" name="movieId" />
-        <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />
-    </form>
-</div>}
-    </div>
-    <div class="align-items-center align-content-center col-md-3 border-left mt-1">
-        <div class="d-flex flex-row">
-            <h3 class="mr-1">$@Html.DisplayFor(modelItem => movie.UnitPrice)</h3>
-        </div>
-        <h6 class="text-success">Free shipping</h6>
-        <div class="d-flex flex-column justify-content-center" style="margin-top: 5rem;">
-            <form class="w-100" asp-page="/Movies/MovieDetail" method="get">
-                <button class="btn btn-primary btn-md" type="submit" style="width: 100%;">Details</button>
-                <input type="hidden" asp-for="@movie.Slug" name="slug" />
+        <div class="col-9">
+           @foreach (var movie in Model.Movies)
+            {
+            <div class="row p-3 bg-white border rounded mb-4 h-auto shadow-sm">
+                <div class="col-3">
+                    <img class="rounded w-100" src="@Html.DisplayFor(modelItem => movie.PictureUri)" />
+                </div>
+                <div class="col-md-6 mt-2">
+                    <h4><a asp-page="/Movies/MovieDetail" asp-route-slug="@movie.Slug">@Html.DisplayFor(modelItem => movie.Title)</a></h4>
+                    <div class="d-flex flex-row">
+                        <div>@Html.DisplayFor(modelItem => movie.Duration) min</div>
+                    </div>
+                    <div class="ratings mr-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#1b6ec2" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                        <span>@Html.DisplayFor(modelItem => movie.Rate) / 5.0</span>
+                    </div>
+                    <p class="text-justify summary mb-0">
+                        <br><br>
+                        @Html.DisplayFor(modelItem => movie.Summary)
+                    </p>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+            <div class="card-middle-form w-100">
+                <form asp-page-handler="AddToCompare" method="post">
+                    <button class="btn btn-outline-primary btn-sm" type="submit">Add to Compare</button>
+                    <input type="hidden" asp-for="@movie.Id" name="movieId" />
+                    <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />
+                </form>
+                <form asp-page-handler="AddToFavorites" method="post">
+                    <button class="btn btn-outline-primary btn-sm" type="submit">Add to Favorites</button>
+                    <input type="hidden" asp-for="@movie.Id" name="movieId" />
+                    <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />
+                </form>
+            </div>}
+                </div>
+                <div class="align-items-center align-content-center col-3 border-left mt-1">
+                    <div class="d-flex flex-row">
+                        <h3 class="mr-1">$@Html.DisplayFor(modelItem => movie.UnitPrice)</h3>
+                    </div>
+                    <h6 class="text-success">Free shipping</h6>
+                    <div class="d-flex flex-column justify-content-center" style="margin-top: 5rem;">
+                        <form class="w-100" asp-page="/Movies/MovieDetail" method="get">
+                            <button class="btn btn-primary btn-md" type="submit" style="width: 100%;">Details</button>
+                            <input type="hidden" asp-for="@movie.Slug" name="slug" />
+                        </form>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+            <form class="w-100" asp-page-handler="AddToCart" method="post">
+                <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Add to Cart</button>
+                <input type="hidden" asp-for="@movie.Id" name="movieId" />
+                <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />
+            </form>}
+                        @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+                        {
+            <form class="w-100" asp-page="/Admin/Movies/Delete" method="get">
+                <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Delete</button>
+                <input type="hidden" asp-for="@movie.Id" name="movieId" />
+                <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />
             </form>
-            @if (User.Identity.IsAuthenticated)
-            {
-<form class="w-100" asp-page-handler="AddToCart" method="post">
-    <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Add to Cart</button>
-    <input type="hidden" asp-for="@movie.Id" name="movieId" />
-    <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />
-</form>}
-            @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
-            {
-<form class="w-100" asp-page="/Admin/Movies/Delete" method="get">
-    <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Delete</button>
-    <input type="hidden" asp-for="@movie.Id" name="movieId" />
-    <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />
-</form>
-                    <form class="w-100" asp-page="/Admin/Movies/Edit" method="get">
-                        <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Edit</button>
-                        <input type="hidden" asp-for="@movie.Id" name="movieId" />
-                        <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />
-                    </form>}
+                                <form class="w-100" asp-page="/Admin/Movies/Edit" method="get">
+                                    <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Edit</button>
+                                    <input type="hidden" asp-for="@movie.Id" name="movieId" />
+                                    <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />
+                                </form>}
+                    </div>
+                </div>
+            </div>
+            }
         </div>
     </div>
-</div>}
-    </aside>-->
- <!-- col.// -->
-<!--</div>--> <!-- row.// -->
+</div>
+
+
+            @* --- FILTERING SIDEBAR AND MOVIES *@
+            <!--<div class="row">
+                <aside class="col-md-3" style="transform: translate(-100%)">
+                    <div class="card">
+                        <article class="card-group-item">
+                            <header class="card-header filter-header">
+                                <h5 class="title">Price range</h5>
+                            </header>
+                            <div class="filter-content">
+                                    <div>
+                                <div class="card-body">
+                                    </div>
+                                </div> <!-- card-body.// -->
+            <!--</div>
+            </article>-->
+            <!-- card-group-item.// -->
+            <!--<article class="card-group-item">
+            <header class="card-header filter-header">
+                <h5 class="title">Directors</h5>
+            </header>
+            <div class="filter-content">
+                <div class="card-body">-->
+            <!--<div class="custom-control">
+                @foreach (var director in Model.Directors)
+                {
+                    <form asp-page-handler="FilterByDirector" method="post">
+                        <a href="javascript:;" onclick="parentNode.submit();">@director.Name</a>
+                        <input type="hidden" asp-for="@director.Name" name="director" />
+                    </form>
+                }
+            </div>-->
+            <!-- form-check.// -->
+            <!--<div>
+                    <form asp-page-handler="FilterByDirector" method="post">
+                        <div>
+                            @Html.DropDownListFor(m => m.directorSelectedValue, new SelectList(Model.Directors, "Name", "Name"))
+                        </div>
+                        <input type="submit" class="filter-button mt-2" value="Filter" />
+                    </form>
+                </div>
+            </div>-->
+            <!-- card-body.// -->
+            <!--</div>
+            </article>-->
+            <!-- card-group-item.// -->
+            <!--<article class="card-group-item">
+            <header class="card-header filter-header">
+                <h5 class="title">Genres</h5>
+            </header>
+            <div class="filter-content">
+                <div class="card-body">-->
+            <!--<div class="custom-control">
+                @foreach (var genre in Model.Genres)
+                {
+                    <form asp-page-handler="FilterByGenre" method="post">
+                        <a href="javascript:;" onclick="parentNode.submit();">@genre.Name</a>
+                        <input type="hidden" asp-for="@genre.Name" name="genre" />
+                    </form>
+                }
+            </div>-->
+            <!-- form-check.// -->
+            <!--<div>
+                    <form asp-page-handler="FilterByGenre" method="post">
+                        <div>
+                            @Html.DropDownListFor(m => m.genreSelectedValue, new SelectList(Model.Genres, "Name", "Name"))
+                        </div>
+                        <input type="submit" class="filter-button mt-2" value="Filter" />
+                    </form>
+                </div>
+            </div>-->
+            <!-- card-body.// -->
+            <!--</div>
+            </article>-->
+            <!-- card-group-item.// -->
+            <!--<article class="card-group-item">
+            <header class="card-header filter-header">
+                <h5 class="title">Rating</h5>
+            </header>
+            <div class="filter-content">
+                <div class="card-body">-->
+            @*<div class="custom-control">*@
+            @*<div>
+                    <form asp-page-handler="FilterByRating" method="post">
+                        <input type="range" style="width: 80%;" name="rating" min="0" max="5" step="0.1" value="0" oninput="this.nextElementSibling.value = this.value">
+                        <output class="ml-2" style="transform: translateY(-15%); font-size: 18px;">0</output>
+                        <br />
+                        <input type="submit" class="filter-button mt-2" value="Filter" />
+                    </form>
+                </div>-->*@ <!-- form-check.// -->
+            <!--</div>--> <!-- card-body.// -->
+            <!--</div>
+            </article>-->
+            <!-- card-group-item.// -->
+            <!--</div>--> <!-- card.// -->
+            <!--</aside>--> <!-- col.// -->
+            <!--<aside class="col-md-9" style="transform: translate(-30%)">
+                    @foreach (var movie in Model.Movies)
+                    {
+            <div class="row p-3 bg-white border rounded mb-4 h-auto shadow-sm" style="width: 130%;">
+                <div class="col-md-3">
+                    <img class="rounded w-100" src="@Html.DisplayFor(modelItem => movie.PictureUri)" />
+                </div>
+                <div class="col-md-6 mt-2">
+                    <h4><a asp-page="/Movies/MovieDetail" asp-route-slug="@movie.Slug">@Html.DisplayFor(modelItem => movie.Title)</a></h4>
+                    <div class="d-flex flex-row">
+                        <div>@Html.DisplayFor(modelItem => movie.Duration) min</div>
+                    </div>
+                    <div class="ratings mr-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#1b6ec2" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                        </svg>
+                        <span>@Html.DisplayFor(modelItem => movie.Rate) / 5.0</span>
+                    </div>
+                    <p class="text-justify summary mb-0">
+                        <br><br>
+                        @Html.DisplayFor(modelItem => movie.Summary)
+                    </p>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+            <div class="card-middle-form w-100">
+                <form asp-page-handler="AddToCompare" method="post">
+                    <button class="btn btn-outline-primary btn-sm" type="submit">Add to Compare</button>
+                    <input type="hidden" asp-for="@movie.Id" name="movieId" />
+                    <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />
+                </form>
+                <form asp-page-handler="AddToFavorites" method="post">
+                    <button class="btn btn-outline-primary btn-sm" type="submit">Add to Favorites</button>
+                    <input type="hidden" asp-for="@movie.Id" name="movieId" />
+                    <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />
+                </form>
+            </div>}
+                </div>
+                <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                    <div class="d-flex flex-row">
+                        <h3 class="mr-1">$@Html.DisplayFor(modelItem => movie.UnitPrice)</h3>
+                    </div>
+                    <h6 class="text-success">Free shipping</h6>
+                    <div class="d-flex flex-column justify-content-center" style="margin-top: 5rem;">
+                        <form class="w-100" asp-page="/Movies/MovieDetail" method="get">
+                            <button class="btn btn-primary btn-md" type="submit" style="width: 100%;">Details</button>
+                            <input type="hidden" asp-for="@movie.Slug" name="slug" />
+                        </form>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+            <form class="w-100" asp-page-handler="AddToCart" method="post">
+                <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Add to Cart</button>
+                <input type="hidden" asp-for="@movie.Id" name="movieId" />
+                <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />
+            </form>}
+                        @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+                        {
+            <form class="w-100" asp-page="/Admin/Movies/Delete" method="get">
+                <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Delete</button>
+                <input type="hidden" asp-for="@movie.Id" name="movieId" />
+                <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />
+            </form>
+                                <form class="w-100" asp-page="/Admin/Movies/Edit" method="get">
+                                    <button class="btn btn-outline-primary btn-md mt-2 w-100" type="submit">Edit</button>
+                                    <input type="hidden" asp-for="@movie.Id" name="movieId" />
+                                    <input type="hidden" asp-for="@HttpContext.Request.Path" name="requestPagePath" />
+                                </form>}
+                    </div>
+                </div>
+            </div>}
+                </aside>-->
+            <!-- col.// -->
+            <!--</div>--> <!-- row.// -->
