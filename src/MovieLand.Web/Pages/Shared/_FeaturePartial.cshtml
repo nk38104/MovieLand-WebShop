@@ -3,32 +3,3 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-
-@if (SignInManager.IsSignedIn(User))
-{
-    <div class="favorites-cart d-flex flex-row align-items-center justify-content-end">
-        <div class="comparison">
-            <div class="feature-icon">
-                <a asp-area="" asp-page="/Compare/Compare">
-                    <img src="~/images/compare.png">
-                </a>
-            </div>
-        </div> <!-- Favorites -->
-        <div class="favorites">
-            <div class="feature-icon">
-                <a asp-area="" asp-page="/Favorites/Favorites">
-                    <img src="~/images/favourites.png" alt="">
-                </a>
-            </div>
-        </div> <!-- Cart -->
-        <div class="cart">
-            <div class="cart_container">
-                <div class="feature-icon pr-2">
-                    <a asp-area="" asp-page="/Cart/Cart">
-                        <img src="~/images/shopping-cart.png" alt="">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-}
